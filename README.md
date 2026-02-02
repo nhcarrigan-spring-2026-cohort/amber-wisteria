@@ -18,3 +18,23 @@ Repository for Team Amber Wisteria - Spring 2026 Cohort
 5. Open a pull request to `main`
 
 6. Once the pull request is reviewed and merged, delete your branch
+
+## 👥 Team
+Leadership
+<ul>
+  <li><a href="https://github.com/neonbit101">Ruthwik</a></li>
+  <li><a href="https://github.com/AnarAskar">Anar</a></li>
+</ul>
+
+Participants
+<ul>
+  <li><a href="https://github.com/avanishchandra">Avanish</a></li>
+  <li><a href="https://github.com/Priyanshujha24">Priyanshu</a></li>
+  <li><a href="https://github.com/JoaquinVeraOrtega">Joaquin</a></li>
+  <li><a href="https://github.com/AksharGoyal">Akshar</a></li>
+  <li><a href="https://github.com/anthonbrooks">Anthony</a></li>
+  <li><a href="https://github.com/akaneme">Akaneme</a></li>
+  <li><a href="https://github.com/Bilalnasir057558">Bilal</a></li>
+  <li><a href="https://github.com/Lorevdh">Lore</a></li>
+  <li><a href="https://github.com/mihaimiron1">Mihai</a></li>
+</ul>
