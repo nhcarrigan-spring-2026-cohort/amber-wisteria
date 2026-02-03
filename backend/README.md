@@ -1,46 +1,88 @@
-# Project Name
+# Meal Train Backend Setup
 
-## Description
+## Prerequisites
 
-Your project description here.
+### Option 1: Docker Desktop (Recommended for beginners)
 
-## Installation
+- **Windows / Mac**: Download Docker Desktop
+- **Linux**: Docker Desktop for Linux
 
-Before running the project, you need to follow these steps:
+### Option 2: Docker Engine + Docker Compose (Linux / Advanced users)
 
-### 1. Create a virtual environment
+- **Linux only**: Install Docker Engine
+- **Linux only**: Install Docker Compose plugin
 
-```bash
-python -m venv env
-```
+---
 
-### 2. Activate the virtual environment
+## Quick Setup (3 Steps)
 
-**On Windows:**
-```bash
-env\Scripts\activate
-```
+### 1. Install Docker
 
-**On macOS/Linux:**
-```bash
-source env/bin/activate
-```
+- **Windows / Mac**: Install Docker Desktop from the link above
+- **Linux**: Follow Docker Engine instructions above
 
-### 3. Install dependencies
+---
 
-```bash
-pip install -r requirements.txt
-```
+### 2. Set the environment variables in your .env
+Edit the .env file:
 
-## Usage
+    DJANGO_SECRET_KEY=your-secret-key
+    DEBUG=1
+    DJANGO_ALLOWED_HOSTS=localhost
+    DATABASE_ENGINE=postgresql_psycopg2
+    DATABASE_NAME=mealtrain_dev
+    DATABASE_USERNAME=django_user
+    DATABASE_PASSWORD=secure_password
 
-After installing all dependencies, you can run the project with:
+### 3. Start the Application
 
-```bash
-python main.py
-```
+    cd backend
+    docker-compose up --build
 
-## Requirements
+---
 
-- Python 3.x
-- Dependencies specified in `requirements.txt`
+### 3. Access
+
+- **Backend**: http://localhost:8000
+- **Database**: localhost:5432
+- **Admin**: http://localhost:8000/admin
+
+---
+
+## Docker Commands
+
+    # Start services
+    docker-compose up
+
+    # Start in background
+    docker-compose up -d
+
+    # Stop services
+    docker-compose down
+
+    # View logs
+    docker-compose logs -f
+
+    # Rebuild
+    docker-compose build --no-cache
+
+---
+
+## Django Commands
+
+    # Run inside container
+    docker-compose exec django-web python manage.py <command>
+
+    # Examples:
+    docker-compose exec django-web python manage.py migrate
+    docker-compose exec django-web python manage.py createsuperuser
+
+---
+
+### To Reset Database
+
+    docker-compose down -v
+    docker-compose up -d
+    docker-compose exec django-web python manage.py migrate
+
+---
