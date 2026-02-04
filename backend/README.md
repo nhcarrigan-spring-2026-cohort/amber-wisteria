@@ -33,6 +33,8 @@ Edit the .env file:
     DATABASE_NAME=mealtrain_dev
     DATABASE_USERNAME=django_user
     DATABASE_PASSWORD=secure_password
+    DATABASE_HOST=db
+    DATABASE_PORT=5432
 
 ### 3. Start the Application
 
@@ -41,7 +43,7 @@ Edit the .env file:
 
 ---
 
-### 3. Access
+### Access:
 
 - **Backend**: http://localhost:8000
 - **Database**: localhost:5432
