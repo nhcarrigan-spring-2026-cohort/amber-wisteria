@@ -4,13 +4,13 @@
 
 ### Option 1: Docker Desktop (Recommended for beginners)
 
-- **Windows / Mac**: Download Docker Desktop
-- **Linux**: Docker Desktop for Linux
+- **Windows / Mac**: [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- **Linux**: [Docker Desktop for Linux](https://docs.docker.com/desktop/install/linux-install/)
 
 ### Option 2: Docker Engine + Docker Compose (Linux / Advanced users)
 
-- **Linux only**: Install Docker Engine
-- **Linux only**: Install Docker Compose plugin
+- **Linux only**: [Install Docker Engine](https://docs.docker.com/engine/install/)
+- **Linux only**: [Install Docker Compose plugin](https://docs.docker.com/compose/install/)
 
 ---
 
