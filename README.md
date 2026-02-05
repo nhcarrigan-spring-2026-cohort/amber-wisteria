@@ -38,3 +38,24 @@ Participants
   <li><a href="https://github.com/Lorevdh">Lore</a></li>
   <li><a href="https://github.com/mihaimiron1">Mihai</a></li>
 </ul>
+
+
+# Setup
+## Frontend
+
+This folder contains the React frontend for the Amber Wisteria project.
+
+
+
+### 1. Install dependencies
+
+```bash
+cd frontend
+npm install
+```
+
+### 2. Run the development server
+```bash
+npm run dev
+```
+The app will be available at: http://localhost:5173
