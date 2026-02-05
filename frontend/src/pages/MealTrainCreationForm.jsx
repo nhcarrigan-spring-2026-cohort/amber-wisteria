@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import '../CustomCalendar.css';
 
 export default function MeanTrainCreationForm() {
   // step state => to control steps
@@ -17,6 +18,8 @@ export default function MeanTrainCreationForm() {
   const [selectedDates, setSelectedDates] = useState({});
   const [activeDate, setActiveDate] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [deliveryAddress, setDeliveryAddress] = useState(null);
+  const [deliveryInstructions, setDeliveryInstructions] = useState(null);
 
 
   const handleBasicInfoSubmit = (e) => {
@@ -72,8 +75,39 @@ export default function MeanTrainCreationForm() {
         return false;
       }
     }
+
+    if(!deliveryAddress) {
+      alert("Please provide a delivery address.");
+      return false;
+    }
     return true;
   }
+
+  const handleCreateMealTrain = async () => {
+
+    const payload = {
+      title: mealTrainTitle,
+      description: mealTrainDesc,
+      beneficiaryName,
+      deliveryAddress,
+      deliveryInstructions,
+      schedule: selectedDates
+    };
+    console.log("Sending a mock server:", payload);
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const fakeData = {
+      id: "mt-" + Math.floor(Math.random() * 10000),
+      status: "success"
+    };
+
+    const shareUrl = `${window.location.origin}/meal-train/${fakeData.id}`;
+
+    alert("MOCK MODE: Meal Train Created!\n\nShare this link:\n" + shareUrl);
+
+  };
+
 
   return (
     <div className="min-h-screen bg-[#FFF8E3] flex items-center justify-center">
@@ -149,16 +183,18 @@ export default function MeanTrainCreationForm() {
             {/* Left Side */}
             <div>
               <p className="font-medium mb-2">Select Day</p>
-              <Calendar
-                onClickDay={handleDayClick}
-                tileClassName={({ date }) => {
-                  const formatted = formatDate(date);
-                  if (selectedDates[formatted]) {
-                    return "!bg-purple-200 !text-black rounded-xl";
-                  }
-                  return null;
-                }}
-              />
+              <div className="w-full">
+                <Calendar
+                  onClickDay={handleDayClick}
+                  tileClassName={({ date }) => {
+                    const formatted = formatDate(date);
+                    if (selectedDates[formatted]) {
+                      return "selected-day";
+                    }
+                    return null;
+                  }}
+                />
+              </div>
 
               {activeDate && (
                 <div className="mt-4">
@@ -174,7 +210,7 @@ export default function MeanTrainCreationForm() {
                         key={meal}
                         onClick={() => toggleMeal(meal)}
                         className={`px-4 py-1 rounded-full border transition-all duration-200
-                          ${selectedDates[activeDate]?.[meal] ? "bg-purple-500 text-white scale-105" : "bg-white hover:bg-gray-100"}`}
+                          ${selectedDates[activeDate]?.[meal] ? "bg-[#8944cb] text-white scale-105" : "bg-gray-100 hover:bg-gray-200"}`}
                       >
                         {meal}
                       </button>
@@ -226,6 +262,8 @@ export default function MeanTrainCreationForm() {
                   </label>
                   <input
                     type="text"
+                    value={deliveryAddress}
+                    onChange={e => setDeliveryAddress(e.target.value)}
                     placeholder="Delivery Address"
                     className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 w-full"
                     required
@@ -238,6 +276,8 @@ export default function MeanTrainCreationForm() {
                   </label>
                   <textarea
                     type="text"
+                    value={deliveryInstructions}
+                    onChange={e => setDeliveryInstructions(e.target.value)}
                     placeholder="Delivery Instructions (optional)"
                     className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 w-full resize-none h-20"
                   />
@@ -245,6 +285,62 @@ export default function MeanTrainCreationForm() {
 
               </div>
             </div>
+
+            <button
+              onClick={() => {
+                if (validateSchedule()) {
+                  setStep(3);
+                }
+              }}
+              className="w-full mt-2 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-700 transition"
+            >
+              Review Meal Train
+            </button>
+          </div>
+        )}
+
+        {/* STEP 3  */}
+        {step === 3 && (
+          <div className="space-y-6">
+
+            <h2 className="text-xl font-semibold">
+              Review Meal Train
+            </h2>
+
+            {/* Basic Info  */}
+            <div className="border rounded-lg p-4">
+              <p><b>Title:</b> {mealTrainTitle}</p>
+              <p><b>Description:</b> {mealTrainDesc}</p>
+              <p><b>Beneficiary:</b> {beneficiaryName}</p>
+              <p><b>Delivery Address:</b> {deliveryAddress}</p>
+              <p><b>Instructions:</b> {deliveryInstructions || "None"}</p>
+            </div>
+
+            {/* Schedule  */}
+            <div className="border rounded-lg p-4">
+              <h3 className="font-medium mb-2">Schedule</h3>
+
+              {Object.entries(selectedDates).map(([date, meals]) => (
+                <div key={date} className="mb-2">
+                  <p className="font-semibold mb-2">{date}</p>
+
+                  <div className="flex gap-2 flex-wrap justify-center">
+                    {meals.breakfast && <span className="pill">Breakfast</span>}
+                    {meals.lunch && <span className="pill">Lunch</span>}
+                    {meals.dinner && <span className="pill">Dinner</span>}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Final Create */}
+            <button
+              onClick={handleCreateMealTrain}
+              className="w-full bg-green-600 text-white py-2 hover:bg-green-700 cursor-pointer"
+            >
+              Create Meal Train
+            </button>
+
           </div>
         )}
       </div>

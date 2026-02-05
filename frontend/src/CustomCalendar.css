@@ -1,0 +1,31 @@
+.react-calendar {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+    border: 2px solid #8944cb;
+}
+
+.react-calendar__tile {
+    padding: 0.6rem 0.2rem;
+}
+
+.react-calendar__tile.selected-day {
+    background-color: #e9d5ff;
+    border-radius: 8px;
+}
+
+.react-calendar__tile.selected-day:hover {
+    background-color: #b7a0d9;
+    color: white;
+}
+
+.react-calendar__tile.selected-day:focus {
+    background-color: #8944cb;
+}
+
+.pill {
+    background-color: #ede9fe;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 14px;
+}
