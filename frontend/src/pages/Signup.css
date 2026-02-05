@@ -1,5 +1,52 @@
 body {
-    background-color: hsl(35, 92%, 75%);
+    background-color: #FFF8E3;
+}
+
+.nav-bar {
+    margin: 0;
+    padding: 0 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 96%;
+    overflow: hidden;
+    display: flex;
+    justify-content: end;
+    z-index: 2;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 36px;
+    align-items: center;
+}
+
+#sign-in {
+    width: 77px;
+    height: 29px;
+    background-color: #FFF8E3;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #F68300;
+}
+
+#create-mealtrain {
+    width: 294px;
+    height: 39px;
+    background-color: #FFF8E3;
+
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 39px;
+
+    color: #A88DE5;
 }
 
 form {
@@ -9,23 +56,54 @@ form {
     align-items: center;
     box-sizing: border-box;
     padding: 50px;
-    background-color: hsla(35, 92%, 58%, 8%);
+    background-color: #FFECC899;
     box-shadow: 0 2px 5px 0;
+    z-index: 3;
+    position: relative;
 }
 
 .input {
     margin: 10px 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     width: 90%;
     height: 40px;
-    padding: 18px;
+    padding: 10px;
 }
 
 button {
-    background-color: hsla(278, 91%, 75%, 0.8);
+    background-color: #A88DE5;
     color: white;
     width: 300px;
     height: 60px;
+    margin-top: 20px;
+}
+
+.input::placeholder {
+    margin-top: 0px;
+}
+
+#rectangle-left {
+    position: absolute;
+    width: 750px;
+    height: 750px;
+    left: -269px;
+    top: -272px;
+    z-index: 1;
+    background: #F68300;
+    border-radius: 160px;
+    transform: rotate(-45deg);
+}
+
+#rectangle-right {
+    position: absolute;
+    width: 750px;
+    height: 750px;
+    left: 1349px;
+    top: 422px;
+
+    background: #FEB058;
+    border-radius: 160px;
+    transform: rotate(-45deg);
 }
