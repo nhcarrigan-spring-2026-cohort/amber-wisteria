@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 =======
 import MeanTrainCreationForm from './pages/MealTrainCreationForm'
 >>>>>>> 9a312bc (Added Basic Meal Info form and two column layout for calendar and meal restrictions)
+=======
+import MeanTrainCreationForm from './components/meal-train/MealTrainForm'
+>>>>>>> 94d41ee (Refactored Form into reusable components)
 import './App.css'
 import Signup from './pages/Signup'
 
