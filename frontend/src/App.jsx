@@ -1,4 +1,4 @@
-import MeanTrainCreationForm from './pages/MealTrainCreationForm'
+import MeanTrainCreationForm from './components/meal-train/MealTrainForm'
 import './App.css'
 
 function App() {
