@@ -5,7 +5,9 @@ export default function ReviewStep({
     deliveryAddress,
     deliveryInstructions,
     selectedDates,
-    onCreate
+    restrictions,
+    onCreate,
+    onBack
 }) {
     return (
         <div className="space-y-6">
@@ -21,6 +23,9 @@ export default function ReviewStep({
                 </p>
                 <p>
                     <b>Beneficiary:</b> {beneficiaryName}
+                </p>
+                <p>
+                    <b>Restrictions:</b> {restrictions.length ? restrictions.join(",") : "None"}
                 </p>
                 <p>
                     <b>Delivery Address:</b> {deliveryAddress}
@@ -50,12 +55,22 @@ export default function ReviewStep({
             </div>
 
             {/* Final Create */}
-            <button
-                onClick={onCreate}
-                className="w-full bg-green-600 text-white py-2 hover:bg-green-700 cursor-pointer rounded-lg"
-            >
-                Create Meal Train
-            </button>
+            <div className="flex gap-4">
+                <button 
+                onClick={onBack}
+                className="w-1/2 bg-gray-300 py-2 rounded-lg hover:bg-gray-400 cursor-pointer">
+                    Back
+                </button>
+
+                <button
+                    onClick={onCreate}
+                    className="w-1/2 bg-green-600 text-white py-2 hover:bg-green-700 cursor-pointer rounded-lg"
+                >
+                    Create Meal Train
+                </button>
+
+            </div>
+
         </div>
     );
 }
