@@ -1,0 +1,115 @@
+:root {
+  --size-s: 1.1rem;
+  --size-m: 1.5rem;
+  --size-l: 2rem;
+
+  --black: #000000;
+  --white: #ffffff;
+  --light-black: #4c4c4c;
+
+  --darker-orange: #f68300;
+  --beige: #fff8e3;
+  --notification-red: #ff0000;
+  --navbar-top: #fff7e0;
+}
+
+/* Algemene achtergrond */
+body {
+  background-color: var(--beige);
+  margin: 0;
+  font-family: Inter, sans-serif;
+}
+
+/* ====== LAYOUT ====== */
+
+.dashboard-container {
+  display: flex;
+  height: 100vh; /* Sidebar en content vullen het scherm */
+}
+
+/* ====== SIDEBAR ====== */
+
+.dashboard-aside {
+  width: 260px;
+  height: 100vh;
+  padding: 54px 22px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 73px;
+
+  background-color: var(--darker-orange);
+  color: var(--white);
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.dashboard-aside img {
+  width: 120px;
+  height: 120px;
+  background-color: var(--white);
+  border-radius: 50%;
+}
+
+.dashboard-aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-aside li {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* ====== CONTENT ====== */
+
+.dashboard-content {
+  flex: 1;               /* neemt alle ruimte rechts van de sidebar */
+  padding: 40px;         /* ruimte vanboven */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;             /* ruimte tussen sections */
+  color: var(--black);
+}
+
+/* Section titels */
+.dashboard-content h1 {
+  font-size: 32px;
+  margin: 0;
+}
+
+/* ====== MEAL TRAIN SECTIONS ====== */
+
+.created-meal-trains,
+.joined-meal-trains {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.created-meal-trains button,
+.joined-meal-trains button {
+  background-color: var(--darker-orange);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.created-meal-trains h2,
+.joined-meal-trains h2 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.created-meal-trains p,
+.joined-meal-trains p {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
