@@ -12,9 +12,17 @@ export default function ScheduleStep({
   setDeliveryAddress,
   deliveryInstructions,
   setDeliveryInstructions,
-  onNext
-
+  restrictions,
+  setRestrictions,
+  onClearSchedule,
+  onNext,
+  onBack
 }) {
+
+  const toggleRestrictions = (value) => {
+    setRestrictions((prev) => prev.includes(value) ? prev.filter(r => r !== value) : [...prev, value]);
+  }
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -33,6 +41,13 @@ export default function ScheduleStep({
               }}
             />
           </div>
+          {selectedDates && (
+            <button 
+            onClick={onClearSchedule}
+            className="mt-3 text-sm text-red-500 underline hover:text-red-700">
+              Clear all selected days
+            </button>
+          )}
 
           {activeDate && (
             <div className="mt-4">
@@ -84,7 +99,11 @@ export default function ScheduleStep({
                   key={item}
                   className="flex items-center gap-2 border px-3 py-1 rounded-full cursor-pointer"
                 >
-                  <input type="checkbox" value={item} />
+                  <input
+                    type="checkbox"
+                    checked={restrictions.includes(item)}
+                    onChange={() => toggleRestrictions(item)}
+                  />
                   {item}
                 </label>
               ))}
@@ -126,12 +145,21 @@ export default function ScheduleStep({
 
       </div>
 
-      <button
-        onClick={onNext}
-        className="w-full mt-5 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-700 transition cursor-pointer"
-      >
-        Review Meal Train
-      </button>
+      <div className="flex gap-4 mt-6">
+        <button
+          onClick={onBack}
+          className="w-1/2 bg-gray-300 py-2 rounded-lg hover:bg-gray-400 cursor-pointer"
+        >
+          Back
+        </button>
+        <button
+          onClick={onNext}
+          className="w-1/2 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-700 transition cursor-pointer"
+        >
+          Review Meal Train
+        </button>
+      </div>
+
     </div>
 
   );

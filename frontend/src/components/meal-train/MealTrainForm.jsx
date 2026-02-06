@@ -10,11 +10,11 @@ export default function MeanTrainCreationForm() {
   const [step, setStep] = useState(1);
 
   // step 1
-  const [mealTrainTitle, setMealTrainTitle] = useState("Meal for Eric");
+  const [mealTrainTitle, setMealTrainTitle] = useState("");
   const [mealTrainDesc, setMealTrainDesc] = useState(
-    "Eric is suffering from Dengue",
+    ""
   );
-  const [beneficiaryName, setBeneficiaryName] = useState("John");
+  const [beneficiaryName, setBeneficiaryName] = useState("");
 
   // step 2
   const [selectedDates, setSelectedDates] = useState({});
@@ -22,6 +22,7 @@ export default function MeanTrainCreationForm() {
   const [quantity, setQuantity] = useState(1);
   const [deliveryAddress, setDeliveryAddress] = useState("");
   const [deliveryInstructions, setDeliveryInstructions] = useState("");
+  const [restrictions, setRestrictions] = useState([]);
 
 
   const handleBasicInfoSubmit = (e) => {
@@ -39,7 +40,11 @@ export default function MeanTrainCreationForm() {
     setActiveDate(formatted);
 
     setSelectedDates((prev) => {
-      if (prev[formatted]) return prev; // already exists
+
+      // if already selected => remove
+      if (prev[formatted]) {
+        return prev;
+      } 
 
       return {
         ...prev,
@@ -99,7 +104,8 @@ export default function MeanTrainCreationForm() {
       beneficiaryName,
       deliveryAddress,
       deliveryInstructions,
-      schedule: selectedDates
+      schedule: selectedDates,
+      restrictions
     };
     console.log("Sending a mock server:", payload);
 
@@ -115,6 +121,11 @@ export default function MeanTrainCreationForm() {
     alert("MOCK MODE: Meal Train Created!\n\nShare this link:\n" + shareUrl);
 
   };
+
+  const clearSchedule = () => {
+    setSelectedDates({});
+    setActiveDate(null);
+  }
 
 
   return (
@@ -157,7 +168,11 @@ export default function MeanTrainCreationForm() {
             deliveryAddress={deliveryAddress}
             setDeliveryAddress={setDeliveryAddress}
             deliveryInstructions={setDeliveryInstructions}
+            restrictions={restrictions}
+            setRestrictions={setRestrictions}
+            onClearSchedule={clearSchedule}
             onNext={handleScheduleStepSubmit}
+            onBack={() => setStep(1)}
           />
         )}
 
@@ -170,7 +185,9 @@ export default function MeanTrainCreationForm() {
             deliveryAddress={deliveryAddress}
             deliveryInstructions={deliveryInstructions}
             selectedDates={selectedDates}
+            restrictions={restrictions}
             onCreate={handleCreateMealTrain}
+            onBack={() => setStep(2)}
           />
         )}
       </div>
