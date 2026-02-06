@@ -31,7 +31,7 @@ export default function BasicInfoStep({
                     Description
                 </label>
                 <textarea
-                    value={mealTrainDesc}
+                    value={mealTrainDesc || ""}
                     onChange={(e) => setMealTrainDesc(e.target.value)}
                     placeholder="Add a short note about the situation..."
                     minLength={5}

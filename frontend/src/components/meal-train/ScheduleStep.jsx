@@ -42,9 +42,9 @@ export default function ScheduleStep({
             />
           </div>
           {selectedDates && (
-            <button 
-            onClick={onClearSchedule}
-            className="mt-3 text-sm text-red-500 underline hover:text-red-700">
+            <button
+              onClick={onClearSchedule}
+              className="mt-3 text-sm text-red-500 underline hover:text-red-700">
               Clear all selected days
             </button>
           )}
@@ -133,7 +133,7 @@ export default function ScheduleStep({
               </label>
               <textarea
                 type="text"
-                value={deliveryInstructions}
+                value={deliveryInstructions || ""}
                 onChange={(e) => setDeliveryInstructions(e.target.value)}
                 placeholder="Delivery Instructions (optional)"
                 className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 w-full resize-none h-20"

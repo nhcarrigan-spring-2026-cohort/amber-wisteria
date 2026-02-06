@@ -1,12 +1,12 @@
-import MeanTrainCreationForm from './components/meal-train/MealTrainForm'
 import './App.css'
+import MealTrainForm from './components/meal-train/MealTrainForm'
 
 function App() {
   
 
   return (
     <>
-      <MeanTrainCreationForm /> 
+      <MealTrainForm /> 
     </>
   )
 }
