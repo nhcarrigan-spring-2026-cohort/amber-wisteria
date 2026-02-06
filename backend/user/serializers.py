@@ -19,7 +19,7 @@ class RegisterSerializer(serializers.Serializer):
 
     def validate_username(self, value):
         if User.objects.filter(username=value).exists():
-            raise serializers.ValidationError("Username deja există.")
+            raise serializers.ValidationError("Username is already taken.")
         return value
 
     def validate_password(self, value):
@@ -50,9 +50,9 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, attrs):
         user = authenticate(username=attrs["username"], password=attrs["password"])
         if not user:
-            raise serializers.ValidationError("Username sau parolă greșită.")
+            raise serializers.ValidationError("Username or password is incorrect.")
         if not user.is_active:
-            raise serializers.ValidationError("Cont dezactivat.")
+            raise serializers.ValidationError("Account is deactivated.")
         attrs["user"] = user
         return attrs
 
