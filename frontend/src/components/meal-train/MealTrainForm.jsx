@@ -5,7 +5,7 @@ import BasicInfoStep from "./BasicInfoStep";
 import ScheduleStep from "./ScheduleStep";
 import ReviewStep from "./ReviewStep";
 
-export default function MeanTrainCreationForm() {
+export default function MealTrainForm() {
   // step state => to control steps
   const [step, setStep] = useState(1);
 
