@@ -4,14 +4,6 @@ export default function Signup() {
     return (
         <div>
 
-            <div className="nav-bar">
-
-                <ul>
-                    <li><a id='sign-in' href='#'>Sign In</a></li>
-                    <li><a id='create-mealtrain' href='#'>Create a Mealtrain</a></li>
-                </ul>
-            </div>
-
             <form>
 
                     <h1 id='create-account'>Create An Account</h1>

@@ -2,19 +2,6 @@ body {
     background-color: #FFF8E3;
 }
 
-.nav-bar {
-    margin: 0;
-    padding: 0 30px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 96%;
-    overflow: hidden;
-    display: flex;
-    justify-content: end;
-    z-index: 2;
-}
-
 ul {
     list-style: none;
     display: flex;
