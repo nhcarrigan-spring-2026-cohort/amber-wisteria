@@ -1,5 +1,10 @@
 from django.urls import path
-from .views import RegisterView, LoginView, LogoutView, MeView
+from rest_framework.routers import DefaultRouter
+
+from .views import RegisterView, LoginView, LogoutView, MeView, MealTrainViewSet
+
+router = DefaultRouter()
+router.register("meal-trains", MealTrainViewSet, basename="meal-train")
 
 urlpatterns = [
     path("auth/register", RegisterView.as_view()),
@@ -7,3 +12,5 @@ urlpatterns = [
     path("auth/logout", LogoutView.as_view()),
     path("me", MeView.as_view()),
 ]
+
+urlpatterns += router.urls
