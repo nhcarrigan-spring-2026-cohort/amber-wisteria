@@ -166,7 +166,41 @@
   border: 0;
 }
 
-@media (max-width: 600px) {
-  .signin-heading { font-size: 36px; line-height: 48px; }
-  .login-form { padding: 28px; }
+@media (max-width: 768px) {
+  .login-page {
+    padding: 16px;
+  }
+  
+  .login-form {
+    padding: 40px 28px;
+    border-radius: 32px;
+  }
+  
+  .signin-heading {
+    font-size: 44px;
+    line-height: 54px;
+  }
+  
+  .form input {
+    width: 100%;
+    height: 64px;
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+  
+  .submit {
+    width: 100%;
+    height: 64px;
+    font-size: 17px;
+  }
+  
+  .signup-text {
+    width: 100%;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  
+  .signup-text a {
+    font-size: 18px;
+  }
 }
