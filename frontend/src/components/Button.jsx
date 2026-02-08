@@ -1,7 +1,7 @@
-import React from "react";
-import clsx from "clsx"
+import clsx from "clsx" // to combine classes
+import {twMerge} from "tailwind-merge"; // for conflicts among classes
 
-export default function CreateButton({
+export default function Button({
     children,
     variant = "purple",
     onClick,
@@ -20,7 +20,7 @@ export default function CreateButton({
     return (
         <button
             onClick={onClick}
-            className={clsx(base, variants[variant], className)}
+            className={twMerge(clsx(base, variants[variant], className))}
             {...props}
         >
             {children}

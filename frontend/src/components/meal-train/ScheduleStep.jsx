@@ -1,4 +1,7 @@
 import Calendar from "react-calendar";
+import Button from "../Button";
+import RestrictionToggle from "../RestrictionToggle";
+import { RESTRICTIONS } from "../../data/restrictions";
 
 export default function ScheduleStep({
   selectedDates,
@@ -10,8 +13,6 @@ export default function ScheduleStep({
   setQuantity,
   deliveryAddress,
   setDeliveryAddress,
-  deliveryInstructions,
-  setDeliveryInstructions,
   restrictions,
   setRestrictions,
   onClearSchedule,
@@ -24,143 +25,93 @@ export default function ScheduleStep({
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Left Side */}
-        <div>
-          <p className="font-medium mb-2">Select Day</p>
-          <div className="w-full">
-            <Calendar
-              onClickDay={handleDayClick}
-              tileClassName={({ date }) => {
-                const formatted = formatDate(date);
-                if (selectedDates[formatted]) {
-                  return "selected-day";
-                }
-                return null;
-              }}
-            />
-          </div>
-          {selectedDates && (
-            <button
-              onClick={onClearSchedule}
-              className="mt-3 text-sm text-red-500 underline hover:text-red-700">
-              Clear all selected days
-            </button>
-          )}
+    <div className="flex flex-col justify-center gap-2">
+      <p className="self-start text-md text-gray-700 mb-2 font-semibold">Choose day(s)</p>
+      <div className="w-full">
+        <Calendar
+          onClickDay={handleDayClick}
+          tileClassName={({ date }) => {
+            const formatted = formatDate(date);
+            if (selectedDates[formatted]) {
+              return "selected-day";
+            }
+            return null;
+          }}
+        />
+      </div>
+      {selectedDates && (
+        <button
+          onClick={onClearSchedule}
+          className="mt-3 text-sm text-red-500 underline hover:text-red-700">
+          Clear all selected days
+        </button>
+      )}
 
-          {activeDate && (
-            <div className="mt-4">
-              <p className="font-medium mb-2">Meals for {activeDate}</p>
+      {activeDate && (
+        <div className="mt-4 w-[60%] mx-auto">
+          <p className="font-medium mb-2">Meals for {activeDate}</p>
 
-              <div className="flex gap-3 justify-center">
-                {["breakfast", "lunch", "dinner"].map((meal) => (
-                  <button
-                    key={meal}
-                    onClick={() => toggleMeal(meal)}
-                    className={`px-4 py-1 rounded-full border transition-all duration-200
-                          ${selectedDates[activeDate]?.[meal] ? "bg-[#8944cb] text-white scale-105" : "bg-gray-100 hover:bg-gray-200"}`}
-                  >
-                    {meal}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="flex flex-col mt-4">
-            <label className="block self-start text-sm text-gray-600 mb-2 font-semibold">
-              Meal Quantity (people)
-            </label>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 lg:w-[90%]"
-            />
+          <div className="flex gap-3 justify-between">
+            {["breakfast", "lunch", "dinner"].map((meal) => (
+              <Button 
+                key={meal}
+                children={meal}
+                variant={`${selectedDates[activeDate]?.[meal] ? "orange" : "secondary"}` }
+                onClick={() => toggleMeal(meal)}
+                className="rounded-full shadow-md duration-200"
+              />
+            ))}
           </div>
         </div>
+      )}
 
-        {/* Right Side */}
-        <div className="space-y-6">
-          <div>
-            <p className="font-medium mb-2">Restrictions</p>
+      <div className="flex flex-col mt-4">
+        <label className="self-start text-md text-gray-700 mb-2 font-semibold">
+          Meal Quantity (people)
+        </label>
+        <input
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          className="bg-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 lg:w-[90%]"
+        />
+      </div>
 
-            <div className="flex flex-wrap gap-3">
-              {[
-                "Vegan",
-                "Halal",
-                "Vegetarian",
-                "Sugar-free",
-                "Gluten-free",
-                "Organic",
-              ].map((item) => (
-                <label
-                  key={item}
-                  className="flex items-center gap-2 border px-3 py-1 rounded-full cursor-pointer"
-                >
-                  <input
-                    type="checkbox"
-                    checked={restrictions.includes(item)}
-                    onChange={() => toggleRestrictions(item)}
-                  />
-                  {item}
-                </label>
-              ))}
-            </div>
-          </div>
+      <div className="flex flex-col mt-4">
+        <p className="self-start text-md text-gray-700 mb-2 font-semibold">Restrictions</p>
 
-          <div className="mt-6">
-            <p className="font-medium mb-2">Delivery Information</p>
+        <div className="flex flex-wrap gap-4 justify-center items-center">
+          {RESTRICTIONS.map(item => (
+            <RestrictionToggle 
+              key={item.id}
+              item={item}
+              selected={restrictions.includes(item.id)}
+              onToggle={toggleRestrictions}
+            />
+          ))}
+        </div>
+      </div>
 
-            <div className="flex flex-col mb-2">
-              <label className="self-start text-sm text-gray-600 mb-2 font-semibold placeholder:text-gray-500">
-                Delivery Address
-              </label>
-              <input
-                type="text"
-                value={deliveryAddress}
-                onChange={(e) => setDeliveryAddress(e.target.value)}
-                placeholder="Delivery Address"
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 w-full"
-                required
-              />
-            </div>
 
-            <div className="flex flex-col mb-2">
-              <label className="self-start text-sm text-gray-600 mb-2 font-semibold placeholder:text-gray-500">
-                Delivery Instructions
-              </label>
-              <textarea
-                type="text"
-                value={deliveryInstructions || ""}
-                onChange={(e) => setDeliveryInstructions(e.target.value)}
-                placeholder="Delivery Instructions (optional)"
-                className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400 w-full resize-none h-20"
-              />
-            </div>
-          </div>
+        <div className="flex flex-col mb-2 mt-6">
+          <label className="self-start text-md text-gray-700 mb-2 font-semibold">
+            Delivery Address
+          </label>
+          <input
+            type="text"
+            value={deliveryAddress}
+            onChange={(e) => setDeliveryAddress(e.target.value)}
+            placeholder="Delivery Address"
+            className="bg-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 w-full"
+            required
+          />
         </div>
 
-
-      </div>
-
-      <div className="flex gap-4 mt-6">
-        <button
-          onClick={onBack}
-          className="w-1/2 bg-gray-300 py-2 rounded-lg hover:bg-gray-400 cursor-pointer"
-        >
-          Back
-        </button>
-        <button
-          onClick={onNext}
-          className="w-1/2 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-700 transition cursor-pointer"
-        >
-          Review Meal Train
-        </button>
-      </div>
+        <div className="flex gap-4 mt-6">
+          <Button children="Back" className="w-1/2" variant="secondary" onClick={onBack} />
+          <Button children="Review Meal Train" className="w-1/2" variant="orange" onClick={onNext} />
+        </div>
 
     </div>
-
   );
 }

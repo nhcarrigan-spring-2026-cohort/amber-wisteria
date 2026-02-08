@@ -1,4 +1,4 @@
-import CreateButton from "../CreateButton";
+import Button from "../Button";
 
 export default function BasicInfoStep({
     mealTrainTitle,
@@ -54,7 +54,7 @@ export default function BasicInfoStep({
             </div>
 
             {/* Button  */}
-            <CreateButton children="Next" className="w-full" variant="purple" onClick={onNext}/>
+            <Button children="Next" className="w-full" variant="purple" onClick={onNext}/>
         </form>
     )
 

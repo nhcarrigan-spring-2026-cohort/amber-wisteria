@@ -28,6 +28,11 @@ export default function MealTrainForm() {
   const handleBasicInfoSubmit = (e) => {
     e.preventDefault();
 
+    if(!mealTrainTitle.trim() && !beneficiaryName.trim()) {
+      alert("Please provide meal title and beneficiary name.");
+      return;
+    }
+
     setStep(2);
   };
 
@@ -89,10 +94,15 @@ export default function MealTrainForm() {
       }
     }
 
-    if (!deliveryAddress) {
+    if (!deliveryAddress.trim()) {
       alert("Please provide a delivery address.");
       return false;
     }
+
+    if(quantity <= 0) {
+      alert("Please provide valid meal quantity.")
+      return false;
+    } 
     return true;
   }
 
@@ -129,11 +139,11 @@ export default function MealTrainForm() {
 
 
   return (
-    <div className="min-h-screen bg-[#FFF8E3] flex items-center justify-center">
+    <div className="min-h-screen w-full flex items-center justify-center">
       {/* Card */}
-      <div className={`w-full ${(step === 2 || step === 3) ? "max-w-3xl" : "max-w-xl"} bg-white rounded-2xl shadow-md p-8`}>
+      <div className="w-full max-w-lg bg-[#FFECC8] rounded-2xl shadow-md p-8">
         {/* Heading */}
-        <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+        <h1 className="text-3xl font-semibold text-gray-800 text-center mb-6">
           {step === 1 ? "Create a Meal Train" :
             step === 2 ? `Making a meal train for "${mealTrainTitle}"` :
               step === 3 ? `Review meal train for "${mealTrainTitle}"` :

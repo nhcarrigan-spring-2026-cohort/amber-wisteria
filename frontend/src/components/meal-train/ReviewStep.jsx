@@ -1,3 +1,4 @@
+import Button from "../Button";
 export default function ReviewStep({
     mealTrainTitle,
     mealTrainDesc,
@@ -19,7 +20,7 @@ export default function ReviewStep({
                     <b>Title:</b> {mealTrainTitle}
                 </p>
                 <p>
-                    <b>Description:</b> {mealTrainDesc}
+                    <b>Description:</b> {mealTrainDesc || "None"}
                 </p>
                 <p>
                     <b>Beneficiary:</b> {beneficiaryName}
@@ -56,19 +57,8 @@ export default function ReviewStep({
 
             {/* Final Create */}
             <div className="flex gap-4">
-                <button 
-                onClick={onBack}
-                className="w-1/2 bg-gray-300 py-2 rounded-lg hover:bg-gray-400 cursor-pointer">
-                    Back
-                </button>
-
-                <button
-                    onClick={onCreate}
-                    className="w-1/2 bg-green-600 text-white py-2 hover:bg-green-700 cursor-pointer rounded-lg"
-                >
-                    Create Meal Train
-                </button>
-
+                <Button children="Back" className="w-1/2" variant="secondary" onClick={onBack} />
+                <Button children="Create" className="w-1/2" variant="orange" onClick={onCreate} />
             </div>
 
         </div>
