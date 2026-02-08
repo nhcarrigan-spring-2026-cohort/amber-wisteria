@@ -5,12 +5,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1440px;
-  height: 1024px;
+  width: 100%;
   min-height: 100vh;
   background-color: #FFF8E3;
   position: relative;
   overflow: hidden;
+  padding: 20px;
+  margin: 0;
 }
 
 .login-form {
@@ -169,4 +170,3 @@
   .signin-heading { font-size: 36px; line-height: 48px; }
   .login-form { padding: 28px; }
 }
-
