@@ -12,5 +12,5 @@ urlpatterns = [
     path("auth/logout", LogoutView.as_view()),
     path("me", MeView.as_view()),
 ]
-
+#add the automatically generated URLs for the MealTrainViewSet to our urlpatterns "meal-trains" + get, post, put, patch, delete etc. 
 urlpatterns += router.urls
