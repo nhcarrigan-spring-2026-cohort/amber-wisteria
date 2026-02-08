@@ -39,7 +39,7 @@ Edit the .env file:
 ### 3. Start the Application
 
     cd backend
-    docker-compose up --build
+    docker compose up --build
 
 ---
 
@@ -54,37 +54,37 @@ Edit the .env file:
 ## Docker Commands
 
     # Start services
-    docker-compose up
+    docker compose up
 
     # Start in background
-    docker-compose up -d
+    docker compose up -d
 
     # Stop services
-    docker-compose down
+    docker compose down
 
     # View logs
-    docker-compose logs -f
+    docker compose logs -f
 
     # Rebuild
-    docker-compose build --no-cache
+    docker compose build --no-cache
 
 ---
 
 ## Django Commands
 
     # Run inside container
-    docker-compose exec django-web python manage.py <command>
+    docker compose exec django-web python manage.py <command>
 
     # Examples:
-    docker-compose exec django-web python manage.py migrate
-    docker-compose exec django-web python manage.py createsuperuser
+    docker compose exec django-web python manage.py migrate
+    docker compose exec django-web python manage.py createsuperuser
 
 ---
 
 ### To Reset Database
 
-    docker-compose down -v
-    docker-compose up -d
-    docker-compose exec django-web python manage.py migrate
+    docker compose down -v
+    docker compose up -d
+    docker compose exec django-web python manage.py migrate
 
 ---
