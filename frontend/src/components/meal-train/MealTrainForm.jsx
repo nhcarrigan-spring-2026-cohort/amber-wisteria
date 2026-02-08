@@ -28,7 +28,7 @@ export default function MealTrainForm() {
   const handleBasicInfoSubmit = (e) => {
     e.preventDefault();
 
-    if(!mealTrainTitle.trim() && !beneficiaryName.trim()) {
+    if (!mealTrainTitle.trim() && !beneficiaryName.trim()) {
       alert("Please provide meal title and beneficiary name.");
       return;
     }
@@ -42,15 +42,19 @@ export default function MealTrainForm() {
 
   const handleDayClick = (clickedDate) => {
     const formatted = formatDate(clickedDate);
-    setActiveDate(formatted);
 
     setSelectedDates((prev) => {
 
-      // if already selected => remove
       if (prev[formatted]) {
-        return prev;
-      } 
+        const updated = { ...prev };
+        delete updated[formatted];
+        setActiveDate(null);
+        return updated;
+      }
 
+      setActiveDate(formatted);
+
+      // If new -> select 
       return {
         ...prev,
         [formatted]: {
@@ -63,7 +67,7 @@ export default function MealTrainForm() {
   };
 
   const toggleMeal = (meal) => {
-    if (!activeDate) return;
+    if (!activeDate || !selectedDates[activeDate]) return;
 
     setSelectedDates((prev) => ({
       ...prev,
@@ -99,10 +103,10 @@ export default function MealTrainForm() {
       return false;
     }
 
-    if(quantity <= 0) {
+    if (quantity <= 0) {
       alert("Please provide valid meal quantity.")
       return false;
-    } 
+    }
     return true;
   }
 

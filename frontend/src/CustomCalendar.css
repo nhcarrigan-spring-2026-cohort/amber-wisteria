@@ -1,5 +1,4 @@
 .react-calendar {
-    height: auto;
     border-radius: 10px;
     border: none;
     outline: none;
@@ -18,7 +17,7 @@
 }
 
 .react-calendar__tile.selected-day:hover {
-    background-color: #C9B4FA !important;
+    background-color: #cbb5fe !important;
 }
 
 .react-calendar__tile.selected-day:focus {
@@ -28,11 +27,4 @@
 
 .react-calendar__tile--now {
     background: none !important;
-}
-
-.pill {
-    background-color: #ede9fc;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 14px;
 }
