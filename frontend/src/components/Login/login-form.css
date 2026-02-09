@@ -1,0 +1,171 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap');
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1440px;
+  height: 1024px;
+  min-height: 100vh;
+  background-color: #FFF8E3;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-form {
+  background: rgba(255, 236, 200, 0.6);
+  border: 1.534px solid rgba(0, 0, 0, 0.10);
+  border-radius: 49.09px;
+  width: 698px;
+  height: 698px;
+  max-width: calc(100% - 48px);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+/* Sign-in heading from the figma file */
+.signin-heading {
+  font-family: 'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-weight: 700;
+  font-size: 55.226px;
+  -webkit-text-stroke-width: 1.53px;
+  -webkit-text-stroke-color: rgba(0, 0, 0, 0.10);
+  font-style: normal;
+  line-height: 71.794px;
+  color: #212B27;
+  text-align: center;
+  margin: 0 0 24px 0;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.form input {
+  width: 575.275px;
+  height: 84.374px;
+  border-radius: 15.341px;
+  border: 1.534px solid rgba(0, 0, 0, 0.10);
+  background: #FFF;
+  padding: 1.53px 10.53px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.9);
+  font-size: 16px;
+  font-family: 'Karla', sans-serif;
+}
+
+.form input::placeholder {
+  font-family: 'Karla', sans-serif;
+  color: #999;
+}
+
+.submit {
+  width: 391.187px;
+  height: 90.51px;
+  justify-content:center;
+  text-align: center;
+  border-radius: 23.011px;
+  border: 1.534px solid rgba(0, 0, 0, 0.10);
+  background: #A88DE5;
+  margin-top: 8px;
+  padding: 1.53px 1.53px;
+  color: white;
+  cursor: pointer;
+  font-size: larger;
+}
+
+.error-message {
+  display: none;
+  color: #dc3545;
+  font-family: 'Karla', sans-serif;
+  font-size: 14px;
+  margin-top: 12px;
+  text-align: center;
+}
+.error-message.show {
+  display: block;
+}
+
+.signup-text {
+  width: 348px;
+  height: 29px;
+  color: var(--Paragraph, #32403B);
+  text-align: center;
+  -webkit-text-stroke-width: 1.53px;
+  -webkit-text-stroke-color: rgba(0, 0, 0, 0.10);
+  font-family: Karla;
+  font-size: 20.477px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27.92px;
+  margin-top: 20px;
+}
+
+.signup-text a {
+  color: var(--Paragraph, #32403B);
+  font-family: Karla;
+  font-size: 21.477px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 27.92px;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+.signup-text a:hover {
+  color: #A88DE5;
+}
+
+.elementOne, .elementTwo {
+  position: absolute;
+  width: 750px;
+  height: 750px;
+  border-radius: 160px;
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+
+.elementOne {
+  background: #F68300;
+  top: -360px;
+  left: -200px;
+}
+
+.elementTwo {
+  background: #FEB058;
+  bottom: -360px;
+  right: -200px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 600px) {
+  .signin-heading { font-size: 36px; line-height: 48px; }
+  .login-form { padding: 28px; }
+}
+

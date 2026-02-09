@@ -15,7 +15,17 @@ Repository for Team Amber Wisteria - Spring 2026 Cohort
 4. Push your branch:  
    `git push origin feature/your-name-task`
 
-5. Open a pull request to `main`
+5. Open a pull request to `main` using this template:
+```
+- Summary
+What changed?
+
+- Linked issue
+Closes #x (replace 'x' with issue number)
+
+- Notes
+Anything else to know?
+```
 
 6. Once the pull request is reviewed and merged, delete your branch
 
@@ -29,7 +39,6 @@ Leadership
 Participants
 <ul>
   <li><a href="https://github.com/avanishchandra">Avanish</a></li>
-  <li><a href="https://github.com/Priyanshujha24">Priyanshu</a></li>
   <li><a href="https://github.com/JoaquinVeraOrtega">Joaquin</a></li>
   <li><a href="https://github.com/AksharGoyal">Akshar</a></li>
   <li><a href="https://github.com/anthonbrooks">Anthony</a></li>
