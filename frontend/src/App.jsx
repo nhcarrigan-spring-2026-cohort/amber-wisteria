@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<div>Home Page - Coming Soon</div>} />
       </Routes>
   )
+
 }
 
 

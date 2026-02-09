@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "react-calendar/dist/Calendar.css";
-import '../../CustomCalendar.css';
+import "../meal-train/CustomCalendar.css";
 import BasicInfoStep from "./BasicInfoStep";
 import ScheduleStep from "./ScheduleStep";
 import ReviewStep from "./ReviewStep";
+import BackBtn from "../BackBtn";
+import CancelBtn from "../CancelBtn";
+import { useNavigate } from "react-router-dom"
 
 export default function MealTrainForm() {
   // step state => to control steps
@@ -11,9 +14,7 @@ export default function MealTrainForm() {
 
   // step 1
   const [mealTrainTitle, setMealTrainTitle] = useState("");
-  const [mealTrainDesc, setMealTrainDesc] = useState(
-    ""
-  );
+  const [mealTrainDesc, setMealTrainDesc] = useState("");
   const [beneficiaryName, setBeneficiaryName] = useState("");
 
   // step 2
@@ -21,15 +22,20 @@ export default function MealTrainForm() {
   const [activeDate, setActiveDate] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [deliveryAddress, setDeliveryAddress] = useState("");
-  const [deliveryInstructions, setDeliveryInstructions] = useState("");
   const [restrictions, setRestrictions] = useState([]);
 
+  const navigate = useNavigate();
 
   const handleBasicInfoSubmit = (e) => {
     e.preventDefault();
 
-    if (!mealTrainTitle.trim() && !beneficiaryName.trim()) {
-      alert("Please provide meal title and beneficiary name.");
+    if (!mealTrainTitle.trim()) {
+      alert("Please provide meal title.");
+      return;
+    }
+
+    if (!beneficiaryName.trim()) {
+      alert("Please provide beneficiary name.")
       return;
     }
 
@@ -45,16 +51,25 @@ export default function MealTrainForm() {
 
     setSelectedDates((prev) => {
 
+      // day already exists
       if (prev[formatted]) {
-        const updated = { ...prev };
-        delete updated[formatted];
-        setActiveDate(null);
-        return updated;
+
+        // if its already active -> unselect
+        if (formatted === activeDate) {
+          const updated = { ...prev };
+          delete updated[formatted];
+          setActiveDate(null);
+          return updated;
+        }
+
+        // if selected but not active -> focus
+        setActiveDate(formatted);
+        return prev;
       }
 
+      // If new -> select + focus
       setActiveDate(formatted);
 
-      // If new -> select 
       return {
         ...prev,
         [formatted]: {
@@ -117,7 +132,6 @@ export default function MealTrainForm() {
       description: mealTrainDesc,
       beneficiaryName,
       deliveryAddress,
-      deliveryInstructions,
       schedule: selectedDates,
       restrictions
     };
@@ -136,23 +150,54 @@ export default function MealTrainForm() {
 
   };
 
-  const clearSchedule = () => {
-    setSelectedDates({});
-    setActiveDate(null);
+  const clearForm = () => {
+    if (confirm("Are you sure you want to cancel the form?")) {
+      setMealTrainTitle("");
+      setMealTrainDesc("");
+      setBeneficiaryName("");
+      setActiveDate(null);
+      setSelectedDates({});
+      setRestrictions([]);
+      setQuantity(1);
+      setDeliveryAddress("");
+
+      navigate("/");
+    } else {
+      return;
+    }
+
+
   }
 
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center">
+    <div className="min-h-screen w-full flex items-center justify-center relative">
       {/* Card */}
       <div className="w-full max-w-lg bg-[#FFECC8] rounded-2xl shadow-md p-8">
         {/* Heading */}
-        <h1 className="text-3xl font-semibold text-gray-800 text-center mb-6">
-          {step === 1 ? "Create a Meal Train" :
-            step === 2 ? `Making a meal train for "${mealTrainTitle}"` :
-              step === 3 ? `Review meal train for "${mealTrainTitle}"` :
-                ""}
-        </h1>
+        <div className="mb-6 grid grid-cols-[auto_1fr_auto] items-center justify-center">
+
+          <div className="flex justify-start">
+            {(step === 2 || step === 3) && (
+              <BackBtn
+                onClick={() => setStep(prev => prev - 1)}
+              />
+            )}
+          </div>
+
+          <h1 className="text-3xl font-semibold text-gray-800 text-center mb-1">
+            {step === 1 ? "Create a Meal Train" :
+              step === 2 ? `Making a meal train for "${mealTrainTitle}"` :
+                step === 3 ? `Review meal train for "${mealTrainTitle}"` :
+                  ""}
+          </h1>
+
+          <div>
+            <CancelBtn
+              onClick={clearForm}
+            />
+          </div>
+        </div>
 
 
         {/* STEP 1 */}
@@ -181,12 +226,9 @@ export default function MealTrainForm() {
             setQuantity={setQuantity}
             deliveryAddress={deliveryAddress}
             setDeliveryAddress={setDeliveryAddress}
-            deliveryInstructions={setDeliveryInstructions}
             restrictions={restrictions}
             setRestrictions={setRestrictions}
-            onClearSchedule={clearSchedule}
             onNext={handleScheduleStepSubmit}
-            onBack={() => setStep(1)}
           />
         )}
 
@@ -197,11 +239,9 @@ export default function MealTrainForm() {
             mealTrainDesc={mealTrainDesc}
             beneficiaryName={beneficiaryName}
             deliveryAddress={deliveryAddress}
-            deliveryInstructions={deliveryInstructions}
             selectedDates={selectedDates}
             restrictions={restrictions}
             onCreate={handleCreateMealTrain}
-            onBack={() => setStep(2)}
           />
         )}
       </div>

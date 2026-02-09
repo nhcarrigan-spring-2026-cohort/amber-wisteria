@@ -8,14 +8,11 @@ export default function ReviewStep({
     selectedDates,
     restrictions,
     onCreate,
-    onBack
 }) {
     return (
         <div className="space-y-6">
-            <h2 className="text-xl font-semibold">Review Meal Train</h2>
-
             {/* Basic Info  */}
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200 ring-2 ring-offset-1 ring-purple-400">
                 <p>
                     <b>Title:</b> {mealTrainTitle}
                 </p>
@@ -31,18 +28,15 @@ export default function ReviewStep({
                 <p>
                     <b>Delivery Address:</b> {deliveryAddress}
                 </p>
-                <p>
-                    <b>Instructions:</b> {deliveryInstructions || "None"}
-                </p>
             </div>
 
             {/* Schedule  */}
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-lg p-4 shadow-md hover:shadow-lg transition duration-200 ring-2 ring-offset-1 ring-purple-400">
                 <h3 className="font-bold text-lg mb-2">Schedule</h3>
                 <div className="flex flex-wrap gap-5 justify-center">
                     {Object.entries(selectedDates).map(([date, meals]) => (
-                        <div key={date} className="mb-2 p-2 border-2 border-purple-600 rounded-2xl hover:shadow-md transition-all duration-75">
-                            <p className="font-semibold mb-2">{date}</p>
+                        <div key={date} className="mb-2 p-2 border-2 border-orange-600 rounded-2xl hover:shadow-md transition-all duration-75">
+                            <p className="font-semibold mb-2">{new Date(date).toLocaleDateString()}</p>
 
                             <div className="flex gap-2 flex-wrap justify-center">
                                 {meals.breakfast && <span className="pill">Breakfast</span>}
@@ -56,10 +50,7 @@ export default function ReviewStep({
             </div>
 
             {/* Final Create */}
-            <div className="flex gap-4">
-                <Button children="Back" className="w-1/2" variant="secondary" onClick={onBack} />
-                <Button children="Create" className="w-1/2" variant="orange" onClick={onCreate} />
-            </div>
+            <Button children="Create" className="w-full" variant="orange" onClick={onCreate} />
 
         </div>
     );
