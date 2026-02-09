@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Signup() {
     return (
-        <div>
+        <div className='flex items-center justify-center h-screen w-full'>
 
             <form className='relative z-3 bg-[#FFECC899] rounded-4xl shadow-xl pt-14 pr-22 pb-14 pl-22 flex flex-col box-border items-center'>
 
