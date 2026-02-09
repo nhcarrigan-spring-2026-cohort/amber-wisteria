@@ -151,7 +151,7 @@ export default function MealTrainForm() {
   };
 
   const clearForm = () => {
-    if (confirm("Are you sure you want to cancel the form?")) {
+    if (confirm("Are you sure you want to exit the form?")) {
       setMealTrainTitle("");
       setMealTrainDesc("");
       setBeneficiaryName("");
