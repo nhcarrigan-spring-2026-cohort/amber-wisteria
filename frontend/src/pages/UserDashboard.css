@@ -9,7 +9,6 @@
   --notification-red: #ff0000;
 }
 
-/* PAGE WRAPPER (navbar bovenaan + layout eronder) */
 .dashboard-page {
   display: flex;
   flex-direction: column;
@@ -18,7 +17,6 @@
   font-family: Inter, sans-serif;
 }
 
-/* FULL-WIDTH NAVBAR */
 .dashboard-navbar {
   width: 100%;
   height: 70px;
@@ -26,38 +24,55 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 30px;
-  border-bottom: 2px solid rgb(245, 242, 242);
+  padding: 0 15px 0 ;  border-bottom: 2px solid rgb(245, 242, 242);
 }
 
 .navbar-logo {
   width: 120px;
   height: auto;
+  padding: 5px;
 }
 
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+}
+
+.notif-wrapper {
+  position: relative;
+}
+
+.notif-icon,
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  filter: brightness(0) saturate(100%) invert(57%) sepia(82%) saturate(2471%) hue-rotate(1deg) brightness(101%) contrast(101%);
+}
+.notif-icon:hover,
+.logout-icon:hover {
+  filter: brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(7470%) hue-rotate(266deg) brightness(90%) contrast(102%);
 }
 
 .notification-dot {
-  width: 10px;
-  height: 10px;
-  background-color: var(--notification-red);
+  position: absolute;
+  top: -2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  background: red;
   border-radius: 50%;
 }
 
-/* LAYOUT UNDER NAVBAR */
 .dashboard-container {
   display: flex;
   flex: 1;
 }
 
-/* SIDEBAR */
 .dashboard-aside {
-  width: 155px;
-  padding: 60px 22px 40px; 
+  width: 200px;
+  padding: 40px 20px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,14 +81,15 @@
   font-weight: 700;
 }
 .welcome-text {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.3;
 }
 .dashboard-aside img {
-  width: 100x;
-  height: 100px;
+  width: 100px;
   border-radius: 50%;
 }
-
 
 .dashboard-aside ul {
   list-style: none;
@@ -90,6 +106,9 @@
   padding: 10px;
   transition: 0.2s ease;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dashboard-aside li:hover {
@@ -100,15 +119,19 @@
   background-color: var(--white);
   color: var(--orange)
 }
+.dashboard-aside li img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  filter: brightness(0) saturate(100%) invert(57%) sepia(82%) saturate(2471%) hue-rotate(1deg) brightness(101%) contrast(101%);
+}
 
-/* MAIN CONTENT AREA */
 .dashboard-main {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* CONTENT WRAPPER */
 .dashboard-content {
   flex: 1;
   margin: 10px;
@@ -118,8 +141,11 @@
   flex-direction: column;
   gap: 40px;
 }
+.card {
+  display: flex;
+  flex-direction: column;
+}
 
-/* CARD HEADER */
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -128,13 +154,12 @@
   border-bottom: 1px solid var(--black);
   padding-bottom: 12px;
   margin-bottom: 20px;
-
-
 }
 
 .card-header h1 {
   font-size: 28px;
   margin: 0;
+  font-weight: bold;
 }
 
 .card-header button {
@@ -147,23 +172,140 @@
   cursor: pointer;
 }
 
-/* MEAL TRAIN ITEMS */
 .meal-train-item {
   padding: 10px 20px;
-  margin-bottom: 30px;
+  margin: 15px 0;
   background-color: var(--white);
   border: 1px solid var(--light-black);
   border-radius: 8px;
-
 }
+.meal-train-item-wrapper {
+  padding-top: 10px;
+}
+
+.meal-train-item-wrapper + .meal-train-item-wrapper {
+  border-top: 1px solid var(--light-black);
+}
+
 
 .meal-train-item h2 {
   font-size: 18px;
   margin: 5px 0;
+  font-weight: bold;
 }
 
 .meal-train-item p {
   margin-top: 6px;
   font-size: 15px;
   color: var(--light-black);
+}
+.show-more-btn {
+  background: none;
+  border: none;
+  color: var(--orange);
+  font-weight: 600;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.chevron {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 14px;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+.icon-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.plus-icon,
+.join-icon {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+}
+
+/* Pending meal train styling */
+.meal-train-item.pending {
+  background-color: #f0f0f0; /* lichtgrijs */
+  border-color: #b5b5b5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Icons rechts */
+.pending-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icon styling */
+.pending-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(57%) sepia(82%) saturate(2471%) hue-rotate(1deg) brightness(101%) contrast(101%);
+}
+
+.pending-icon:hover {
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(7470%) hue-rotate(266deg) brightness(90%) contrast(102%);
+}
+/* Pending meal train styling */
+.meal-train-item.pending {
+  background-color: #f0f0f0;
+  border-color: #b5b5b5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0.7;
+}
+
+/* Icons rechts */
+.pending-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Base icon styling */
+.pending-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Orange waiting icon */
+.pending-icon.waiting {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(88%) saturate(2471%) hue-rotate(1deg) brightness(90%) contrast(101%);
+}
+
+/* Red remove icon */
+.pending-icon.remove {
+  filter: brightness(0) saturate(100%) invert(17%) sepia(93%) saturate(7480%) hue-rotate(356deg) brightness(92%) contrast(105%);
+}
+
+/* Hover states */
+.pending-icon.waiting:hover {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(90%) saturate(3500%) hue-rotate(1deg) brightness(85%) contrast(105%);
+}
+
+.pending-icon.remove:hover {
+  filter: brightness(0) saturate(100%) invert(12%) sepia(95%) saturate(9000%) hue-rotate(356deg) brightness(80%) contrast(110%);
 }
