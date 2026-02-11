@@ -6,6 +6,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 User = get_user_model()
 
 
+
+
+
 class ProfileSerializer(serializers.Serializer):
     display_name = serializers.CharField(required=False, allow_blank=True)
     bio = serializers.CharField(required=False, allow_blank=True)

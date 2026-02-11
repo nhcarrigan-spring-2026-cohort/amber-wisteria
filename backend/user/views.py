@@ -21,7 +21,7 @@ class RegisterView(APIView):
 
         # auto-login: return tokens
         return Response(tokens_for_user(user), status=status.HTTP_201_CREATED)
-
+ 
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
@@ -48,3 +48,5 @@ class MeView(APIView):
 
     def get(self, request):
         return Response(MeSerializer(request.user).data, status=status.HTTP_200_OK)
+
+
