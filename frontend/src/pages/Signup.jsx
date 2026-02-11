@@ -44,6 +44,7 @@ export default function Signup() {
                             onChange={handleChange}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Name" 
+                            required
                         />
 
                         <label htmlFor='email' className='dark:text-[#212B27]'>Email Address</label>
@@ -55,6 +56,7 @@ export default function Signup() {
                             onChange={handleChange}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Email Address"
+                            required
                         />
 
                         <label htmlFor='password' className='dark:text-[#212B27]'>Password</label>
@@ -66,6 +68,7 @@ export default function Signup() {
                             onChange={handleChange}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Password" 
+                            required
                         />
 
                         <label htmlFor='confirmPassword' className='dark:text-[#212B27]'>Confirm Password</label>
@@ -77,6 +80,7 @@ export default function Signup() {
                             onChange={handleChange}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Confirm Password" 
+                            required
                         />
 
                         <button type="submit" className="bg-[#A88DE5]! text-white! w-xs mt-8 mb-2 p-5! text-2xl! font-semibold!">Create Account</button>
