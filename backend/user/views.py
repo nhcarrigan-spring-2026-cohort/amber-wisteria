@@ -1,13 +1,10 @@
-from rest_framework import status, viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework import status
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.exceptions import PermissionDenied
 
-from .models import MealTrain
 from .serializers import (
     LoginSerializer,
-    MealTrainSerializer,
     MeSerializer,
     RegisterSerializer,
     tokens_for_user,
@@ -51,24 +48,5 @@ class MeView(APIView):
 
     def get(self, request):
         return Response(MeSerializer(request.user).data, status=status.HTTP_200_OK)
-
-
-class MealTrainViewSet(viewsets.ModelViewSet): #drf class-based view that provides default implementations for CRUD operations, automatically maps to URLs 
-    queryset = MealTrain.objects.all()
-    serializer_class = MealTrainSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-    def perform_create(self, serializer):
-        serializer.save(creator=self.request.user) # when a meal train is created, we automatically set the creator to the current user
-
-    def perform_update(self, serializer):
-        if serializer.instance.creator != self.request.user:
-            raise PermissionDenied("Only the creator can update this meal train.")
-        serializer.save()
-
-    def perform_destroy(self, instance):
-        if instance.creator != self.request.user:
-            raise PermissionDenied("Only the creator can delete this meal train.")
-        instance.delete()
 
 
