@@ -22,8 +22,12 @@ export default function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        console.log('Form Submitted:', formData);
-        alert(`Registered user: ${formData.name}`);
+        if (formData.password === formData.confirmPassword) {
+            console.log('Form Submitted:', formData);
+            alert(`Registered user: ${formData.name}`);
+        } else {
+            alert('Passwords must match!');
+        }
     };
 
     return (
