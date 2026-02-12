@@ -4,30 +4,17 @@ import { useState } from 'react'
 
 
 export default function Signup() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        if (formData.password === formData.confirmPassword) {
-            console.log('Form Submitted:', formData);
-            alert(`Registered user: ${formData.name}`);
-        } else {
-            alert('Passwords must match!');
-        }
+        console.log('Form Submitted:', name, email, password, confirmPassword);
+        alert(`Registered user: ${name}`);
+
     };
 
     return (
@@ -44,8 +31,8 @@ export default function Signup() {
                             type="text" 
                             id="name" 
                             name="name" 
-                            value={formData.name}
-                            onChange={handleChange}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Name" 
                             required
@@ -56,8 +43,8 @@ export default function Signup() {
                             type="email" 
                             id="email" 
                             name="email" 
-                            value={formData.email}
-                            onChange={handleChange}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Email Address"
                             required
@@ -68,8 +55,8 @@ export default function Signup() {
                             type="password" 
                             id="password" 
                             name="password" 
-                            value={formData.password}
-                            onChange={handleChange}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Password" 
                             required
@@ -80,8 +67,8 @@ export default function Signup() {
                             type="password" 
                             id="confirmPassword" 
                             name="confirmPassword" 
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Confirm Password" 
                             required
