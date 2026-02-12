@@ -2,19 +2,21 @@ import Background from '../components/Background'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
-
 export default function Signup() {
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        console.log('Form Submitted:', name, email, password, confirmPassword);
-        alert(`Registered user: ${name}`);
-
+        if (password === confirmPassword) {
+            console.log('Form Submitted:', name, email, password, confirmPassword);
+            alert(`Registered user: ${name}`);
+        } else {            
+            alert('Passwords must match');
+        }
     };
 
     return (
@@ -59,7 +61,10 @@ export default function Signup() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Password" 
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                             required
+                            minLength='8'
                         />
 
                         <label htmlFor='confirmPassword' className='dark:text-[#212B27]'>Confirm Password</label>
@@ -71,7 +76,10 @@ export default function Signup() {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]" 
                             placeholder="Confirm Password" 
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
                             required
+                            minLength='8'
                         />
 
                         <button type="submit" className="bg-[#A88DE5]! text-white! w-xs mt-8 mb-2 p-5! text-2xl! font-semibold!">Create Account</button>
