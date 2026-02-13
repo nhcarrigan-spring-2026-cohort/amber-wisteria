@@ -1,23 +1,23 @@
-import Background from '../components/Background'
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import Background from '../components/Background';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Signup() {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (password === confirmPassword) {
-      console.log('Form Submitted:', name, email, password, confirmPassword)
-      alert(`Registered user: ${name}`)
+      console.log('Form Submitted:', name, email, password, confirmPassword);
+      alert(`Registered user: ${name}`);
     } else {
-      alert('Passwords must match')
+      alert('Passwords must match');
     }
-  }
+  };
 
   return (
     <Background>
@@ -108,5 +108,5 @@ export default function Signup() {
         </form>
       </div>
     </Background>
-  )
+  );
 }
