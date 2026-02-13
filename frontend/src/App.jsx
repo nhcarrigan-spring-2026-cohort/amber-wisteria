@@ -15,6 +15,7 @@ function App() {
         <Route path="/" element={<div>Home Page - Coming Soon</div>} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/create-meal-train" element={<CreateMealTrain />} />
+        <Route path="/single-meal-view" element={<SingleMealView />} />
       </Routes>
   );
 }
