@@ -12,10 +12,8 @@ export default function SingleMealView({
 
     const [isShowMoreClicked, setIsShowMoreClicked] = useState(false);
 
-    const [showDescription, setShowDescription] = useState(false);
-
     return (
-        <div className="max-w-2xl bg-white border-2 border-gray-500 rounded-lg p-3 al">
+        <div className="max-w-2xl bg-white border-2 border-gray-500 rounded-lg p-3">
             <div className="flex justify-between items-center mb-4">
                 <h1 className="text-xl font-bold">{mealTitle}</h1>
                 <p className="text-md text-gray-400 font-medium">{new Date(mealDate).toDateString()}</p>
@@ -31,7 +29,7 @@ export default function SingleMealView({
                 ))}
             </div>
 
-            {showDescription && (
+            {isShowMoreClicked && (
                 <div className="flex flex-col items-center justify-center gap-3">
                     <p className="text-gray-600 text-left">
                         {mealDesc}
@@ -51,10 +49,7 @@ export default function SingleMealView({
             <div className="flex items-center justify-end">
                 {isShowMoreClicked ? (
                     <button
-                        onClick={() => {
-                            setShowDescription(false);
-                            setIsShowMoreClicked(false);
-                        }}
+                        onClick={() => setIsShowMoreClicked(false)}
                         className="flex gap-1 text-[#F68300] items-center"
                     >
                         Show Less
@@ -63,10 +58,7 @@ export default function SingleMealView({
                     
                 ) : (
                     <button
-                        onClick={() => {
-                            setShowDescription(true);
-                            setIsShowMoreClicked(true);
-                        }}
+                        onClick={() => setIsShowMoreClicked(true)}
                         className="flex items-center gap-1 text-[#F68300]"
                     >
                         Show More
