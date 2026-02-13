@@ -5,7 +5,7 @@ export default function ReviewStep({
     mealTrainDesc,
     beneficiaryName,
     deliveryAddress,
-    _deliveryInstructions, // intentionally unused for now
+    //_deliveryInstructions, // intentionally unused for now
     selectedDates,
     restrictions,
     onCreate,
