@@ -14,7 +14,7 @@
 
 .react-calendar__tile.active-day {
     background-color: #A88DE5 !important;
-    color: white;
+    color: white !important;
     font-weight: bold;
 }
 
