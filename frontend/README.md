@@ -16,11 +16,10 @@ The React Compiler is not enabled on this template because of its impact on dev 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
 # Setup
+
 ## Frontend
 
 This folder contains the React frontend for the Amber Wisteria project.
-
-
 
 ### 1. Install dependencies
 
@@ -30,7 +29,9 @@ npm install
 ```
 
 ### 2. Run the development server
+
 ```bash
 npm run dev
 ```
+
 The app will be available at: http://localhost:5173
