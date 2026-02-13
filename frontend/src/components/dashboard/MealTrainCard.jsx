@@ -1,4 +1,5 @@
-import HoverIcon, { redFilter } from './HoverIcon';
+import { redFilter } from './HoverIcon.constants';
+import HoverIcon from './HoverIcon';
 import WaitingIcon from '../../assets/waiting.svg';
 import XIcon from '../../assets/x.svg';
 
