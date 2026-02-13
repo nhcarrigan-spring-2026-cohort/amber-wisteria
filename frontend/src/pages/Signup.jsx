@@ -14,6 +14,10 @@ export default function Signup() {
     if (password === confirmPassword) {
       console.log('Form Submitted:', name, email, password, confirmPassword);
       alert(`Registered user: ${name}`);
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
     } else {
       alert('Passwords must match');
     }
