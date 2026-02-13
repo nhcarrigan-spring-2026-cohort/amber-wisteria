@@ -4,11 +4,11 @@ import Label from "../components/Label";
 import Input from "../components/Input";
 import Textarea from "../components/Textarea";
 
+import BackBtn from "../components/BackBtn";
 import RestrictionToggle from "../components/RestrictionToggle";
 import IngredientOrRestrictionPill from "../components/view-meal-train/IngredientOrRestrictionPill";
 
 import { RESTRICTIONS } from "../data/restrictions";
-
 
 export default function CreateMeal() {
   const [mealTitle, setMealTitle] = useState("");
@@ -37,30 +37,42 @@ export default function CreateMeal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-      mealTitle,
-      mealDesc,
-      mealType,
-      mealDate,
-      deliveryMethod,
-      restrictions,
-      ingredients,
-    });
-    alert("Meal created!");
   };
 
   return (
     <Background>
-      <div className="flex items-center justify-center h-screen w-full">
+      <div className="flex flex-col items-center justify-start h-screen w-full pt-10">
+
+        <h2 className="text-3xl font-bold text-[#212B27] mb-6 text-center">
+          Bilal’s Meal Train
+        </h2>
+
         <form
           onSubmit={handleSubmit}
-          className="relative z-3 bg-[#FFECC899] rounded-4xl shadow-xl pt-14 pr-22 pb-14 pl-22 flex flex-col box-border items-center w-[600px]"
+          className="
+            relative z-3 
+            bg-[#FFECC899] 
+            rounded-4xl 
+            shadow-xl 
+            pt-10 pr-10 pb-14 pl-10 
+            flex flex-col 
+            box-border 
+            items-center 
+            w-[600px]
+            max-h-[75vh]
+            overflow-y-auto
+          "
         >
-          <h1 className="font-semibold mb-8 text-[45px] text-[#212B27]">
+
+          <div className="absolute left-6 top-6">
+            <BackBtn onClick={() => window.history.back()} />
+          </div>
+
+          <h1 className="font-semibold mb-8 text-[40px] text-[#212B27]">
             Create Meal
           </h1>
 
-          <div className="w-full flex flex-col mb-4">
+          <div className="w-full flex flex-col mb-6">
             <Label>Meal Title</Label>
             <Input
               value={mealTitle}
@@ -71,7 +83,7 @@ export default function CreateMeal() {
             />
           </div>
 
-          <div className="w-full flex flex-col mb-4">
+          <div className="w-full flex flex-col mb-6">
             <Label>Meal Description</Label>
             <Textarea
               value={mealDesc}
@@ -82,7 +94,7 @@ export default function CreateMeal() {
             />
           </div>
 
-          <div className="w-full flex flex-col mb-4">
+          <div className="w-full flex flex-col mb-6">
             <Label>Meal Type</Label>
             <select
               value={mealType}
@@ -97,7 +109,7 @@ export default function CreateMeal() {
             </select>
           </div>
 
-          <div className="w-full flex flex-col mb-4">
+          <div className="w-full flex flex-col mb-6">
             <Label>Meal Date</Label>
             <input
               type="date"
@@ -108,7 +120,7 @@ export default function CreateMeal() {
             />
           </div>
 
-          <div className="w-full flex flex-col mb-4">
+          <div className="w-full flex flex-col mb-6">
             <Label>Delivery Method</Label>
             <select
               value={deliveryMethod}
@@ -122,25 +134,25 @@ export default function CreateMeal() {
             </select>
           </div>
 
-          <div className="w-full flex flex-col mb-4">
-            <Label>Please avoid these ingredients</Label>
-
-            <div className="flex flex-wrap gap-4 justify-center items-center mt-3">
-              {RESTRICTIONS.map((item) => (
-                <RestrictionToggle
-                  key={item.id}
-                  item={item}
-                  selected={restrictions.includes(item.id)}
-                  onToggle={toggleRestriction}
-                />
-              ))}
-            </div>
+          <div className="bg-[#FFA64D] text-white font-semibold text-center px-4 py-1 rounded-full mb-4 self-center w-fit">
+            Please avoid these ingredients
           </div>
 
-          <div className="w-full flex flex-col mb-4">
+          <div className="w-full flex flex-wrap gap-4 justify-center items-center mb-6">
+            {RESTRICTIONS.map((item) => (
+              <RestrictionToggle
+                key={item.id}
+                item={item}
+                selected={restrictions.includes(item.id)}
+                onToggle={toggleRestriction}
+              />
+            ))}
+          </div>
+
+          <div className="w-full flex flex-col mb-6">
             <Label>Ingredients</Label>
 
-            <div className="flex gap-3 mt-2 w-full">
+            <div className="w-full flex flex-col mt-2">
               <Input
                 value={ingredientInput}
                 onChange={(e) => setIngredientInput(e.target.value)}
@@ -151,23 +163,27 @@ export default function CreateMeal() {
               <button
                 type="button"
                 onClick={addIngredient}
-                className="bg-[#A88DE5] text-white rounded-xl px-6"
+                className="bg-[#A88DE5] text-white rounded-xl py-4 mt-3 w-full text-center font-semibold"
               >
-                Add
+                Add Ingredient
               </button>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-4">
+            <div className="flex flex-wrap gap-3 mt-4">
               {ingredients.map((item, index) => (
-                <IngredientOrRestrictionPill key={index}>{item}</IngredientOrRestrictionPill>
+                <IngredientOrRestrictionPill
+                  key={index}
+                  className="bg-[#F68300] px-4 py-2"
+                >
+                  {item}
+                </IngredientOrRestrictionPill>
               ))}
             </div>
           </div>
 
-          {/* SUBMIT */}
           <button
             type="submit"
-            className="bg-[#A88DE5] text-white w-xs mt-8 mb-2 p-5 text-2xl font-semibold rounded-xl"
+            className="bg-[#A88DE5] text-white w-xs mt-4 p-5 text-2xl font-semibold rounded-xl"
           >
             Create Meal
           </button>
