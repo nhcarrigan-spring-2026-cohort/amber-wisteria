@@ -6,7 +6,6 @@ import UserDashboard from "./pages/UserDashboard.jsx";
 import CreateMealTrain from "./pages/CreateMealTrain";
 
 import "./App.css";
-import SingleMealView from "./components/view-meal-train/SingleMealView.jsx";
 
 function App() {
   return (
