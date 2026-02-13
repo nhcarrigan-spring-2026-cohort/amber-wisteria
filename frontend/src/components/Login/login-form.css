@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap');
 
 .login-page {
@@ -7,7 +6,7 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background-color: #FFF8E3;
+  background-color: #fff8e3;
   position: relative;
   overflow: hidden;
   padding: 20px;
@@ -16,7 +15,7 @@
 
 .login-form {
   background: rgba(255, 236, 200, 0.6);
-  border: 1.534px solid rgba(0, 0, 0, 0.10);
+  border: 1.534px solid rgba(0, 0, 0, 0.1);
   border-radius: 49.09px;
   width: 698px;
   height: 698px;
@@ -28,19 +27,26 @@
   align-items: center;
   position: relative;
   z-index: 2;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 /* Sign-in heading from the figma file */
 .signin-heading {
-  font-family: 'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  font-family:
+    'Karla',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial;
   font-weight: 700;
   font-size: 55.226px;
   -webkit-text-stroke-width: 1.53px;
-  -webkit-text-stroke-color: rgba(0, 0, 0, 0.10);
+  -webkit-text-stroke-color: rgba(0, 0, 0, 0.1);
   font-style: normal;
   line-height: 71.794px;
-  color: #212B27;
+  color: #212b27;
   text-align: center;
   margin: 0 0 24px 0;
 }
@@ -57,13 +63,13 @@
   width: 575.275px;
   height: 84.374px;
   border-radius: 15.341px;
-  border: 1.534px solid rgba(0, 0, 0, 0.10);
-  background: #FFF;
+  border: 1.534px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
   color: #0b0c0c;
   padding: 1.53px 10.53px;
   border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.12);
-  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.9);
   font-size: 16px;
   font-family: 'Karla', sans-serif;
 }
@@ -76,11 +82,11 @@
 .submit {
   width: 391.187px;
   height: 90.51px;
-  justify-content:center;
+  justify-content: center;
   text-align: center;
   border-radius: 23.011px;
-  border: 1.534px solid rgba(0, 0, 0, 0.10);
-  background: #A88DE5;
+  border: 1.534px solid rgba(0, 0, 0, 0.1);
+  background: #a88de5;
   margin-top: 8px;
   padding: 1.53px 1.53px;
   color: white;
@@ -103,10 +109,10 @@
 .signup-text {
   width: 348px;
   height: 29px;
-  color: var(--Paragraph, #32403B);
+  color: var(--Paragraph, #32403b);
   text-align: center;
   -webkit-text-stroke-width: 1.53px;
-  -webkit-text-stroke-color: rgba(0, 0, 0, 0.10);
+  -webkit-text-stroke-color: rgba(0, 0, 0, 0.1);
   font-family: Karla;
   font-size: 20.477px;
   font-style: normal;
@@ -116,7 +122,7 @@
 }
 
 .signup-text a {
-  color: var(--Paragraph, #32403B);
+  color: var(--Paragraph, #32403b);
   font-family: Karla;
   font-size: 21.477px;
   font-style: normal;
@@ -130,10 +136,11 @@
   text-underline-position: from-font;
 }
 .signup-text a:hover {
-  color: #A88DE5;
+  color: #a88de5;
 }
 
-.elementOne, .elementTwo {
+.elementOne,
+.elementTwo {
   position: absolute;
   width: 750px;
   height: 750px;
@@ -143,13 +150,13 @@
 }
 
 .elementOne {
-  background: #F68300;
+  background: #f68300;
   top: -360px;
   left: -200px;
 }
 
 .elementTwo {
-  background: #FEB058;
+  background: #feb058;
   bottom: -360px;
   right: -200px;
 }
@@ -161,7 +168,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
@@ -170,36 +177,36 @@
   .login-page {
     padding: 16px;
   }
-  
+
   .login-form {
     padding: 40px 28px;
     border-radius: 32px;
   }
-  
+
   .signin-heading {
     font-size: 44px;
     line-height: 54px;
   }
-  
+
   .form input {
     width: 100%;
     height: 64px;
     font-size: 16px;
     padding: 10px 16px;
   }
-  
+
   .submit {
     width: 100%;
     height: 64px;
     font-size: 17px;
   }
-  
+
   .signup-text {
     width: 100%;
     font-size: 18px;
     line-height: 24px;
   }
-  
+
   .signup-text a {
     font-size: 18px;
   }
