@@ -1,10 +1,11 @@
 import Button from "../Button";
+
 export default function ReviewStep({
     mealTrainTitle,
     mealTrainDesc,
     beneficiaryName,
     deliveryAddress,
-    deliveryInstructions,
+    _deliveryInstructions, // intentionally unused for now
     selectedDates,
     restrictions,
     onCreate,
@@ -46,12 +47,10 @@ export default function ReviewStep({
                         </div>
                     ))}
                 </div>
-
             </div>
 
             {/* Final Create */}
             <Button children="Create" className="w-full" variant="orange" onClick={onCreate} />
-
         </div>
     );
 }
