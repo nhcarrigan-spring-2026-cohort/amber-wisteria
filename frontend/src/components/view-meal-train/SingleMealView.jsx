@@ -5,6 +5,7 @@ export default function SingleMealView({
     mealTitle = "Stir-fried tomato and scrambled eggs",
     mealDesc = "classic, simple Chinese home-style dish featuring fluffy scrambled eggs and soft, saucy tomatoes",
     mealDate = "2026-02-21",
+    preparedBy = "Bilal",
     deliveryMethod = "Self-deliver",
     restrictions = ["Vegan", "Gluten-free", "Nut-free", "Egg-free"],
     ingredients = ["Tomato", "ketchup", "eggs"]
@@ -44,6 +45,7 @@ export default function SingleMealView({
                         ))}
                     </div>
                     <p className="self-start"><b>Delivery Method:</b> <span className=" text-gray-600">{deliveryMethod}</span></p>
+                    <p className="self-start -mt-3"><b>Prepared By: :</b> <span className=" text-gray-600">{preparedBy}</span></p>
                 </div>
             )}
             <div className="flex items-center justify-end">
