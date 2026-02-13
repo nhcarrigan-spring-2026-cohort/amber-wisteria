@@ -9,27 +9,26 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password === confirmPassword) {
-        try {
-        const res = await axiosClient.post(
-            '/api/auth/register',
-            { 
-            username: name,
-            password: password,
-            email: email 
-        }
-    );
-    console.log(res.data);
-} catch(err) { console.log(err); }
-        console.log('Form Submitted:', name, email, password, confirmPassword);
-        alert(`Registered user: ${name}`);
-        setName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
+      try {
+        const res = await axiosClient.post('/api/auth/register', {
+          username: name,
+          password: password,
+          email: email
+        });
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+      console.log('Form Submitted:', name, email, password, confirmPassword);
+      alert(`Registered user: ${name}`);
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
     } else {
       alert('Passwords must match');
     }
