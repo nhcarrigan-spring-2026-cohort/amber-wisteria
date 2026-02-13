@@ -7,8 +7,6 @@ User = get_user_model()
 
 
 
-
-
 class ProfileSerializer(serializers.Serializer):
     display_name = serializers.CharField(required=False, allow_blank=True)
     bio = serializers.CharField(required=False, allow_blank=True)
@@ -18,7 +16,7 @@ class ProfileSerializer(serializers.Serializer):
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
     password = serializers.CharField(write_only=True, min_length=8)
-    email = serializers.EmailField(required=False, allow_blank=True)
+    email = serializers.EmailField(required=False, allow_blank=True) # optional email
 
     def validate_username(self, value):
         if User.objects.filter(username=value).exists():
@@ -81,3 +79,11 @@ class MeSerializer(serializers.ModelSerializer):
 def tokens_for_user(user) -> dict:
     refresh = RefreshToken.for_user(user)
     return {"refresh": str(refresh), "access": str(refresh.access_token)}
+
+class UserSearchSerializer(serializers.ModelSerializer):
+    """Serializer for user search results - returns minimal user info"""
+    
+    class Meta:
+        model = User
+        fields = ("id", "username")
+        read_only_fields = ("id", "username") 

@@ -8,6 +8,7 @@ from .serializers import (
     LoginSerializer,
     MeSerializer,
     RegisterSerializer,
+    UserSearchSerializer,
     tokens_for_user,
 )
 
@@ -53,3 +54,16 @@ class MeView(APIView):
         return Response(MeSerializer(request.user).data, status=status.HTTP_200_OK)
 
 
+class UserSearchView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    
+    def get(self, request):
+        query = request.query_params.get("username")
+        if not query:
+            return Response({"detail": "Query parameter 'username' is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # search by username (case-insensitive, partial match)
+        users = User.objects.filter(username__icontains=query, is_active=True).exclude(id=request.user.id)[:20]  # exclude self from results, limit to 20
+        serializer = UserSearchSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
