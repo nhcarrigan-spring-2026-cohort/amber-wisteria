@@ -1,6 +1,4 @@
-
 export default function Input({
-    children,
     type,
     value,
     onChange,
@@ -9,7 +7,7 @@ export default function Input({
     ...props
 }) {
     return (
-        <input 
+        <input
             type={type}
             value={value}
             onChange={onChange}
@@ -17,5 +15,5 @@ export default function Input({
             placeholder={placeholder}
             {...props}
         />
-    )
+    );
 }

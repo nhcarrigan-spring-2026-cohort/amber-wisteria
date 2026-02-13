@@ -6,12 +6,12 @@ export default function CancelBtn({
     ...props
 }) {
     return (
-        <button 
+        <button
             onClick={onClick}
-            className="rounded-full border-none outline-none font-medium text-white bg-red-500 w-8 h-8 cursor-pointer hover:scale-110 transition"
+            className={`rounded-full border-none outline-none font-medium text-white bg-red-500 w-8 h-8 cursor-pointer hover:scale-110 transition ${className}`}
             {...props}
         >
             <CancelBtnIcon />
         </button>
-    )
+    );
 }

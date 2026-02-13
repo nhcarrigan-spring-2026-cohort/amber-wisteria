@@ -6,12 +6,12 @@ export default function BackBtn({
     ...props
 }) {
     return (
-        <button 
-            className="rounded-full border-none font-medium outline-none text-white bg-orange-500 w-8 h-8 cursor-pointer hover:scale-110 transition"
+        <button
+            className={`rounded-full border-none font-medium outline-none text-white bg-orange-500 w-8 h-8 cursor-pointer hover:scale-110 transition ${className}`}
             onClick={onClick}
             {...props}
         >
             <BackBtnIcon />
         </button>
-    )
+    );
 }
