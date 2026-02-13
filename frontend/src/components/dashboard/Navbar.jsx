@@ -1,13 +1,13 @@
-import logo from "../../assets/logo.png";
-import NotifIcon from "../../assets/notif.svg";
-import LogoutIcon from "../../assets/logout.svg";
+import logo from '../../assets/logo.png';
+import NotifIcon from '../../assets/notif.svg';
+import LogoutIcon from '../../assets/logout.svg';
 
 export default function Navbar() {
   const iconFilter =
-    "brightness(0) saturate(100%) invert(57%) sepia(82%) saturate(2471%) hue-rotate(1deg) brightness(101%) contrast(101%)";
+    'brightness(0) saturate(100%) invert(57%) sepia(82%) saturate(2471%) hue-rotate(1deg) brightness(101%) contrast(101%)';
 
   const hoverFilter =
-    "brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(7470%) hue-rotate(266deg) brightness(90%) contrast(102%)";
+    'brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(7470%) hue-rotate(266deg) brightness(90%) contrast(102%)';
 
   return (
     <header className="w-full h-[70px] bg-[#fff7e0] flex justify-between items-center px-4 border-b-2 border-[#f5f2f2]">
