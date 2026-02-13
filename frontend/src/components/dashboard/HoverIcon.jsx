@@ -1,14 +1,6 @@
-import {
-  orangeFilter,
-  purpleHover,
-} from "./HoverIcon.constants";
+import { orangeFilter, purpleHover } from './HoverIcon.constants';
 
-export default function HoverIcon({
-  src,
-  alt,
-  base = orangeFilter,
-  hover = purpleHover,
-}) {
+export default function HoverIcon({ src, alt, base = orangeFilter, hover = purpleHover }) {
   return (
     <img
       src={src}
