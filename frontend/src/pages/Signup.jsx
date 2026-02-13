@@ -1,6 +1,7 @@
 import Background from '../components/Background';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import axiosClient from '../api/axiosClient';
 
 export default function Signup() {
   const [name, setName] = useState('');
@@ -8,16 +9,27 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password === confirmPassword) {
-      console.log('Form Submitted:', name, email, password, confirmPassword);
-      alert(`Registered user: ${name}`);
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
+        try {
+        const res = await axiosClient.post(
+            '/api/auth/register',
+            { 
+            username: name,
+            password: password,
+            email: email 
+        }
+    );
+    console.log(res.data);
+} catch(err) { console.log(err); }
+        console.log('Form Submitted:', name, email, password, confirmPassword);
+        alert(`Registered user: ${name}`);
+        setName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
     } else {
       alert('Passwords must match');
     }
