@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import avatar from '../../assets/avatar.png';
 import DashboardIcon from '../../assets/dashboard.svg';
-import { orangeFilterConst } from './HoverIcon';
+import { orangeFilterConst } from './HoverIcon.constants';
 
 export default function Sidebar() {
   const navigate = useNavigate();
