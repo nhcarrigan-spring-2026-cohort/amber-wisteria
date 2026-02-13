@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
-from django.db import models
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "rest_framework",
     "user.apps.UserConfig",
+   'drf_yasg',
     "mealTrain",
 ]
 
@@ -137,6 +137,17 @@ REST_FRAMEWORK = {
     ),
 }
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Enter your JWT token in the format: **Bearer &lt;token&gt;**'
+        }
+    },
+    'USE_SESSION_AUTH': False,
+}
 
 # token duration settings
 SIMPLE_JWT = {
