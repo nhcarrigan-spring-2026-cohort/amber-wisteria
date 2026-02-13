@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import UserDashboard from './pages/UserDashboard.jsx';
 import CreateMealTrain from './pages/CreateMealTrain';
-
+import CreateMeal from './pages/CreateMeal.jsx';
 import './App.css';
 
 function App() {
