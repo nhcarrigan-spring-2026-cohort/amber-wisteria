@@ -3,11 +3,13 @@
   border: none;
   outline: none;
   margin: 0 auto;
+  width: 400px;
+  height: 390px;
 }
 
 .react-calendar__tile {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 100%;
   transition: all 0.1s ease;
 }
