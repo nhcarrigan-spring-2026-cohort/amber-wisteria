@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import "react-calendar/dist/Calendar.css";
-import "../meal-train/CustomCalendar.css";
-import BasicInfoStep from "./BasicInfoStep";
-import ScheduleStep from "./ScheduleStep";
-import ReviewStep from "./ReviewStep";
-import BackBtn from "../BackBtn";
-import CancelBtn from "../CancelBtn";
-import { useNavigate } from "react-router-dom"
+import React, { useState } from 'react';
+import 'react-calendar/dist/Calendar.css';
+import '../meal-train/CustomCalendar.css';
+import BasicInfoStep from './BasicInfoStep';
+import ScheduleStep from './ScheduleStep';
+import ReviewStep from './ReviewStep';
+import BackBtn from '../BackBtn';
+import CancelBtn from '../CancelBtn';
+import { useNavigate } from 'react-router-dom';
 
 export default function MealTrainForm() {
   // step state => to control steps
   const [step, setStep] = useState(1);
 
   // step 1
-  const [mealTrainTitle, setMealTrainTitle] = useState("");
-  const [mealTrainDesc, setMealTrainDesc] = useState("");
-  const [beneficiaryName, setBeneficiaryName] = useState("");
+  const [mealTrainTitle, setMealTrainTitle] = useState('');
+  const [mealTrainDesc, setMealTrainDesc] = useState('');
+  const [beneficiaryName, setBeneficiaryName] = useState('');
 
   // step 2
   const [selectedDates, setSelectedDates] = useState({});
   const [activeDate, setActiveDate] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState('');
   const [restrictions, setRestrictions] = useState([]);
 
   const navigate = useNavigate();
@@ -30,12 +30,12 @@ export default function MealTrainForm() {
     e.preventDefault();
 
     if (!mealTrainTitle.trim()) {
-      alert("Please provide meal title.");
+      alert('Please provide meal title.');
       return;
     }
 
     if (!beneficiaryName.trim()) {
-      alert("Please provide beneficiary name.")
+      alert('Please provide beneficiary name.');
       return;
     }
 
@@ -43,17 +43,15 @@ export default function MealTrainForm() {
   };
 
   const formatDate = (date) => {
-    return date.toLocaleDateString("en-CA").split("T")[0];
-  }
+    return date.toLocaleDateString('en-CA').split('T')[0];
+  };
 
   const handleDayClick = (clickedDate) => {
     const formatted = formatDate(clickedDate);
 
     setSelectedDates((prev) => {
-
       // day already exists
       if (prev[formatted]) {
-
         // if its already active -> unselect
         if (formatted === activeDate) {
           const updated = { ...prev };
@@ -75,7 +73,7 @@ export default function MealTrainForm() {
         [formatted]: {
           breakfast: false,
           lunch: false,
-          dinner: false,
+          dinner: false
         }
       };
     });
@@ -97,11 +95,11 @@ export default function MealTrainForm() {
     if (validateSchedule()) {
       setStep(3);
     }
-  }
+  };
 
   const validateSchedule = () => {
     if (Object.keys(selectedDates).length === 0) {
-      alert("Please select at least one day.");
+      alert('Please select at least one day.');
       return false;
     }
 
@@ -114,19 +112,18 @@ export default function MealTrainForm() {
     }
 
     if (!deliveryAddress.trim()) {
-      alert("Please provide a delivery address.");
+      alert('Please provide a delivery address.');
       return false;
     }
 
     if (quantity <= 0) {
-      alert("Please provide valid meal quantity.")
+      alert('Please provide valid meal quantity.');
       return false;
     }
     return true;
-  }
+  };
 
   const handleCreateMealTrain = async () => {
-
     const payload = {
       title: mealTrainTitle,
       description: mealTrainDesc,
@@ -135,40 +132,36 @@ export default function MealTrainForm() {
       schedule: selectedDates,
       restrictions
     };
-    console.log("Sending a mock server:", payload);
+    console.log('Sending a mock server:', payload);
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const fakeData = {
-      id: "mt-" + Math.floor(Math.random() * 10000),
-      status: "success"
+      id: 'mt-' + Math.floor(Math.random() * 10000),
+      status: 'success'
     };
 
     const shareUrl = `${window.location.origin}/meal-train/${fakeData.id}`;
 
-    alert("MOCK MODE: Meal Train Created!\n\nShare this link:\n" + shareUrl);
-
+    alert('MOCK MODE: Meal Train Created!\n\nShare this link:\n' + shareUrl);
   };
 
   const clearForm = () => {
-    if (confirm("Are you sure you want to exit the form?")) {
-      setMealTrainTitle("");
-      setMealTrainDesc("");
-      setBeneficiaryName("");
+    if (confirm('Are you sure you want to exit the form?')) {
+      setMealTrainTitle('');
+      setMealTrainDesc('');
+      setBeneficiaryName('');
       setActiveDate(null);
       setSelectedDates({});
       setRestrictions([]);
       setQuantity(1);
-      setDeliveryAddress("");
+      setDeliveryAddress('');
 
-      navigate("/");
+      navigate('/');
     } else {
       return;
     }
-
-
-  }
-
+  };
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center relative">
@@ -176,29 +169,24 @@ export default function MealTrainForm() {
       <div className="w-full max-w-lg bg-[#FFECC8] rounded-2xl shadow-md p-8">
         {/* Heading */}
         <div className="mb-6 grid grid-cols-[auto_1fr_auto] items-center justify-center">
-
           <div className="flex justify-start">
-            {(step === 2 || step === 3) && (
-              <BackBtn
-                onClick={() => setStep(prev => prev - 1)}
-              />
-            )}
+            {(step === 2 || step === 3) && <BackBtn onClick={() => setStep((prev) => prev - 1)} />}
           </div>
 
           <h1 className="text-3xl font-semibold text-gray-800 text-center mb-1">
-            {step === 1 ? "Create a Meal Train" :
-              step === 2 ? `Making a meal train for "${mealTrainTitle}"` :
-                step === 3 ? `Review meal train for "${mealTrainTitle}"` :
-                  ""}
+            {step === 1
+              ? 'Create a Meal Train'
+              : step === 2
+                ? `Making a meal train for "${mealTrainTitle}"`
+                : step === 3
+                  ? `Review meal train for "${mealTrainTitle}"`
+                  : ''}
           </h1>
 
           <div>
-            <CancelBtn
-              onClick={clearForm}
-            />
+            <CancelBtn onClick={clearForm} />
           </div>
         </div>
-
 
         {/* STEP 1 */}
         {step === 1 && (
@@ -212,7 +200,6 @@ export default function MealTrainForm() {
             onNext={handleBasicInfoSubmit}
           />
         )}
-
 
         {/* STEP 2  */}
         {step === 2 && (
