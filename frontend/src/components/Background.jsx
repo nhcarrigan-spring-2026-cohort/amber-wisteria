@@ -11,9 +11,7 @@ export default function Background({ children }) {
         className="absolute min-w-135 min-h-135 lg:w-187.5 lg:h-187.5 z-0 -bottom-77.5 -right-77.25 bg-[#FEB058] -rotate-45 rounded-[160px] md:w-150 md:h-150"
       ></div>
 
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }

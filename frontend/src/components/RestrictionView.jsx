@@ -12,9 +12,7 @@ export default function RestrictionView({ item }) {
         <Icon />
       </div>
 
-      <span className="text-[14px] text-gray-700 font-medium mt-1">
-        {item.label}
-      </span>
+      <span className="text-[14px] text-gray-700 font-medium mt-1">{item.label}</span>
     </div>
   );
 }

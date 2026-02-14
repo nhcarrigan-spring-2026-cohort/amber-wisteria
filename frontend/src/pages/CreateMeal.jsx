@@ -1,38 +1,38 @@
-import { useState } from "react";
-import Background from "../components/Background";
-import Label from "../components/Label";
-import Input from "../components/Input";
-import Textarea from "../components/Textarea";
-import BackBtn from "../components/BackBtn";
-import IngredientOrRestrictionPill from "../components/view-meal-train/IngredientOrRestrictionPill";
-import RestrictionView from "../components/RestrictionView";
-import { RESTRICTIONS } from "../data/restrictions";
+import { useState } from 'react';
+import Background from '../components/Background';
+import Label from '../components/Label';
+import Input from '../components/Input';
+import Textarea from '../components/Textarea';
+import BackBtn from '../components/BackBtn';
+import IngredientOrRestrictionPill from '../components/view-meal-train/IngredientOrRestrictionPill';
+import RestrictionView from '../components/RestrictionView';
+import { RESTRICTIONS } from '../data/restrictions';
 
 export default function CreateMeal() {
-  const [mealTitle, setMealTitle] = useState("");
-  const [mealDesc, setMealDesc] = useState("");
-  const [mealType, setMealType] = useState("");
-  const [mealDate, setMealDate] = useState("");
-  const [deliveryMethod, setDeliveryMethod] = useState("");
+  const [mealTitle, setMealTitle] = useState('');
+  const [mealDesc, setMealDesc] = useState('');
+  const [mealType, setMealType] = useState('');
+  const [mealDate, setMealDate] = useState('');
+  const [deliveryMethod, setDeliveryMethod] = useState('');
 
   // To be edited => Restrictions come from meal train maker
-  const restrictions = ["Vegan", "Gluten-free", "Nut-free", "Egg-free"];
+  const restrictions = ['Vegan', 'Gluten-free', 'Nut-free', 'Egg-free'];
 
-  // To be edited => Dates that come from meal train maker 
-  const allowedDates = ["2026-02-21", "2026-02-23", "2026-02-25"];
+  // To be edited => Dates that come from meal train maker
+  const allowedDates = ['2026-02-21', '2026-02-23', '2026-02-25'];
 
-  const [ingredientInput, setIngredientInput] = useState("");
+  const [ingredientInput, setIngredientInput] = useState('');
   const [ingredients, setIngredients] = useState([]);
 
   const addIngredient = () => {
     if (!ingredientInput.trim()) return;
     setIngredients([...ingredients, ingredientInput.trim()]);
-    setIngredientInput("");
+    setIngredientInput('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log for testing purposes right now 
+    // console.log for testing purposes right now
     console.log({
       mealTitle,
       mealDesc,
@@ -40,19 +40,16 @@ export default function CreateMeal() {
       mealDate,
       deliveryMethod,
       restrictions,
-      ingredients,
+      ingredients
     });
 
-    alert("Meal created!");
+    alert('Meal created!');
   };
 
   return (
     <Background>
       <div className="flex flex-col items-center justify-start h-screen w-full pt-10">
-
-        <h2 className="text-3xl font-bold text-[#212B27] mb-6 text-center">
-          Bilal’s Meal Train
-        </h2>
+        <h2 className="text-3xl font-bold text-[#212B27] mb-6 text-center">Bilal’s Meal Train</h2>
 
         <form
           onSubmit={handleSubmit}
@@ -70,14 +67,11 @@ export default function CreateMeal() {
             overflow-y-auto
           "
         >
-
           <div className="absolute left-6 top-6">
             <BackBtn onClick={() => window.history.back()} />
           </div>
 
-          <h1 className="font-semibold mb-8 text-[40px] text-[#212B27]">
-            Create Meal
-          </h1>
+          <h1 className="font-semibold mb-8 text-[40px] text-[#212B27]">Create Meal</h1>
 
           <div className="w-full flex flex-col mb-6">
             <Label>Meal Title</Label>
@@ -106,9 +100,7 @@ export default function CreateMeal() {
               required
             />
 
-            <p className="text-right text-sm text-gray-500 mt-1">
-              {mealDesc.length}/100
-            </p>
+            <p className="text-right text-sm text-gray-500 mt-1">{mealDesc.length}/100</p>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -119,7 +111,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
               required
             >
-              <option value="" disabled>Please select a meal type</option>
+              <option value="" disabled>
+                Please select a meal type
+              </option>
               <option value="Breakfast">Breakfast</option>
               <option value="Lunch">Lunch</option>
               <option value="Dinner">Dinner</option>
@@ -135,7 +129,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
               required
             >
-              <option value="" disabled>Select a date</option>
+              <option value="" disabled>
+                Select a date
+              </option>
 
               {allowedDates.map((d) => (
                 <option key={d} value={d}>
@@ -153,7 +149,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
               required
             >
-              <option value="" disabled>Please select a delivery method</option>
+              <option value="" disabled>
+                Please select a delivery method
+              </option>
               <option value="Self-delivery">Self-delivery</option>
               <option value="Courier">Courier</option>
             </select>
@@ -164,7 +162,7 @@ export default function CreateMeal() {
           </div>
 
           <div className="w-full flex flex-wrap gap-4 justify-center items-center mb-6">
-            {RESTRICTIONS.filter(r => restrictions.includes(r.id)).map((item) => (
+            {RESTRICTIONS.filter((r) => restrictions.includes(r.id)).map((item) => (
               <RestrictionView key={item.id} item={item} />
             ))}
           </div>
@@ -191,10 +189,7 @@ export default function CreateMeal() {
 
             <div className="flex flex-wrap gap-3 mt-4">
               {ingredients.map((item, index) => (
-                <IngredientOrRestrictionPill
-                  key={index}
-                  className="bg-[#F68300] px-4 py-2"
-                >
+                <IngredientOrRestrictionPill key={index} className="bg-[#F68300] px-4 py-2">
                   {item}
                 </IngredientOrRestrictionPill>
               ))}
