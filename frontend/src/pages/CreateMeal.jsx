@@ -3,11 +3,9 @@ import Background from "../components/Background";
 import Label from "../components/Label";
 import Input from "../components/Input";
 import Textarea from "../components/Textarea";
-
 import BackBtn from "../components/BackBtn";
-import RestrictionToggle from "../components/RestrictionToggle";
 import IngredientOrRestrictionPill from "../components/view-meal-train/IngredientOrRestrictionPill";
-
+import RestrictionView from "../components/RestrictionView";
 import { RESTRICTIONS } from "../data/restrictions";
 
 export default function CreateMeal() {
@@ -17,17 +15,14 @@ export default function CreateMeal() {
   const [mealDate, setMealDate] = useState("");
   const [deliveryMethod, setDeliveryMethod] = useState("");
 
-  const [restrictions, setRestrictions] = useState([]);
+  // To be edited => Restrictions come from meal train maker
+  const restrictions = ["Vegan", "Gluten-free", "Nut-free", "Egg-free"];
+
+  // To be edited => Dates that come from meal train maker 
+  const allowedDates = ["2026-02-21", "2026-02-23", "2026-02-25"];
+
   const [ingredientInput, setIngredientInput] = useState("");
   const [ingredients, setIngredients] = useState([]);
-
-  const toggleRestriction = (value) => {
-    setRestrictions((prev) =>
-      prev.includes(value)
-        ? prev.filter((r) => r !== value)
-        : [...prev, value]
-    );
-  };
 
   const addIngredient = () => {
     if (!ingredientInput.trim()) return;
@@ -37,6 +32,18 @@ export default function CreateMeal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log for testing purposes right now 
+    console.log({
+      mealTitle,
+      mealDesc,
+      mealType,
+      mealDate,
+      deliveryMethod,
+      restrictions,
+      ingredients,
+    });
+
+    alert("Meal created!");
   };
 
   return (
@@ -85,13 +92,23 @@ export default function CreateMeal() {
 
           <div className="w-full flex flex-col mb-6">
             <Label>Meal Description</Label>
+
             <Textarea
               value={mealDesc}
-              onChange={(e) => setMealDesc(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 100) {
+                  setMealDesc(e.target.value);
+                }
+              }}
               placeholder="Classic Chinese home-style dish..."
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-32"
+              maxLength={100}
               required
             />
+
+            <p className="text-right text-sm text-gray-500 mt-1">
+              {mealDesc.length}/100
+            </p>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -111,13 +128,21 @@ export default function CreateMeal() {
 
           <div className="w-full flex flex-col mb-6">
             <Label>Meal Date</Label>
-            <input
-              type="date"
+
+            <select
               value={mealDate}
               onChange={(e) => setMealDate(e.target.value)}
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
               required
-            />
+            >
+              <option value="" disabled>Select a date</option>
+
+              {allowedDates.map((d) => (
+                <option key={d} value={d}>
+                  {new Date(d).toLocaleDateString()}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -139,13 +164,8 @@ export default function CreateMeal() {
           </div>
 
           <div className="w-full flex flex-wrap gap-4 justify-center items-center mb-6">
-            {RESTRICTIONS.map((item) => (
-              <RestrictionToggle
-                key={item.id}
-                item={item}
-                selected={restrictions.includes(item.id)}
-                onToggle={toggleRestriction}
-              />
+            {RESTRICTIONS.filter(r => restrictions.includes(r.id)).map((item) => (
+              <RestrictionView key={item.id} item={item} />
             ))}
           </div>
 
