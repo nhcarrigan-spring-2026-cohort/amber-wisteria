@@ -49,7 +49,6 @@ export default function CreateMeal() {
   return (
     <Background>
       <div className="flex flex-col items-center justify-start h-screen w-full pt-6 md:pt-10 px-4">
-
         <h2 className="text-2xl md:text-3xl font-bold text-[#212B27] mb-4 md:mb-6 text-center">
           Bilal’s Meal Train
         </h2>
@@ -70,7 +69,6 @@ export default function CreateMeal() {
             overflow-y-auto
           "
         >
-
           <div className="absolute left-4 top-4 md:left-6 md:top-6">
             <BackBtn onClick={() => window.history.back()} />
           </div>
@@ -106,9 +104,7 @@ export default function CreateMeal() {
               required
             />
 
-            <p className="text-right text-sm text-gray-500 mt-1">
-              {mealDesc.length}/100
-            </p>
+            <p className="text-right text-sm text-gray-500 mt-1">{mealDesc.length}/100</p>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -119,7 +115,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>Please select a meal type</option>
+              <option value="" disabled>
+                Please select a meal type
+              </option>
               <option value="Breakfast">Breakfast</option>
               <option value="Lunch">Lunch</option>
               <option value="Dinner">Dinner</option>
@@ -135,7 +133,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>Select a date</option>
+              <option value="" disabled>
+                Select a date
+              </option>
 
               {allowedDates.map((d) => (
                 <option key={d} value={d}>
@@ -153,7 +153,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>Please select a delivery method</option>
+              <option value="" disabled>
+                Please select a delivery method
+              </option>
               <option value="Self-delivery">Self-delivery</option>
               <option value="Courier">Courier</option>
             </select>
