@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useNavigate } from "react-router-dom"
 import BackBtn from "../BackBtn";
 import MealCalendar from "../MealCalendar"
 import Button from "../Button";
@@ -26,6 +27,8 @@ export default function ViewMealCard() {
 
     const [activeDate, setActiveDate] = useState(Object.keys(selectedDates)[0]);
 
+    const navigate = useNavigate();
+
     const formatDate = (date) => {
         return date.toLocaleDateString('en-CA').split('T')[0];
     };
@@ -38,7 +41,7 @@ export default function ViewMealCard() {
                 <h1 className="text-2xl text-[#A88DE5] font-semibold">Bilal's Meal Train</h1>
             </div>
 
-            <div className="grid lg:grid-cols-[auto_1fr] md:grid-cols-1 justify-center items-center p-3 gap-10">
+            <div className="grid lg:grid-cols-[auto_1fr] md:grid-cols-1 justify-center items-center p-3 gap-10 mb-3">
 
                 {/* left calendar section */}
                 <div className="flex flex-col gap-6">
@@ -83,6 +86,12 @@ export default function ViewMealCard() {
                 )}
             </div>
 
+                <Button 
+                    variant="orange"
+                    onClick={() => navigate("/create-meal")}
+                    children="Create a Meal"
+                    className="rounded-full shadow-md"
+                />
 
         </div>
     )
