@@ -32,7 +32,7 @@ export default function CreateMeal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log for testing purposes right now
+    //console.log for testing purposes right now
     console.log({
       mealTitle,
       mealDesc,
@@ -48,8 +48,11 @@ export default function CreateMeal() {
 
   return (
     <Background>
-      <div className="flex flex-col items-center justify-start h-screen w-full pt-10">
-        <h2 className="text-3xl font-bold text-[#212B27] mb-6 text-center">Bilal’s Meal Train</h2>
+      <div className="flex flex-col items-center justify-start h-screen w-full pt-6 md:pt-10 px-4">
+
+        <h2 className="text-2xl md:text-3xl font-bold text-[#212B27] mb-4 md:mb-6 text-center">
+          Bilal’s Meal Train
+        </h2>
 
         <form
           onSubmit={handleSubmit}
@@ -58,20 +61,23 @@ export default function CreateMeal() {
             bg-[#FFECC899] 
             rounded-4xl 
             shadow-xl 
-            pt-10 pr-10 pb-14 pl-10 
+            px-6 py-8 md:px-10 md:py-14
             flex flex-col 
             box-border 
             items-center 
-            w-[600px]
+            w-full max-w-[600px]
             max-h-[75vh]
             overflow-y-auto
           "
         >
-          <div className="absolute left-6 top-6">
+
+          <div className="absolute left-4 top-4 md:left-6 md:top-6">
             <BackBtn onClick={() => window.history.back()} />
           </div>
 
-          <h1 className="font-semibold mb-8 text-[40px] text-[#212B27]">Create Meal</h1>
+          <h1 className="font-semibold mb-6 md:mb-8 text-[32px] md:text-[40px] text-[#212B27]">
+            Create Meal
+          </h1>
 
           <div className="w-full flex flex-col mb-6">
             <Label>Meal Title</Label>
@@ -79,7 +85,7 @@ export default function CreateMeal() {
               value={mealTitle}
               onChange={(e) => setMealTitle(e.target.value)}
               placeholder="Stir-fried tomato and scrambled eggs"
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
+              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             />
           </div>
@@ -95,12 +101,14 @@ export default function CreateMeal() {
                 }
               }}
               placeholder="Classic Chinese home-style dish..."
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-32"
+              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-28 md:h-32"
               maxLength={100}
               required
             />
 
-            <p className="text-right text-sm text-gray-500 mt-1">{mealDesc.length}/100</p>
+            <p className="text-right text-sm text-gray-500 mt-1">
+              {mealDesc.length}/100
+            </p>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -108,12 +116,10 @@ export default function CreateMeal() {
             <select
               value={mealType}
               onChange={(e) => setMealType(e.target.value)}
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
+              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>
-                Please select a meal type
-              </option>
+              <option value="" disabled>Please select a meal type</option>
               <option value="Breakfast">Breakfast</option>
               <option value="Lunch">Lunch</option>
               <option value="Dinner">Dinner</option>
@@ -126,12 +132,10 @@ export default function CreateMeal() {
             <select
               value={mealDate}
               onChange={(e) => setMealDate(e.target.value)}
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
+              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>
-                Select a date
-              </option>
+              <option value="" disabled>Select a date</option>
 
               {allowedDates.map((d) => (
                 <option key={d} value={d}>
@@ -146,12 +150,10 @@ export default function CreateMeal() {
             <select
               value={deliveryMethod}
               onChange={(e) => setDeliveryMethod(e.target.value)}
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-16"
+              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>
-                Please select a delivery method
-              </option>
+              <option value="" disabled>Please select a delivery method</option>
               <option value="Self-delivery">Self-delivery</option>
               <option value="Courier">Courier</option>
             </select>
@@ -175,13 +177,13 @@ export default function CreateMeal() {
                 value={ingredientInput}
                 onChange={(e) => setIngredientInput(e.target.value)}
                 placeholder="Chicken"
-                className="bg-white p-2.5 w-full rounded-xl h-16"
+                className="bg-white p-2.5 w-full rounded-xl h-14 md:h-16"
               />
 
               <button
                 type="button"
                 onClick={addIngredient}
-                className="bg-[#A88DE5] text-white rounded-xl py-4 mt-3 w-full text-center font-semibold"
+                className="bg-[#A88DE5] text-white rounded-xl py-3 md:py-4 mt-3 w-full text-center font-semibold"
               >
                 Add Ingredient
               </button>
@@ -198,7 +200,7 @@ export default function CreateMeal() {
 
           <button
             type="submit"
-            className="bg-[#A88DE5] text-white w-xs mt-4 p-5 text-2xl font-semibold rounded-xl"
+            className="bg-[#A88DE5] text-white w-xs mt-4 p-4 md:p-5 text-xl md:text-2xl font-semibold rounded-xl"
           >
             Create Meal
           </button>
