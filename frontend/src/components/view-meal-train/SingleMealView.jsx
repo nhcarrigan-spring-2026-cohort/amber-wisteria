@@ -15,8 +15,8 @@ export default function SingleMealView({
 
   return (
     <div className="w-full bg-white border-2 border-gray-400 rounded-lg p-2 mx-auto">
-      <div className="flex justify-between items-center">
-        <h1 className="text-lg font-bold mb-1">{mealTitle}</h1>
+      <div className="flex justify-between items-center gap-4">
+        <h1 className="text-left text-lg font-bold mb-1">{mealTitle}</h1>
         <p className="text-md text-gray-400 font-medium">{new Date(mealDate).toDateString()}</p>
       </div>
 
