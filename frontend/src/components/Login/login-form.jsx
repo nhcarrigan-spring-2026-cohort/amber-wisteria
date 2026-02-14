@@ -1,7 +1,7 @@
 import React from 'react';
 import './login-form.css';
 
-export default function LoginForm() {
+export default function LoginForm({ email, password, onEmailChange, onPasswordChange, onSubmit }) {
   return (
     <div className="login-page">
       <div className="elementOne" aria-hidden="true" />
@@ -12,16 +12,30 @@ export default function LoginForm() {
           Sign in
         </h1>
 
-        <form className="form" aria-label="Sign in form">
+        <form className="form" aria-label="Sign in form" onSubmit={onSubmit}>
           <label className="sr-only" htmlFor="email">
             Email
           </label>
-          <input id="email" name="email" type="email" placeholder="Email Address" />
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={onEmailChange}
+          />
 
           <label className="sr-only" htmlFor="password">
             Password
           </label>
-          <input id="password" name="password" type="password" placeholder="Password" />
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={onPasswordChange}
+          />
 
           <button type="submit" className="submit">
             Sign in
