@@ -48,7 +48,7 @@ export default function CreateMeal() {
 
   return (
     <Background>
-      <div className="flex flex-col items-center justify-start h-screen w-full pt-6 md:pt-10 px-4">
+      <div className="flex flex-col items-center justify-start min-h-screen w-full pt-6 md:pt-10 px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-[#212B27] mb-4 md:mb-6 text-center">
           Bilal’s Meal Train
         </h2>
@@ -65,8 +65,6 @@ export default function CreateMeal() {
             box-border 
             items-center 
             w-full max-w-[600px]
-            max-h-[75vh]
-            overflow-y-auto
           "
         >
           <div className="absolute left-4 top-4 md:left-6 md:top-6">
