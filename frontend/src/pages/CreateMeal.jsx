@@ -31,7 +31,7 @@ export default function CreateMeal() {
   };
 
   const handleEnterFocusNext = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault();
       const form = e.target.form;
       const index = Array.prototype.indexOf.call(form, e.target);
@@ -46,17 +46,17 @@ export default function CreateMeal() {
     const desc = mealDesc.trim();
 
     if (!title) {
-      alert("Meal title cannot be empty or spaces only.");
+      alert('Meal title cannot be empty or spaces only.');
       return;
     }
 
     if (!desc) {
-      alert("Meal description cannot be empty or spaces only.");
+      alert('Meal description cannot be empty or spaces only.');
       return;
     }
 
     if (ingredients.length === 0) {
-      alert("Please add at least one ingredient.");
+      alert('Please add at least one ingredient.');
       return;
     }
 
@@ -131,9 +131,7 @@ export default function CreateMeal() {
               required
             />
 
-            <p className="text-right text-sm text-gray-500 mt-1">
-              {mealDesc.length}/100
-            </p>
+            <p className="text-right text-sm text-gray-500 mt-1">{mealDesc.length}/100</p>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -145,7 +143,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>Please select a meal type</option>
+              <option value="" disabled>
+                Please select a meal type
+              </option>
               <option value="Breakfast">Breakfast</option>
               <option value="Lunch">Lunch</option>
               <option value="Dinner">Dinner</option>
@@ -155,20 +155,35 @@ export default function CreateMeal() {
           <div className="w-full flex flex-col mb-6">
             <Label>Meal Date</Label>
 
-            <select
-              value={mealDate}
-              onChange={(e) => setMealDate(e.target.value)}
-              onKeyDown={handleEnterFocusNext}
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
-              required
-            >
-              <option value="" disabled>Select a date</option>
-              {allowedDates.map((d) => (
-                <option key={d} value={d}>
-                  {new Date(d).toLocaleDateString()}
-                </option>
-              ))}
-            </select>
+            <div className="relative mt-2.5">
+              <input
+                type="date"
+                value={mealDate}
+                onChange={(e) => {
+                  const selected = e.target.value;
+                  if (allowedDates.includes(selected)) {
+                    setMealDate(selected);
+                  } else {
+                    setMealDate('');
+                    alert('This date is not available for this meal train.');
+                  }
+                }}
+                onKeyDown={handleEnterFocusNext}
+                className="bg-white p-2.5 w-full rounded-xl h-14 md:h-16 text-[#212B27]"
+                required
+              />
+            </div>
+
+            <p className="text-sm text-gray-500 mt-2 text-center">
+              Available dates:{' '}
+              {allowedDates.map((d) => new Date(d).toLocaleDateString()).join(', ')}
+            </p>
+
+            {mealDate && (
+              <p className="mt-2 text-center text-gray-700">
+                Selected date: {new Date(mealDate).toLocaleDateString()}
+              </p>
+            )}
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -180,7 +195,9 @@ export default function CreateMeal() {
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>Please select a delivery method</option>
+              <option value="" disabled>
+                Please select a delivery method
+              </option>
               <option value="Self-delivery">Self-delivery</option>
               <option value="Courier">Courier</option>
             </select>
