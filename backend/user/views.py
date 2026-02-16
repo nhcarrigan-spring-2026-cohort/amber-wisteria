@@ -1,16 +1,21 @@
+from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 
 from .serializers import (
     LoginSerializer,
     MeSerializer,
     RegisterSerializer,
+    UserSearchSerializer,
     tokens_for_user,
 )
 
+User = get_user_model()
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -53,3 +58,32 @@ class MeView(APIView):
         return Response(MeSerializer(request.user).data, status=status.HTTP_200_OK)
 
 
+class UserSearchView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_description="Search for users by username (case-insensitive, partial match)",
+        manual_parameters=[
+            openapi.Parameter(
+                'username',
+                openapi.IN_QUERY,
+                description="Username to search for",
+                type=openapi.TYPE_STRING,
+                required=True
+            )
+        ],
+        responses={
+            200: UserSearchSerializer(many=True),
+            400: "Bad Request - username parameter missing"
+        }
+    )
+        
+    def get(self, request):
+        query = request.query_params.get("username")
+        if not query:
+            return Response({"detail": "Query parameter 'username' is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # search by username (case-insensitive, partial match)
+        users = User.objects.filter(username__icontains=query, is_active=True).exclude(id=request.user.id)[:20]  # exclude self from results, limit to 20
+        serializer = UserSearchSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
