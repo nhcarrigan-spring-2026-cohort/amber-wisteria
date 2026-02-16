@@ -30,12 +30,39 @@ export default function CreateMeal() {
     setIngredientInput('');
   };
 
+  const handleEnterFocusNext = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const form = e.target.form;
+      const index = Array.prototype.indexOf.call(form, e.target);
+      form.elements[index + 1]?.focus();
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log for testing purposes right now
+
+    const title = mealTitle.trim();
+    const desc = mealDesc.trim();
+
+    if (!title) {
+      alert("Meal title cannot be empty or spaces only.");
+      return;
+    }
+
+    if (!desc) {
+      alert("Meal description cannot be empty or spaces only.");
+      return;
+    }
+
+    if (ingredients.length === 0) {
+      alert("Please add at least one ingredient.");
+      return;
+    }
+
     console.log({
-      mealTitle,
-      mealDesc,
+      mealTitle: title,
+      mealDesc: desc,
       mealType,
       mealDate,
       deliveryMethod,
@@ -80,6 +107,7 @@ export default function CreateMeal() {
             <Input
               value={mealTitle}
               onChange={(e) => setMealTitle(e.target.value)}
+              onKeyDown={handleEnterFocusNext}
               placeholder="Stir-fried tomato and scrambled eggs"
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
@@ -96,13 +124,16 @@ export default function CreateMeal() {
                   setMealDesc(e.target.value);
                 }
               }}
+              onKeyDown={handleEnterFocusNext}
               placeholder="Classic Chinese home-style dish..."
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-28 md:h-32"
               maxLength={100}
               required
             />
 
-            <p className="text-right text-sm text-gray-500 mt-1">{mealDesc.length}/100</p>
+            <p className="text-right text-sm text-gray-500 mt-1">
+              {mealDesc.length}/100
+            </p>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -110,12 +141,11 @@ export default function CreateMeal() {
             <select
               value={mealType}
               onChange={(e) => setMealType(e.target.value)}
+              onKeyDown={handleEnterFocusNext}
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>
-                Please select a meal type
-              </option>
+              <option value="" disabled>Please select a meal type</option>
               <option value="Breakfast">Breakfast</option>
               <option value="Lunch">Lunch</option>
               <option value="Dinner">Dinner</option>
@@ -128,13 +158,11 @@ export default function CreateMeal() {
             <select
               value={mealDate}
               onChange={(e) => setMealDate(e.target.value)}
+              onKeyDown={handleEnterFocusNext}
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>
-                Select a date
-              </option>
-
+              <option value="" disabled>Select a date</option>
               {allowedDates.map((d) => (
                 <option key={d} value={d}>
                   {new Date(d).toLocaleDateString()}
@@ -148,12 +176,11 @@ export default function CreateMeal() {
             <select
               value={deliveryMethod}
               onChange={(e) => setDeliveryMethod(e.target.value)}
+              onKeyDown={handleEnterFocusNext}
               className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
               required
             >
-              <option value="" disabled>
-                Please select a delivery method
-              </option>
+              <option value="" disabled>Please select a delivery method</option>
               <option value="Self-delivery">Self-delivery</option>
               <option value="Courier">Courier</option>
             </select>
@@ -176,6 +203,7 @@ export default function CreateMeal() {
               <Input
                 value={ingredientInput}
                 onChange={(e) => setIngredientInput(e.target.value)}
+                onKeyDown={handleEnterFocusNext}
                 placeholder="Chicken"
                 className="bg-white p-2.5 w-full rounded-xl h-14 md:h-16"
               />
