@@ -24,6 +24,10 @@ export default function CreateMeal() {
 
   const [ingredientInput, setIngredientInput] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const formatDate = (iso) => {
+    const [year, month, day] = iso.split('-');
+    return `${day}/${month}/${year}`;
+  };
 
   const addIngredient = () => {
     if (!ingredientInput.trim()) return;
@@ -177,13 +181,12 @@ export default function CreateMeal() {
             </div>
 
             <p className="text-sm text-gray-500 mt-2 text-center">
-              Available dates:{' '}
-              {allowedDates.map((d) => new Date(d).toLocaleDateString()).join(', ')}
+              Available dates: {allowedDates.map(formatDate).join(', ')}
             </p>
 
             {mealDate && (
               <p className="mt-2 text-center text-gray-700">
-                Selected date: {new Date(mealDate).toLocaleDateString()}
+                Selected date: {formatDate(mealDate)}
               </p>
             )}
           </div>
