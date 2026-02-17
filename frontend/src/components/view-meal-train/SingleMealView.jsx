@@ -14,22 +14,22 @@ export default function SingleMealView({
   const [isShowMoreClicked, setIsShowMoreClicked] = useState(false);
 
   return (
-    <div className="max-w-2xl bg-white border-2 border-gray-500 rounded-lg p-3">
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold mb-1">{mealTitle}</h1>
+    <div className="w-full bg-white border-2 border-gray-400 rounded-lg p-2 mx-auto">
+      <div className="flex justify-between items-center gap-4">
+        <h1 className="text-left text-lg font-bold mb-1">{mealTitle}</h1>
         <p className="text-md text-gray-400 font-medium">{new Date(mealDate).toDateString()}</p>
       </div>
 
-      <p className="text-lg text-gray-400 font-medium text-left mb-4">{mealType}</p>
+      <p className="text-md text-gray-500 font-medium text-left mb-2 -mt-1">{mealType}</p>
 
-      <div className="flex flex-wrap gap-3 mb-4">
+      <div className="flex flex-wrap gap-3 mb-2">
         {ingredients.map((item) => (
           <IngredientOrRestrictionPill key={item} className="bg-[#F68300]" children={item} />
         ))}
       </div>
 
       {isShowMoreClicked && (
-        <div className="flex flex-col items-center justify-center gap-3">
+        <div className="flex flex-col items-center justify-center gap-2">
           <p className="text-gray-600 text-left">{mealDesc}</p>
           <div className="flex flex-wrap gap-3 self-start items-center">
             <p className="font-bold">Restrictions: </p>
@@ -41,7 +41,7 @@ export default function SingleMealView({
             <b>Delivery Method:</b> <span className=" text-gray-600">{deliveryMethod}</span>
           </p>
           <p className="self-start -mt-3">
-            <b>Prepared By: :</b> <span className=" text-gray-600">{preparedBy}</span>
+            <b>Prepared By: </b> <span className=" text-gray-600">{preparedBy}</span>
           </p>
         </div>
       )}
