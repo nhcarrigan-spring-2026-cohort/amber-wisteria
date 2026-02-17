@@ -7,6 +7,7 @@ export default function ReviewStep({
   deliveryAddress,
   //_deliveryInstructions, // intentionally unused for now
   selectedDates,
+  displayFormattedDate,
   restrictions,
   onCreate
 }) {
@@ -40,7 +41,7 @@ export default function ReviewStep({
               key={date}
               className="mb-2 p-2 border-2 border-orange-600 rounded-2xl hover:shadow-md transition-all duration-75"
             >
-              <p className="font-semibold mb-2">{new Date(date).toLocaleDateString()}</p>
+              <p className="font-semibold mb-2">{displayFormattedDate(date)}</p>
 
               <div className="flex gap-2 flex-wrap justify-center">
                 {meals.breakfast && <span className="pill">Breakfast</span>}

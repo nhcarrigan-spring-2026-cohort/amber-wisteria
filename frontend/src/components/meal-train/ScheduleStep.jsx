@@ -10,6 +10,7 @@ export default function ScheduleStep({
   activeDate,
   handleDayClick,
   formatDate,
+  displayFormattedDate,
   toggleMeal,
   quantity,
   setQuantity,
@@ -49,7 +50,7 @@ export default function ScheduleStep({
 
       {activeDate && (
         <div className="w-[60%] mx-auto">
-          <p className="font-medium mb-2">Meals for {new Date(activeDate).toLocaleDateString()}</p>
+          <p className="font-medium mb-2">Meals for {displayFormattedDate(activeDate)}</p>
 
           <div className="flex gap-3 justify-between">
             {['breakfast', 'lunch', 'dinner'].map((meal) => (

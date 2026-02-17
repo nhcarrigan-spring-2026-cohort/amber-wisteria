@@ -146,6 +146,11 @@ export default function MealTrainForm() {
     alert('MOCK MODE: Meal Train Created!\n\nShare this link:\n' + shareUrl);
   };
 
+  const displayFormattedDate = (date) => {
+    const [year, month, day] = date.split('-');
+    return `${day}/${month}/${year}`;
+  }
+
   const clearForm = () => {
     if (confirm('Are you sure you want to exit the form?')) {
       setMealTrainTitle('');
@@ -208,6 +213,7 @@ export default function MealTrainForm() {
             activeDate={activeDate}
             handleDayClick={handleDayClick}
             formatDate={formatDate}
+            displayFormattedDate={displayFormattedDate}
             toggleMeal={toggleMeal}
             quantity={quantity}
             setQuantity={setQuantity}
@@ -227,6 +233,7 @@ export default function MealTrainForm() {
             beneficiaryName={beneficiaryName}
             deliveryAddress={deliveryAddress}
             selectedDates={selectedDates}
+            displayFormattedDate={displayFormattedDate}
             restrictions={restrictions}
             onCreate={handleCreateMealTrain}
           />
