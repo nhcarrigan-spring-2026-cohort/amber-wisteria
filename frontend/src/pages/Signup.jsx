@@ -1,5 +1,5 @@
 import Background from '../components/Background';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axiosClient from '../api/axiosClient';
 
@@ -8,6 +8,8 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,15 +22,19 @@ export default function Signup() {
           email: email
         });
         console.log(res.data);
+        console.log(res.data.refresh);
+        console.log(res.data.access);
+
+        const refreshToken = res.data.refresh;
+        const accessToken = res.data.access;
+        localStorage.setItem('refresh', refreshToken);
+        localStorage.setItem('access', accessToken);
+
+        navigate('/dashboard');
       } catch (err) {
         console.log(err);
       }
       console.log('Form Submitted:', name, email, password, confirmPassword);
-      alert(`Registered user: ${name}`);
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
     } else {
       alert('Passwords must match');
     }

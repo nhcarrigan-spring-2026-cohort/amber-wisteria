@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from '../components/Login/login-form';
+import axiosClient from '../api/axiosClient';
+import { useNavigate } from 'react-router';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,11 +15,28 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Form submitted!');
-    console.log('Email: ', email);
-    console.log('Password: ', password);
+    const loginCredentials = {
+      username: email,
+      password: password
+    };
+
+    try {
+      const res = await axiosClient.post('api/auth/login', loginCredentials);
+      console.log(res);
+
+      const refreshToken = res.data.refresh;
+      const accessToken = res.data.access;
+      localStorage.setItem('refresh', refreshToken);
+      localStorage.setItem('access', accessToken);
+
+      navigate('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

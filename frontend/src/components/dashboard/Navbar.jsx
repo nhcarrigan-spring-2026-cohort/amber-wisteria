@@ -1,6 +1,7 @@
 import logo from '../../assets/logo.png';
 import NotifIcon from '../../assets/notif.svg';
 import LogoutIcon from '../../assets/logout.svg';
+import { useNavigate } from 'react-router';
 
 export default function Navbar() {
   const iconFilter =
@@ -8,6 +9,14 @@ export default function Navbar() {
 
   const hoverFilter =
     'brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(7470%) hue-rotate(266deg) brightness(90%) contrast(102%)';
+
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    navigate('/login');
+  }
 
   return (
     <header className="w-full h-[70px] bg-[#fff7e0] flex justify-between items-center px-4 border-b-2 border-[#f5f2f2]">
@@ -31,6 +40,7 @@ export default function Navbar() {
           style={{ filter: iconFilter }}
           onMouseEnter={(e) => (e.currentTarget.style.filter = hoverFilter)}
           onMouseLeave={(e) => (e.currentTarget.style.filter = iconFilter)}
+          onClick={handleLogout}
         />
       </div>
     </header>

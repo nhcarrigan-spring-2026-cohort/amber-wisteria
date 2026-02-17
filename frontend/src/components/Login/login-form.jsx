@@ -19,7 +19,7 @@ export default function LoginForm({ email, password, onEmailChange, onPasswordCh
           <input
             id="email"
             name="email"
-            type="email"
+            type="text"
             placeholder="Email Address"
             value={email}
             onChange={onEmailChange}
