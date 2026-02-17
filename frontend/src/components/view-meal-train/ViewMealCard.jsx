@@ -74,11 +74,9 @@ export default function ViewMealCard() {
             <div className="flex flex-col gap-3">
               {['breakfast', 'lunch', 'dinner'].map(
                 (meal) =>
-                  selectedDates[activeDate]?.[meal] && <SingleMealView 
-                    key={meal} 
-                    mealType={meal} 
-                    mealDate={activeDate}
-                  />
+                  selectedDates[activeDate]?.[meal] && (
+                    <SingleMealView key={meal} mealType={meal} mealDate={activeDate} />
+                  )
               )}
             </div>
           )}
