@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Background from '../components/Background';
 import Label from '../components/Label';
@@ -29,7 +30,7 @@ export default function CreateMeal() {
     setIngredients([...ingredients, ingredientInput.trim()]);
     setIngredientInput('');
   };
-
+  const navigate = useNavigate();
   const handleEnterFocusNext = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -71,6 +72,7 @@ export default function CreateMeal() {
     });
 
     alert('Meal created!');
+    navigate('/view-meal-train');
   };
 
   return (
