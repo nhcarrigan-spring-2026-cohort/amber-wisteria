@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
    'drf_yasg',
     "mealTrain",
+    'friends',
 ]
 
 MIDDLEWARE = [
