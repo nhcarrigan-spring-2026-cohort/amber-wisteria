@@ -149,7 +149,7 @@ export default function MealTrainForm() {
   const displayFormattedDate = (date) => {
     const [year, month, day] = date.split('-');
     return `${day}/${month}/${year}`;
-  }
+  };
 
   const clearForm = () => {
     if (confirm('Are you sure you want to exit the form?')) {
