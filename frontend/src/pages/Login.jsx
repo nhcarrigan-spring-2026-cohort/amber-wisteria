@@ -25,7 +25,7 @@ export default function Login() {
     };
 
     try {
-      const res = await axiosClient.post('api/auth/login', loginCredentials);
+      const res = await axiosClient.post('/api/auth/login', loginCredentials);
       console.log(res);
 
       const refreshToken = res.data.refresh;
