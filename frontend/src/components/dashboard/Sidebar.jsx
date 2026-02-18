@@ -4,14 +4,14 @@ import avatar from '../../assets/avatar.png';
 import DashboardIcon from '../../assets/dashboard.svg';
 import { orangeFilterConst } from './HoverIcon.constants';
 
-export default function Sidebar() {
+export default function Sidebar({ user }) {
   const navigate = useNavigate();
 
   return (
     <aside className="w-[200px] py-10 px-5 flex flex-col items-center bg-[#f68300] text-white font-bold">
       <img src={avatar} alt="Avatar" className="w-[100px] rounded-full" />
 
-      <p className="mt-4 mb-10 text-center">Welcome Anar!</p>
+      <p className="mt-4 mb-10 text-center">Welcome {user.name}!</p>
 
       <ul className="flex flex-col gap-3 w-full">
         <li
