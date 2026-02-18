@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import PlusIcon from '../assets/plus.svg';
 import JoinIcon from '../assets/join.svg';
@@ -8,61 +8,39 @@ import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import MealTrainSection from '../components/dashboard/MealTrainSection';
 
+import { fetchDashboard } from "../api/dashboard";
+
 export default function UserDashboard() {
   const navigate = useNavigate();
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [showMoreCreated, setShowMoreCreated] = useState(false);
   const [showMoreJoined, setShowMoreJoined] = useState(false);
 
-  /* ---------- Data to be implemented here ---------- */
+  useEffect(() => {
+    fetchDashboard()
+      .then((res) => {
+        setData(res);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError("Failed to load dashboard");
+        setLoading(false);
+      });
+  }, []);
 
-  const created = [
-    {
-      title: "Mihai's Meal Train",
-      description: 'Mihai is sick so I made this meal train.'
-    },
-    {
-      title: "Lore's Meal Train",
-      description: 'Lore is sick so I made this meal train.'
-    }
-  ];
-
-  const createdExtra = [
-    {
-      title: 'Extra Meal Train 1',
-      description: 'More items shown when expanded.'
-    },
-    {
-      title: 'Extra Meal Train 2',
-      description: 'More items shown when expanded.'
-    }
-  ];
-
-  const joined = [
-    {
-      title: "Akshar's Meal Train",
-      description: 'Akshar is sick so I joined this meal train.'
-    },
-    {
-      title: "Joaquin's Meal Train",
-      description: 'Joaquin is sick so I joined this meal train.',
-      pending: true
-    }
-  ];
-
-  const joinedExtra = [
-    {
-      title: 'Extra Joined Train 1',
-      description: 'More items shown when expanded.'
-    }
-  ];
+  if (loading) return <p className="p-10">Loading dashboard…</p>;
+  if (error) return <p className="p-10">{error}</p>;
 
   return (
     <div className="flex flex-col h-screen bg-[#fff8e3] font-[Inter]">
       <Navbar />
 
       <div className="flex flex-1">
-        <Sidebar />
+        <Sidebar user={data.user} />
 
         <main className="flex-1 m-2 p-10 rounded-2xl flex flex-col gap-10">
           <MealTrainSection
@@ -70,8 +48,8 @@ export default function UserDashboard() {
             buttonLabel="Add"
             buttonIcon={PlusIcon}
             buttonAction={() => navigate('/create-meal-train')}
-            items={created}
-            extraItems={createdExtra}
+            items={data.createdMealTrains}
+            extraItems={[]} 
             showMore={showMoreCreated}
             toggleShowMore={() => setShowMoreCreated((p) => !p)}
           />
@@ -80,8 +58,8 @@ export default function UserDashboard() {
             title="Joined Meal Trains"
             buttonLabel="Join"
             buttonIcon={JoinIcon}
-            items={joined}
-            extraItems={joinedExtra}
+            items={data.joinedMealTrains}
+            extraItems={[]}
             showMore={showMoreJoined}
             toggleShowMore={() => setShowMoreJoined((p) => !p)}
           />
