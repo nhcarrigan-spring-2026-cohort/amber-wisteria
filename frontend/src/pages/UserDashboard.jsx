@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import PlusIcon from '../assets/plus.svg';
 import JoinIcon from '../assets/join.svg';
@@ -8,7 +8,7 @@ import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import MealTrainSection from '../components/dashboard/MealTrainSection';
 
-import { fetchDashboard } from "../api/dashboard";
+import { fetchDashboard } from '../api/dashboard';
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function UserDashboard() {
         setLoading(false);
       })
       .catch(() => {
-        setError("Failed to load dashboard");
+        setError('Failed to load dashboard');
         setLoading(false);
       });
   }, []);
@@ -49,7 +49,7 @@ export default function UserDashboard() {
             buttonIcon={PlusIcon}
             buttonAction={() => navigate('/create-meal-train')}
             items={data.createdMealTrains}
-            extraItems={[]} 
+            extraItems={[]}
             showMore={showMoreCreated}
             toggleShowMore={() => setShowMoreCreated((p) => !p)}
           />
