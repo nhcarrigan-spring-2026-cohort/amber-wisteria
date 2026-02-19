@@ -7,7 +7,6 @@ import JoinIcon from '../assets/join.svg';
 import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import MealTrainSection from '../components/dashboard/MealTrainSection';
-import axiosClient from '../api/axiosClient';
 
 import { fetchDashboard } from '../api/dashboard';
 
