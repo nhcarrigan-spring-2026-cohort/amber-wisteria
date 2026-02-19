@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import PlusIcon from '../assets/plus.svg';
@@ -7,6 +7,7 @@ import JoinIcon from '../assets/join.svg';
 import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import MealTrainSection from '../components/dashboard/MealTrainSection';
+import axiosClient from '../api/axiosClient';
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -15,6 +16,17 @@ export default function UserDashboard() {
   const [showMoreJoined, setShowMoreJoined] = useState(false);
 
   /* ---------- Data to be implemented here ---------- */
+
+  useEffect(() => {
+    axiosClient
+      .get('/api/me')
+      .then((response) => {
+        console.log('Server response:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   const created = [
     {
