@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import LoginForm from '../components/Login/login-form';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -16,15 +16,15 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert('Form submitted!');
-    console.log('Email: ', email);
+    console.log('Username: ', username);
     console.log('Password: ', password);
   };
 
   return (
     <LoginForm
-      email={email}
+      username={username}
       password={password}
-      onEmailChange={handleEmailChange}
+      onUsernameChange={handleUsernameChange}
       onPasswordChange={handlePasswordChange}
       onSubmit={handleSubmit}
     />
