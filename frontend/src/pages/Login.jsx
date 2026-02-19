@@ -4,11 +4,11 @@ import axiosClient from '../api/axiosClient';
 import { useNavigate } from 'react-router';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -41,9 +41,9 @@ export default function Login() {
 
   return (
     <LoginForm
-      email={email}
+      username={username}
       password={password}
-      onEmailChange={handleEmailChange}
+      onUsernameChange={handleUsernameChange}
       onPasswordChange={handlePasswordChange}
       onSubmit={handleSubmit}
     />

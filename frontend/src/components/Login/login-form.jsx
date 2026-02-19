@@ -1,7 +1,13 @@
 import React from 'react';
 import './login-form.css';
 
-export default function LoginForm({ email, password, onEmailChange, onPasswordChange, onSubmit }) {
+export default function LoginForm({
+  username,
+  password,
+  onUsernameChange,
+  onPasswordChange,
+  onSubmit
+}) {
   return (
     <div className="login-page">
       <div className="elementOne" aria-hidden="true" />
@@ -14,15 +20,15 @@ export default function LoginForm({ email, password, onEmailChange, onPasswordCh
 
         <form className="form" aria-label="Sign in form" onSubmit={onSubmit}>
           <label className="sr-only" htmlFor="email">
-            Email
+            Username
           </label>
           <input
-            id="email"
-            name="email"
+            id="username"
+            name="username"
             type="text"
-            placeholder="Email Address"
-            value={email}
-            onChange={onEmailChange}
+            placeholder="Username"
+            value={username}
+            onChange={onUsernameChange}
           />
 
           <label className="sr-only" htmlFor="password">
