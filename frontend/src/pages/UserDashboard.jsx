@@ -24,17 +24,6 @@ export default function UserDashboard() {
   /* ---------- Data to be implemented here ---------- */
 
   useEffect(() => {
-    axiosClient
-      .get('/api/me')
-      .then((response) => {
-        console.log('Server response:', response.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
-
-  useEffect(() => {
     fetchDashboard()
       .then((res) => {
         setData(res);
