@@ -1,7 +1,13 @@
 import React from 'react';
 import './login-form.css';
 
-export default function LoginForm({ username, password, onUsernameChange, onPasswordChange, onSubmit }) {
+export default function LoginForm({
+  username,
+  password,
+  onUsernameChange,
+  onPasswordChange,
+  onSubmit
+}) {
   return (
     <div className="login-page">
       <div className="elementOne" aria-hidden="true" />
