@@ -20,7 +20,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const loginCredentials = {
-      username: email,
+      username: username,
       password: password
     };
 
