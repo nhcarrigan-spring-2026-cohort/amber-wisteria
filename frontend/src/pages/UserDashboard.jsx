@@ -34,39 +34,6 @@ export default function UserDashboard() {
       });
   }, []);
 
-  const created = [
-    {
-      title: "Mihai's Meal Train",
-      description: 'Mihai is sick so I made this meal train.'
-    },
-    {
-      title: "Lore's Meal Train",
-      description: 'Lore is sick so I made this meal train.'
-    }
-  ];
-
-  const createdExtra = [
-    {
-      title: 'Extra Meal Train 1',
-      description: 'More items shown when expanded.'
-    },
-    {
-      title: 'Extra Meal Train 2',
-      description: 'More items shown when expanded.'
-    }
-  ];
-
-  const joined = [
-    {
-      title: "Akshar's Meal Train",
-      description: 'Akshar is sick so I joined this meal train.'
-    },
-    {
-      title: "Joaquin's Meal Train",
-      description: 'Joaquin is sick so I joined this meal train.',
-      pending: true
-    }
-  ];
   useEffect(() => {
     fetchDashboard()
       .then((res) => {
