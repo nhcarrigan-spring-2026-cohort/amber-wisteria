@@ -8,7 +8,7 @@ class MealTrain(models.Model):
     #  this allows users to create meal trains in advance and specify when they will start 
     
     end_date = models.DateField() 
-    restrictions = models.TextField(blank=True) 
+    restrictions = models.JSONField(default=list, blank=True) 
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="created_meal_trains" )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

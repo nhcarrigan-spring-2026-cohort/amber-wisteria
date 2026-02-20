@@ -7,6 +7,7 @@ import ReviewStep from './ReviewStep';
 import BackBtn from '../BackBtn';
 import CancelBtn from '../CancelBtn';
 import { useNavigate } from 'react-router-dom';
+import axiosClient from '../../api/axiosClient';
 
 export default function MealTrainForm() {
   // step state => to control steps
@@ -124,26 +125,23 @@ export default function MealTrainForm() {
   };
 
   const handleCreateMealTrain = async () => {
+    const dates = Object.keys(selectedDates).sort();
+
     const payload = {
       title: mealTrainTitle,
       description: mealTrainDesc,
-      beneficiaryName,
-      deliveryAddress,
-      schedule: selectedDates,
-      restrictions
-    };
-    console.log('Sending a mock server:', payload);
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    const fakeData = {
-      id: 'mt-' + Math.floor(Math.random() * 10000),
-      status: 'success'
+      start_date: dates[0],
+      end_date: dates[dates.length - 1],
+      restrictions: restrictions
     };
 
-    const shareUrl = `${window.location.origin}/meal-train/${fakeData.id}`;
-
-    alert('MOCK MODE: Meal Train Created!\n\nShare this link:\n' + shareUrl);
+    try {
+      const res = await axiosClient.post('/api/meal-trains/', payload);
+      console.log('Created', res.data);
+      navigate('/dashboard');
+    } catch (error) {
+      console.log(error.response?.data);
+    }
   };
 
   const displayFormattedDate = (date) => {
