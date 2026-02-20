@@ -34,16 +34,7 @@ export default function Signup() {
       } catch (err) {
         console.log(err);
       }
-<<<<<<< HEAD
       console.log('Form Submitted:', username, email, password, confirmPassword);
-      alert(`Registered user: ${username}`);
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-=======
-      console.log('Form Submitted:', name, email, password, confirmPassword);
->>>>>>> 57b8913850743af846b9e9d6126811b0a6c9e322
     } else {
       alert('Passwords must match');
     }
