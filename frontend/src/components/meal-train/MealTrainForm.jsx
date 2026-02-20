@@ -7,7 +7,7 @@ import ReviewStep from './ReviewStep';
 import BackBtn from '../BackBtn';
 import CancelBtn from '../CancelBtn';
 import { useNavigate } from 'react-router-dom';
-import axiosClient from "../../api/axiosClient"
+import axiosClient from '../../api/axiosClient';
 
 export default function MealTrainForm() {
   // step state => to control steps
@@ -125,7 +125,6 @@ export default function MealTrainForm() {
   };
 
   const handleCreateMealTrain = async () => {
-
     const dates = Object.keys(selectedDates).sort();
 
     const payload = {
@@ -133,15 +132,15 @@ export default function MealTrainForm() {
       description: mealTrainDesc,
       start_date: dates[0],
       end_date: dates[dates.length - 1],
-      restrictions: restrictions,
-    }
+      restrictions: restrictions
+    };
 
     try {
-      const res = await axiosClient.post('/api/meal-trains/', payload)
-      console.log("Created", res.data);
+      const res = await axiosClient.post('/api/meal-trains/', payload);
+      console.log('Created', res.data);
       navigate('/dashboard');
     } catch (error) {
-        console.log(error.response?.data);
+      console.log(error.response?.data);
     }
   };
 
