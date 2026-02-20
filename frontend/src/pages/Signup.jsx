@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axiosClient from '../api/axiosClient';
 
 export default function Signup() {
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,7 +17,7 @@ export default function Signup() {
     if (password === confirmPassword) {
       try {
         const res = await axiosClient.post('/api/auth/register', {
-          username: name,
+          username: username,
           password: password,
           email: email
         });
@@ -34,7 +34,7 @@ export default function Signup() {
       } catch (err) {
         console.log(err);
       }
-      console.log('Form Submitted:', name, email, password, confirmPassword);
+      console.log('Form Submitted:', username, email, password, confirmPassword);
     } else {
       alert('Passwords must match');
     }
@@ -54,17 +54,17 @@ export default function Signup() {
             Create An Account
           </h1>
 
-          <label htmlFor="name" className="dark:text-[#212B27]">
-            Name
+          <label htmlFor="username" className="dark:text-[#212B27]">
+            Username
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
-            placeholder="Name"
+            placeholder="Username"
             required
           />
 
