@@ -8,18 +8,24 @@ import CreateMeal from './pages/CreateMeal.jsx';
 import SingleMealView from './components/view-meal-train/SingleMealView.jsx';
 import './App.css';
 import ViewMealTrain from './pages/ViewMealTrain.jsx';
+import PrivateRoutes from './utils/PrivateRoutes.jsx';
+import GuestRoutes from './utils/GuestRoutes.jsx';
 
 function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+      <Route element={<GuestRoutes />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Route>
       <Route path="/" element={<div>Home Page - Coming Soon</div>} />
-      <Route path="/dashboard" element={<UserDashboard />} />
-      <Route path="/create-meal-train" element={<CreateMealTrain />} />
-      <Route path="/single-meal-view" element={<SingleMealView />} />
-      <Route path="/create-meal" element={<CreateMeal />} />
-      <Route path="/view-meal-train" element={<ViewMealTrain />} />
+      <Route element={<PrivateRoutes />}>
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/create-meal-train" element={<CreateMealTrain />} />
+        <Route path="/single-meal-view" element={<SingleMealView />} />
+        <Route path="/create-meal" element={<CreateMeal />} />
+        <Route path="/view-meal-train" element={<ViewMealTrain />} />
+      </Route>
     </Routes>
   );
 }

@@ -20,6 +20,8 @@ export default function UserDashboard() {
   const [showMoreCreated, setShowMoreCreated] = useState(false);
   const [showMoreJoined, setShowMoreJoined] = useState(false);
 
+  /* ---------- Data to be implemented here ---------- */
+
   useEffect(() => {
     fetchDashboard()
       .then((res) => {
