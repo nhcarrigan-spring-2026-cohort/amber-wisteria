@@ -1,4 +1,3 @@
-
 """
 Django settings for backend project.
 
@@ -39,20 +38,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'user.apps.UserConfig',
-    'drf_yasg',
-    'mealTrain',
+    "rest_framework",
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    "user.apps.UserConfig",
+   'drf_yasg',
+    "mealTrain",
+    'friends',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

@@ -87,3 +87,5 @@ class UserSearchView(APIView):
         users = User.objects.filter(username__icontains=query, is_active=True).exclude(id=request.user.id)[:20]  # exclude self from results, limit to 20
         serializer = UserSearchSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
