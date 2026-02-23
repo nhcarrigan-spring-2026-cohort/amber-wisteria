@@ -12,41 +12,51 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'email', 'username']
 
+# ---------- MealSlot Serializer (used for nested representation) ----------
+class MealSlotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MealSlot
+        fields = ['id', 'slot_date', 'meal_type']
+        # Note: 'meal_train' is omitted because it will be set from the parent
 
-# ---------- MealTrain Serializer ----------
-class MealTrainSerializer(serializers.ModelSerializer):
+# ---------- MealTrain Serializers ----------
+class MealTrainCreateSerializer(serializers.ModelSerializer):
 
+    slots = MealSlotSerializer(many=True, required=True, help_text="List of slots to create within the train")
 
     class Meta:
         model = MealTrain
         fields = [
             'id', 'title', 'description', 'organizer_id',
             'beneficiary_name', 'beneficiary_address', 'beneficiary_phone',
-            'beneficiary_email', 'dietary_restrictions', 'created_at',
+            'beneficiary_email', 'dietary_restrictions', 'created_at', 'slots'
+        ]
+        read_only_fields = ['created_at']
+    
+    def create(self, validated_data):
+        # Extract slots data:
+        slots_data = validated_data.pop('slots', [])
+        # create the train:
+        train = MealTrain.objects.create(**validated_data)        
+        # Create each slot:
+        for slot_data in slots_data:
+            MealSlot.objects.create(meal_train=train, **slot_data)
+        return train
+
+class MealTrainSerializer(serializers.ModelSerializer):
+
+    slots = MealSlotSerializer(many=True, read_only=True, help_text="List of slots within the train")
+
+    class Meta:
+        model = MealTrain
+        fields = [
+            'id', 'title', 'description', 'organizer_id',
+            'beneficiary_name', 'beneficiary_address', 'beneficiary_phone',
+            'beneficiary_email', 'dietary_restrictions', 'created_at', 'slots'
         ]
         read_only_fields = ['created_at']
 
-    def create(self, validated_data):
-        # Automatically set the organizer to the current user if not provided
-        if 'organizer' not in validated_data:
-            validated_data['organizer'] = self.context['request'].user
-        return super().create(validated_data)
-
-
-# ---------- MealSlot Serializer ----------
-class MealSlotSerializer(serializers.ModelSerializer):
-    meal_train = serializers.PrimaryKeyRelatedField(queryset=MealTrain.objects.all())
-    meal_train_detail = MealTrainSerializer(source='meal_train', read_only=True)
-    signup_count = serializers.IntegerField(source='signups.count', read_only=True)
-
-    class Meta:
-        model = MealSlot
-        fields = [
-            'id', 'meal_train', 'meal_train_detail', 'slot_date', 'meal_type',
-            'signup_count'
-        ]
-
-
+    
 # ---------- MealTrainMembership Serializer ----------
 class MealTrainMembershipSerializer(serializers.ModelSerializer):
 

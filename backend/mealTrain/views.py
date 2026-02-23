@@ -8,6 +8,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from .models import MealTrain, MealSlot, MealTrainMembership, MealSignup
 from .serializers import (
+    MealTrainCreateSerializer,
     MealTrainSerializer,
     MealSlotSerializer,
     MealTrainMembershipSerializer,
@@ -35,14 +36,14 @@ class MealTrainListCreateView(APIView):
 
     @swagger_auto_schema(
         operation_description="Create a new meal train",
-        request_body=MealTrainSerializer,
+        request_body=MealTrainCreateSerializer,
         responses={
-            201: MealTrainSerializer(),
+            201: MealTrainCreateSerializer(),
             400: "Bad Request (validation errors)"
         }
     )
     def post(self, request):
-        serializer = MealTrainSerializer(data=request.data, context={'request': request})
+        serializer = MealTrainCreateSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save(organizer=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
