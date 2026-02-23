@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MealTrain, MealTrainParticipant
+from .models import MealTrain, MealTrainMembership
 
 admin.site.register(MealTrain)
-admin.site.register(MealTrainParticipant)
+admin.site.register(MealTrainMembership)
