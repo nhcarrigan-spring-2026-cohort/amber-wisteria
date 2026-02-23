@@ -63,7 +63,7 @@ export default function Signup() {
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
+            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Username"
             required
           />
@@ -77,7 +77,7 @@ export default function Signup() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
+            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Email"
             required
           />
@@ -91,7 +91,7 @@ export default function Signup() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
+            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
@@ -108,7 +108,7 @@ export default function Signup() {
             name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
+            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
@@ -118,13 +118,13 @@ export default function Signup() {
 
           <button
             type="submit"
-            className="bg-[#A88DE5]! text-white! w-xs mt-8 mb-2 p-5! text-2xl! font-semibold!"
+            className="bg-[#A88DE5]! text-white! w-[391.187px] h-[90.51px] rounded-[23.011px] text-[larger] cursor-pointer mt-8 mb-2 p-[1.53px]"
           >
             Create Account
           </button>
 
-          <p className="dark:text-[#212B27]">
-            Already Have An Account? <Link to="/login">Sign In</Link>
+          <p className="dark:text-[#212B27] text-[21.477px] text-[#32403b] font-sans font-semibold">
+            Already Have An Account? <Link to="/login" className='hover:text-[#A88DE5]'>Sign In</Link>
           </p>
         </form>
       </div>
