@@ -1,4 +1,5 @@
 import Background from '../components/Background';
+import PasswordHelper from '../components/signUp/PasswordHelper';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axiosClient from '../api/axiosClient';
@@ -8,6 +9,10 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordGuidelines, setPasswordGuidelines] = useState('');
+  const [confirmGuideline, setConfirmGuideline] = useState('');
+  const [usernameGuideline, setUsernameGuideline] = useState('');
+  const [emailGuideline, setEmailGuideline] = useState('');
 
   const navigate = useNavigate();
 
@@ -36,9 +41,17 @@ export default function Signup() {
       }
       console.log('Form Submitted:', username, email, password, confirmPassword);
     } else {
-      alert('Passwords must match');
+      alert('Passwords must match.');
     }
   };
+
+  const handleFocus = () => {
+    return (
+      <div>
+        {setPasswordGuidelines('Password must contain at least one uppercase and lowercase letter, one number, and at least 8 characters.')}
+      </div>
+    );
+  }
 
   return (
     <Background>
@@ -63,10 +76,15 @@ export default function Signup() {
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            onFocus={() => setUsernameGuideline('Must be at least 3 characters.')}
+            onBlur={() => setUsernameGuideline('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Username"
+            minLength='3'
             required
           />
+
+          <p className='w-95 '>{usernameGuideline}</p>
 
           <label htmlFor="email" className="dark:text-[#212B27]">
             Email
@@ -77,10 +95,14 @@ export default function Signup() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={() => setEmailGuideline('Enter an email, eg. john@example.com')}
+            onBlur={() => setEmailGuideline('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Email"
             required
           />
+
+          <p className='w-95 '>{emailGuideline}</p>
 
           <label htmlFor="password" className="dark:text-[#212B27]">
             Password
@@ -91,13 +113,16 @@ export default function Signup() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onFocus={handleFocus}
+            onBlur={() => setPasswordGuidelines('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
             required
             minLength="8"
           />
+
+          <p className='w-95 '>{passwordGuidelines}</p>
 
           <label htmlFor="confirmPassword" className="dark:text-[#212B27]">
             Confirm Password
@@ -108,13 +133,16 @@ export default function Signup() {
             name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            onFocus={() => setConfirmGuideline('Passwords must match.')}
+            onBlur={() => setConfirmGuideline('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
             required
             minLength="8"
           />
+
+          <p className='w-95 '>{confirmGuideline}</p>
 
           <button
             type="submit"
