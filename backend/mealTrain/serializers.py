@@ -14,27 +14,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 # ---------- MealTrain Serializer ----------
 class MealTrainSerializer(serializers.ModelSerializer):
-    organizer = UserSerializer(read_only=True)
-    organizer_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        source='organizer',
-        write_only=True,
-        required=False,  # will default to current user in create
-        help_text="ID of the organizer (defaults to current user if omitted)"
-    )
-    slot_count = serializers.IntegerField(source='slots.count', read_only=True)
-    member_count = serializers.IntegerField(
-        source='memberships.filter(status=MealTrainMembership.Status.APPROVED).count',
-        read_only=True
-    )
+
 
     class Meta:
         model = MealTrain
         fields = [
-            'id', 'title', 'description', 'organizer', 'organizer_id',
+            'id', 'title', 'description', 'organizer_id',
             'beneficiary_name', 'beneficiary_address', 'beneficiary_phone',
             'beneficiary_email', 'dietary_restrictions', 'created_at',
-            'slot_count', 'member_count'
         ]
         read_only_fields = ['created_at']
 
