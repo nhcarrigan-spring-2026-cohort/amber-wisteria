@@ -1,7 +1,7 @@
 import Background from '../components/Background';
 import PasswordHelper from '../components/signUp/PasswordHelper';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axiosClient from '../api/axiosClient';
 
 export default function Signup() {
@@ -14,7 +14,13 @@ export default function Signup() {
   const [usernameGuideline, setUsernameGuideline] = useState('');
   const [emailGuideline, setEmailGuideline] = useState('');
 
+  const userRef = useRef();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,16 +81,18 @@ export default function Signup() {
             id="username"
             name="username"
             value={username}
+            ref={userRef}
             onChange={(e) => setUsername(e.target.value)}
             onFocus={() => setUsernameGuideline('Must be at least 3 characters.')}
             onBlur={() => setUsernameGuideline('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Username"
             minLength='3'
+            aria-describedby='userNote'
             required
           />
 
-          <p className='w-95 '>{usernameGuideline}</p>
+          <p id='userNote' className='w-95 '>{usernameGuideline}</p>
 
           <label htmlFor="email" className="dark:text-[#212B27]">
             Email
@@ -99,10 +107,11 @@ export default function Signup() {
             onBlur={() => setEmailGuideline('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Email"
+            aria-describedby='emailNote'
             required
           />
 
-          <p className='w-95 '>{emailGuideline}</p>
+          <p id='emailNote' className='w-95 '>{emailGuideline}</p>
 
           <label htmlFor="password" className="dark:text-[#212B27]">
             Password
@@ -119,10 +128,11 @@ export default function Signup() {
             placeholder="Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             required
+            aria-describedby='passNote'
             minLength="8"
           />
 
-          <p className='w-95 '>{passwordGuidelines}</p>
+          <p id='passNote' className='w-95 '>{passwordGuidelines}</p>
 
           <label htmlFor="confirmPassword" className="dark:text-[#212B27]">
             Confirm Password
@@ -139,10 +149,11 @@ export default function Signup() {
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             required
+            aria-describedby='confirmNote'
             minLength="8"
           />
 
-          <p className='w-95 '>{confirmGuideline}</p>
+          <p id='confirmNote' className='w-95 '>{confirmGuideline}</p>
 
           <button
             type="submit"
