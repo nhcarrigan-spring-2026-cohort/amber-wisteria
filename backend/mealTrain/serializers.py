@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
@@ -48,20 +49,11 @@ class MealSlotSerializer(serializers.ModelSerializer):
 
 # ---------- MealTrainMembership Serializer ----------
 class MealTrainMembershipSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    user_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-        source='user',
-        write_only=True,
-        required=False
-    )
-    meal_train = serializers.PrimaryKeyRelatedField(queryset=MealTrain.objects.all())
-    meal_train_detail = MealTrainSerializer(source='meal_train', read_only=True)
 
     class Meta:
         model = MealTrainMembership
         fields = [
-            'id', 'user', 'user_id', 'meal_train', 'meal_train_detail',
+            'id', 'user_id', 'meal_train',
             'status', 'requested_at', 'responded_at'
         ]
         read_only_fields = ['requested_at', 'responded_at']
@@ -69,9 +61,13 @@ class MealTrainMembershipSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         request = self.context.get('request')
         if request and request.method == 'POST':
-            user = attrs.get('user', request.user)
-            meal_train = attrs.get('meal_train')
-            if MealTrainMembership.objects.filter(user=user, meal_train=meal_train).exists():
+            user = request.user
+            train = attrs.get("meal_train")
+            if train.organizer == user:
+                raise serializers.ValidationError(
+                    "You don't need to join your own meal train."
+                )
+            if MealTrainMembership.objects.filter(user=user, meal_train=train).exists():
                 raise serializers.ValidationError(
                     "You have already requested to join this meal train."
                 )

@@ -262,20 +262,16 @@ class MealTrainMembershipListCreateView(APIView):
 
     @swagger_auto_schema(
         operation_description="Request to join a meal train (creates pending membership)",
-        request_body=MealTrainMembershipSerializer,  # Note: user and meal_train are auto-set
+        #request_body=MealTrainMembershipSerializer,  # Note: user and meal_train are auto-set
         responses={
             201: MealTrainMembershipSerializer(),
             400: "Bad Request (duplicate request or validation error)",
-            403: "Forbidden"
+            401: "Unauthorized"
         }
     )
-    def post(self, request, meal_train_id):
+    def post(self, request, meal_train_id):        
         train = get_object_or_404(MealTrain, pk=meal_train_id)
-        # Check if already requested
-        if MealTrainMembership.objects.filter(user=request.user, meal_train=train).exists():
-            return Response({"detail": "You have already requested to join this meal train."},
-                            status=status.HTTP_400_BAD_REQUEST)
-        serializer = MealTrainMembershipSerializer(data=request.data, context={'request': request})
+        serializer = MealTrainMembershipSerializer(data={"user":request.user.id, "meal_train": meal_train_id}, context={'request': request})
         if serializer.is_valid():
             serializer.save(user=request.user, meal_train=train, status=MealTrainMembership.Status.PENDING)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
