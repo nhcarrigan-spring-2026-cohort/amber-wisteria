@@ -20,7 +20,7 @@ export default function Signup() {
 
   useEffect(() => {
     userRef.current.focus();
-  }, [])
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,10 +54,12 @@ export default function Signup() {
   const handleFocus = () => {
     return (
       <div>
-        {setPasswordGuidelines('Password must contain at least one uppercase and lowercase letter, one number, and at least 8 characters.')}
+        {setPasswordGuidelines(
+          'Password must contain at least one uppercase and lowercase letter, one number, and at least 8 characters.'
+        )}
       </div>
     );
-  }
+  };
 
   return (
     <Background>
@@ -87,12 +89,14 @@ export default function Signup() {
             onBlur={() => setUsernameGuideline('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Username"
-            minLength='3'
-            aria-describedby='userNote'
+            minLength="3"
+            aria-describedby="userNote"
             required
           />
 
-          <p id='userNote' className='w-95 '>{usernameGuideline}</p>
+          <p id="userNote" className="w-95 ">
+            {usernameGuideline}
+          </p>
 
           <label htmlFor="email" className="dark:text-[#212B27]">
             Email
@@ -107,11 +111,13 @@ export default function Signup() {
             onBlur={() => setEmailGuideline('')}
             className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27]"
             placeholder="Email"
-            aria-describedby='emailNote'
+            aria-describedby="emailNote"
             required
           />
 
-          <p id='emailNote' className='w-95 '>{emailGuideline}</p>
+          <p id="emailNote" className="w-95 ">
+            {emailGuideline}
+          </p>
 
           <label htmlFor="password" className="dark:text-[#212B27]">
             Password
@@ -128,11 +134,13 @@ export default function Signup() {
             placeholder="Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             required
-            aria-describedby='passNote'
+            aria-describedby="passNote"
             minLength="8"
           />
 
-          <p id='passNote' className='w-95 '>{passwordGuidelines}</p>
+          <p id="passNote" className="w-95 ">
+            {passwordGuidelines}
+          </p>
 
           <label htmlFor="confirmPassword" className="dark:text-[#212B27]">
             Confirm Password
@@ -149,11 +157,13 @@ export default function Signup() {
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             required
-            aria-describedby='confirmNote'
+            aria-describedby="confirmNote"
             minLength="8"
           />
 
-          <p id='confirmNote' className='w-95 '>{confirmGuideline}</p>
+          <p id="confirmNote" className="w-95 ">
+            {confirmGuideline}
+          </p>
 
           <button
             type="submit"

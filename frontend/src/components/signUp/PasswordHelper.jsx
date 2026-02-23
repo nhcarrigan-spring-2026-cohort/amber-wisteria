@@ -1,9 +1,9 @@
-const PasswordHelper = ({passwordGuidelines}) => {    
-    return (
-        <div>
-            <p>{passwordGuidelines}</p>
-        </div>
-    )
-}
+const PasswordHelper = ({ passwordGuidelines }) => {
+  return (
+    <div>
+      <p>{passwordGuidelines}</p>
+    </div>
+  );
+};
 
-export default PasswordHelper
+export default PasswordHelper;
