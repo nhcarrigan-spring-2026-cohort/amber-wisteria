@@ -3,7 +3,7 @@ import HoverIcon from './HoverIcon';
 import WaitingIcon from '../../assets/waiting.svg';
 import XIcon from '../../assets/x.svg';
 
-export default function MealTrainCard({ title, description, pending, showTopBorder = true }) {
+export default function MealTrainCard({ title, description, pending = false, showTopBorder = true }) {
   return (
     <div className={`pt-2 ${showTopBorder ? 'border-t border-[#4c4c4c]' : ''}`}>
       <div
@@ -13,7 +13,9 @@ export default function MealTrainCard({ title, description, pending, showTopBord
       >
         <div>
           <h2 className="text-[18px] font-bold my-1">{title}</h2>
-          <p className="text-[15px] text-[#4c4c4c]">{description}</p>
+          <p className="text-[15px] text-[#4c4c4c]">
+            {description || 'No description provided.'}
+          </p>
         </div>
 
         {pending && (
