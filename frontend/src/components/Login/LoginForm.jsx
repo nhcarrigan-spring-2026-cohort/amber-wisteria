@@ -1,11 +1,13 @@
-import './login-form.css';
+import './LoginForm.css';
+import { Link } from 'react-router-dom';
 
 export default function LoginForm({
   username,
   password,
   onUsernameChange,
   onPasswordChange,
-  onSubmit
+  onSubmit,
+  message
 }) {
   return (
     <div className="login-page">
@@ -18,7 +20,7 @@ export default function LoginForm({
         </h1>
 
         <form className="form" aria-label="Sign in form" onSubmit={onSubmit}>
-          <label className="sr-only" htmlFor="email">
+          <label className="sr-only" htmlFor="username">
             Username
           </label>
           <input
@@ -45,11 +47,15 @@ export default function LoginForm({
           <button type="submit" className="submit">
             Sign in
           </button>
-          <p className="error-message" role="alert">
-            Invalid email address or password
-          </p>
+
+          {message && (
+            <p className={`message ${message.includes('success') ? 'success' : 'error'}`}>
+              {message}
+            </p>
+          )}
+
           <p className="signup-text">
-            Don't have an account yet? <a href="/signup">Sign up</a>
+            Don't have an account yet? <Link to="/signup">Sign up</Link>
           </p>
         </form>
       </main>
