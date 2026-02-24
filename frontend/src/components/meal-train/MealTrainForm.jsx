@@ -19,7 +19,6 @@ export default function MealTrainForm() {
   const [beneficiaryName, setBeneficiaryName] = useState('');
   const [beneficiaryPhone, setBeneficiaryPhone] = useState('');
   const [beneficiaryEmail, setBeneficiaryEmail] = useState('');
-  
 
   // step 2
   const [selectedDates, setSelectedDates] = useState({});
@@ -128,18 +127,46 @@ export default function MealTrainForm() {
   };
 
   const handleCreateMealTrain = async () => {
-    const dates = Object.keys(selectedDates).sort();
+    const slots = [];
+
+    Object.keys(selectedDates)
+      .sort()
+      .forEach((date) => {
+        const { breakfast, lunch, dinner } = selectedDates[date];
+
+        if (breakfast) {
+          slots.push({
+            slot_date: date,
+            meal_type: 'breakfast'
+          });
+        }
+        if (lunch) {
+          slots.push({
+            slot_date: date,
+            meal_type: 'lunch'
+          });
+        }
+        if (dinner) {
+          slots.push({
+            slot_date: date,
+            meal_type: 'dinner'
+          });
+        }
+      });
 
     const payload = {
       title: mealTrainTitle,
-      description: mealTrainDesc,
-      start_date: dates[0],
-      end_date: dates[dates.length - 1],
-      restrictions: restrictions
+      description: mealTrainDesc || '',
+      beneficiary_name: beneficiaryName,
+      beneficiary_address: deliveryAddress,
+      beneficiary_phone: beneficiaryPhone || '',
+      beneficiary_email: beneficiaryEmail || '',
+      dietary_restrictions: restrictions.join(', '),
+      slots: slots,
     };
 
     try {
-      const res = await axiosClient.post('/api/meal-trains/', payload);
+      const res = await axiosClient.post('/api/mealtrains/', payload);
       console.log('Created', res.data);
       navigate('/dashboard');
     } catch (error) {
