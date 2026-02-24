@@ -162,7 +162,7 @@ export default function MealTrainForm() {
       beneficiary_phone: beneficiaryPhone || '',
       beneficiary_email: beneficiaryEmail || '',
       dietary_restrictions: restrictions.join(', '),
-      slots: slots,
+      slots: slots
     };
 
     try {
