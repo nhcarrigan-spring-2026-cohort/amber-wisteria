@@ -26,11 +26,12 @@ class MealTrainListCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(
-        operation_description="List all meal trains",
+        operation_description="List all meal trains related to the authenticated user",
         responses={200: MealTrainSerializer(many=True)},
     )
-    def get(self, request):  # TODO: Only get the user's related meal trains
-        trains = MealTrain.objects.all()
+    def get(self, request):
+        memberships = MealTrainMembership.objects.filter(user=request.user).all()
+        trains = [m.meal_train for m in memberships]
         serializer = MealTrainSerializer(
             trains, many=True, context={"request": request}
         )
@@ -387,15 +388,6 @@ class MealTrainMembershipApproveRejectView(APIView):
 
     @swagger_auto_schema(
         operation_description="Approve or reject a pending membership request (organizer only)",
-        manual_parameters=[
-            openapi.Parameter(
-                "action",
-                openapi.IN_PATH,
-                description="Action to perform: 'approve' or 'reject'",
-                type=openapi.TYPE_STRING,
-                enum=["approve", "reject"],
-            )
-        ],
         responses={
             200: MealTrainMembershipSerializer(),
             400: "Bad Request (membership not pending or invalid action)",
