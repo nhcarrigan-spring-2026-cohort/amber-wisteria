@@ -33,8 +33,8 @@ export default function UserDashboard() {
         const mealTrains = trainsRes.data;
 
         // Split into created vs joined
-        const created = mealTrains.filter(t => t.organizer_id === user.id);
-        const joined = mealTrains.filter(t => t.organizer_id !== user.id);
+        const created = mealTrains.filter((t) => t.organizer_id === user.id);
+        const joined = mealTrains.filter((t) => t.organizer_id !== user.id);
 
         setData({
           user: { id: user.id, username: user.username },
@@ -72,7 +72,7 @@ export default function UserDashboard() {
             items={data.createdMealTrains}
             extraItems={[]}
             showMore={showMoreCreated}
-            toggleShowMore={() => setShowMoreCreated(p => !p)}
+            toggleShowMore={() => setShowMoreCreated((p) => !p)}
           />
 
           <MealTrainSection
@@ -82,7 +82,7 @@ export default function UserDashboard() {
             items={data.joinedMealTrains}
             extraItems={[]}
             showMore={showMoreJoined}
-            toggleShowMore={() => setShowMoreJoined(p => !p)}
+            toggleShowMore={() => setShowMoreJoined((p) => !p)}
           />
         </main>
       </div>

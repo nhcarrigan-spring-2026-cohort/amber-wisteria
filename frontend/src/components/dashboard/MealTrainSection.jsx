@@ -16,7 +16,7 @@ export default function MealTrainSection({
         <h1 className="text-[28px] font-bold">{title}</h1>
 
         <button
-          onClick={buttonAction} 
+          onClick={buttonAction}
           className="flex items-center gap-2 bg-[#f68300] text-white px-4 py-2 rounded-full font-semibold"
         >
           <img
