@@ -17,6 +17,9 @@ export default function MealTrainForm() {
   const [mealTrainTitle, setMealTrainTitle] = useState('');
   const [mealTrainDesc, setMealTrainDesc] = useState('');
   const [beneficiaryName, setBeneficiaryName] = useState('');
+  const [beneficiaryPhone, setBeneficiaryPhone] = useState('');
+  const [beneficiaryEmail, setBeneficiaryEmail] = useState('');
+  
 
   // step 2
   const [selectedDates, setSelectedDates] = useState({});
@@ -200,6 +203,10 @@ export default function MealTrainForm() {
             setMealTrainDesc={setMealTrainDesc}
             beneficiaryName={beneficiaryName}
             setBeneficiaryName={setBeneficiaryName}
+            beneficiaryPhone={beneficiaryPhone}
+            setBeneficiaryPhone={setBeneficiaryPhone}
+            beneficiaryEmail={beneficiaryEmail}
+            setBeneficiaryEmail={setBeneficiaryEmail}
             onNext={handleBasicInfoSubmit}
           />
         )}
