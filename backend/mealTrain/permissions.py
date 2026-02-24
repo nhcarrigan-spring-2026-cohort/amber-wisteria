@@ -1,25 +1,14 @@
-from rest_framework.permissions import BasePermission, SAFE_METHODS
+from .models import MealTrainMembership
 
-class IsOrganizerOrReadOnly(BasePermission):
-    """
-    Object-level permission: allow write only if user is the organizer of the MealTrain.
-    Assumes the view has a `get_object()` method or we are checking a model instance.
-    """
-    def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed for any authenticated request
-        if request.method in SAFE_METHODS:
-            return True
-        # Write permissions only for the organizer
-        return obj.organizer == request.user
+def is_organizer(user, train):
+    return user == train.organizer
 
-class IsOrganizer(BasePermission):
-    """Allows access only to the organizer of the MealTrain."""
-    def has_object_permission(self, request, view, obj):
-        return obj.organizer == request.user
 
-class IsParticipantOrReadOnly(BasePermission):
-    """Allows update/delete only to the participant of a MealSignup."""
-    def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
-            return True
-        return obj.participant == request.user
+def is_allowed_participant(user, train):
+    if is_organizer(user, train):
+        return True
+    membership = MealTrainMembership.objects.filter(user=user, meal_train=train).first()
+    if membership and membership.status == "approved":
+        return True
+    return False
+    
