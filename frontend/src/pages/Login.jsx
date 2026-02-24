@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginForm from '../components/Login/login-form';
+import LoginForm from '../components/Login/LoginForm';
 import axiosClient from '../api/axiosClient';
 import { useNavigate } from 'react-router';
 
@@ -35,11 +35,8 @@ export default function Login() {
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
 
-      setMessage('Logged in successfully !');
-
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 1000);
+      setMessage('Logged in successfully!');
+      navigate('/dashboard');
     } catch (error) {
       console.log(error);
       setMessage('Invalid credentials.');

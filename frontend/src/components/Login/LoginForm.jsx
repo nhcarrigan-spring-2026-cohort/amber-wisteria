@@ -1,4 +1,5 @@
-import './login-form.css';
+import './LoginForm.css';
+import { Link } from 'react-router-dom';
 
 export default function LoginForm({
   username,
@@ -54,7 +55,7 @@ export default function LoginForm({
           )}
 
           <p className="signup-text">
-            Don't have an account yet? <a href="/signup">Sign up</a>
+            Don't have an account yet? <Link to="/signup">Sign up</Link>
           </p>
         </form>
       </main>
