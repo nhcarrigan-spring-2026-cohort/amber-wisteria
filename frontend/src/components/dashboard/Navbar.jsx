@@ -2,6 +2,9 @@ import logo from '../../assets/logo.png';
 import NotifIcon from '../../assets/notif.svg';
 import LogoutIcon from '../../assets/logout.svg';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
+
+import NotificationsPopup from '../dashboard/NotificationsPopup';
 
 export default function Navbar() {
   const iconFilter =
@@ -11,6 +14,7 @@ export default function Navbar() {
     'brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(7470%) hue-rotate(266deg) brightness(90%) contrast(102%)';
 
   const navigate = useNavigate();
+  const [openNotif, setOpenNotif] = useState(false);
 
   function handleLogout() {
     localStorage.removeItem('access');
@@ -30,8 +34,14 @@ export default function Navbar() {
             style={{ filter: iconFilter }}
             onMouseEnter={(e) => (e.currentTarget.style.filter = hoverFilter)}
             onMouseLeave={(e) => (e.currentTarget.style.filter = iconFilter)}
+            onClick={() => setOpenNotif((p) => !p)}
           />
+
           <span className="absolute -top-[2px] right-[2px] w-2 h-2 bg-red-600 rounded-full" />
+
+          {openNotif && (
+            <NotificationsPopup close={() => setOpenNotif(false)} />
+          )}
         </div>
 
         <img
