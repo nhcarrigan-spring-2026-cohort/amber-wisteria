@@ -30,6 +30,9 @@ export default function LoginForm({
             placeholder="Username"
             value={username}
             onChange={onUsernameChange}
+            required
+            minLength="3"
+            title="Username must be at least 3 characters"
           />
 
           <label className="sr-only" htmlFor="password">
@@ -42,6 +45,10 @@ export default function LoginForm({
             placeholder="Password"
             value={password}
             onChange={onPasswordChange}
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+            required
+            minLength="8"
           />
 
           <button type="submit" className="submit">
