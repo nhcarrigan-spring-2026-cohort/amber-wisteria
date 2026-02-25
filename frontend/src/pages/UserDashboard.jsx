@@ -8,7 +8,7 @@ import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import MealTrainSection from '../components/dashboard/MealTrainSection';
 
-import { fetchDashboard } from '../api/dashboard';
+import axiosClient from '../api/axiosClient';
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -20,18 +20,37 @@ export default function UserDashboard() {
   const [showMoreCreated, setShowMoreCreated] = useState(false);
   const [showMoreJoined, setShowMoreJoined] = useState(false);
 
-  /* ---------- Data to be implemented here ---------- */
-
   useEffect(() => {
-    fetchDashboard()
-      .then((res) => {
-        setData(res);
+    async function loadDashboard() {
+      try {
+        // Fetch user + meal trains in parallel
+        const [userRes, trainsRes] = await Promise.all([
+          axiosClient.get('/api/me'),
+          axiosClient.get('/api/mealtrains/')
+        ]);
+
+        const user = userRes.data;
+        const mealTrains = trainsRes.data;
+
+        // Split into created vs joined
+        const created = mealTrains.filter((t) => t.organizer_id === user.id);
+        const joined = mealTrains.filter((t) => t.organizer_id !== user.id);
+
+        setData({
+          user: { id: user.id, username: user.username },
+          createdMealTrains: created,
+          joinedMealTrains: joined
+        });
+
         setLoading(false);
-      })
-      .catch(() => {
+      } catch (err) {
+        console.error(err);
         setError('Failed to load dashboard');
         setLoading(false);
-      });
+      }
+    }
+
+    loadDashboard();
   }, []);
 
   if (loading) return <p className="p-10">Loading dashboard…</p>;

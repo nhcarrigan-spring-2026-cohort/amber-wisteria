@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
-import LoginForm from '../components/Login/login-form';
+import LoginForm from '../components/Login/LoginForm';
 import axiosClient from '../api/axiosClient';
 import { useNavigate } from 'react-router';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
+    setMessage('');
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    setMessage('');
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const loginCredentials = {
       username: username,
       password: password
@@ -33,9 +37,11 @@ export default function Login() {
       localStorage.setItem('refresh', refreshToken);
       localStorage.setItem('access', accessToken);
 
+      setMessage('Logged in successfully!');
       navigate('/dashboard');
     } catch (error) {
       console.log(error);
+      setMessage('Invalid credentials.');
     }
   };
 
@@ -46,6 +52,7 @@ export default function Login() {
       onUsernameChange={handleUsernameChange}
       onPasswordChange={handlePasswordChange}
       onSubmit={handleSubmit}
+      message={message}
     />
   );
 }

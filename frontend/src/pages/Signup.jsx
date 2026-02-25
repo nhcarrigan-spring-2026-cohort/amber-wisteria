@@ -42,14 +42,14 @@ export default function Signup() {
 
   return (
     <Background>
-      <div className="flex items-center justify-center h-screen w-full">
+      <div className="flex items-center justify-center min-h-screen w-full px-4">
         <form
           onSubmit={handleSubmit}
-          className="relative z-3 bg-[#FFECC899] rounded-4xl shadow-xl pt-14 pr-22 pb-14 pl-22 flex flex-col box-border items-center"
+          className="relative z-3 bg-[#FFECC899] rounded-4xl shadow-xl px-6 sm:px-12 md:px-20 py-6 md:py-12 flex flex-col box-border items-center"
         >
           <h1
             id="create-account"
-            className="font-semibold mb-8 text-[45px]! text-[#212B27] dark:text-[#212B27]"
+            className="font-semibold mb-8 text-4xl md:text-5xl text-[#212B27] dark:text-[#212B27]"
           >
             Create An Account
           </h1>
@@ -63,7 +63,7 @@ export default function Signup() {
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
+            className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Username"
             required
           />
@@ -77,7 +77,7 @@ export default function Signup() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
+            className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Email"
             required
           />
@@ -91,7 +91,7 @@ export default function Signup() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
+            className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
@@ -108,7 +108,7 @@ export default function Signup() {
             name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="bg-white p-2.5 w-12/10 rounded-xl mt-2.5 mb-2.5 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
+            className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
@@ -118,7 +118,7 @@ export default function Signup() {
 
           <button
             type="submit"
-            className="bg-[#A88DE5]! text-white! w-[391.187px] h-[90.51px] rounded-[23.011px] text-[larger] cursor-pointer mt-8 mb-2 p-[1.53px]"
+            className="bg-[#A88DE5]! text-white! w-[70%] max-w-md rounded-xl text-[larger] cursor-pointer mt-6 mb-2 py-6"
           >
             Create Account
           </button>

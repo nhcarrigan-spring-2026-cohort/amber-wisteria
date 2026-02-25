@@ -173,6 +173,27 @@
   border: 0;
 }
 
+.message {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: 'Karla', sans-serif;
+  font-size: 14px;
+}
+
+.message.success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.1);
+}
+
+.message.error {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
 @media (max-width: 768px) {
   .login-page {
     padding: 16px;
