@@ -13,7 +13,6 @@ export default function LoginForm({
   return (
     <Background>
       <div className="login-page">
-
         <main className="login-form" role="main">
           <h1 className="signin-heading" data-node-id="1:312">
             Sign in
