@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import axiosClient from "../../api/axiosClient";
+import { useEffect, useRef, useState } from 'react';
+import axiosClient from '../../api/axiosClient';
 
 import HoverIcon from './HoverIcon';
-import XIcon from "../../assets/x.svg";
-import CheckIcon from "../../assets/check.svg";
+import XIcon from '../../assets/x.svg';
+import CheckIcon from '../../assets/check.svg';
 import { redFilter } from './HoverIcon.constants';
 
 const darkGreenFilter =
-  "brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(800%) hue-rotate(92deg) brightness(85%) contrast(90%)";
+  'brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(800%) hue-rotate(92deg) brightness(85%) contrast(90%)';
 
 export default function NotificationsPopup({ close, mealTrainId }) {
   const popupRef = useRef(null);
@@ -20,28 +20,29 @@ export default function NotificationsPopup({ close, mealTrainId }) {
         close();
       }
     }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
-  useEffect(() => {async function load() {
-  try {
-    const res = await axiosClient.get(`/mealtrains/${mealTrainId}/memberships/`);
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await axiosClient.get(`/mealtrains/${mealTrainId}/memberships/`);
 
-    const pending = res.data.filter(m => m.status === "pending");
+        const pending = res.data.filter((m) => m.status === 'pending');
 
-    const formatted = pending.map(m => ({
-      id: m.id,
-      message: `User ${m.user_id} requested to join your meal train.`
-    }));
+        const formatted = pending.map((m) => ({
+          id: m.id,
+          message: `User ${m.user_id} requested to join your meal train.`
+        }));
 
-    setNotifications(formatted);
-  } catch (err) {
-    console.error(err);
-  } finally {
-    setLoading(false);
-  }
-}
+        setNotifications(formatted);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
 
     load();
   }, [mealTrainId]);
@@ -49,7 +50,7 @@ export default function NotificationsPopup({ close, mealTrainId }) {
   async function handleAction(id, action) {
     try {
       await axiosClient.post(`/memberships/${id}/${action}/`);
-      setNotifications(prev => prev.filter(n => n.id !== id));
+      setNotifications((prev) => prev.filter((n) => n.id !== id));
     } catch (err) {
       console.error(err);
     }
@@ -72,11 +73,8 @@ export default function NotificationsPopup({ close, mealTrainId }) {
         )}
 
         <div className="flex flex-col gap-3">
-          {notifications.map(n => (
-            <div
-              key={n.id}
-              className="flex justify-between items-center bg-white p-3 rounded-xl"
-            >
+          {notifications.map((n) => (
+            <div key={n.id} className="flex justify-between items-center bg-white p-3 rounded-xl">
               <p className="text-sm text-left pr-4">{n.message}</p>
 
               <div className="flex gap-4 items-center">
@@ -86,7 +84,7 @@ export default function NotificationsPopup({ close, mealTrainId }) {
                   base={darkGreenFilter}
                   hover={darkGreenFilter}
                   className="w-8 h-8"
-                  onClick={() => handleAction(n.id, "approve")}
+                  onClick={() => handleAction(n.id, 'approve')}
                 />
 
                 <HoverIcon
@@ -95,7 +93,7 @@ export default function NotificationsPopup({ close, mealTrainId }) {
                   base={redFilter}
                   hover={redFilter}
                   className="w-6 h-6"
-                  onClick={() => handleAction(n.id, "reject")}
+                  onClick={() => handleAction(n.id, 'reject')}
                 />
               </div>
             </div>
