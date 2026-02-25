@@ -12,10 +12,12 @@ export default function Login() {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
+    setMessage('');
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    setMessage('');
   };
 
   const handleSubmit = async (e) => {
