@@ -10,6 +10,10 @@ export default function BasicInfoStep({
   setMealTrainDesc,
   beneficiaryName,
   setBeneficiaryName,
+  beneficiaryPhone,
+  setBeneficiaryPhone,
+  beneficiaryEmail,
+  setBeneficiaryEmail,
   onNext
 }) {
   return (
@@ -36,7 +40,7 @@ export default function BasicInfoStep({
         />
       </div>
 
-      {/* Beneficiary  */}
+      {/* Beneficiary Details */}
       <div className="flex flex-col">
         <Label children="Beneficiary Name" />
         <Input
@@ -44,6 +48,26 @@ export default function BasicInfoStep({
           value={beneficiaryName}
           onChange={(e) => setBeneficiaryName(e.target.value)}
           placeholder="Who will receive the meals?"
+        />
+      </div>
+
+      <div className="flex flex-col">
+        <Label children="Beneficiary Phone" />
+        <Input
+          type="text"
+          value={beneficiaryPhone}
+          onChange={(e) => setBeneficiaryPhone(e.target.value)}
+          placeholder="Beneficiary's contact number (optional)"
+        />
+      </div>
+
+      <div className="flex flex-col">
+        <Label children="Beneficiary Email" />
+        <Input
+          type="text"
+          value={beneficiaryEmail}
+          onChange={(e) => setBeneficiaryEmail(e.target.value)}
+          placeholder="Beneficiary's email address (optional)"
         />
       </div>
 
