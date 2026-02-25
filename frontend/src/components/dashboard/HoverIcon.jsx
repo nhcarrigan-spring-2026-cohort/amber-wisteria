@@ -5,7 +5,7 @@ export default function HoverIcon({
   alt,
   base = orangeFilter,
   hover = purpleHover,
-  className = "w-5 h-5",
+  className = 'w-5 h-5',
   onClick
 }) {
   return (
