@@ -107,11 +107,14 @@ class MealTrainSerializer(serializers.ModelSerializer):
 # ---------- MealTrainMembership Serializer ----------
 class MealTrainMembershipSerializer(serializers.ModelSerializer):
 
+    username = serializers.CharField(source="user.username", read_only=True)
+    
     class Meta:
         model = MealTrainMembership
         fields = [
             "id",
             "user_id",
+            "username",
             "meal_train",
             "status",
             "requested_at",
