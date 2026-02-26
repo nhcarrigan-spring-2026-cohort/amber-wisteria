@@ -84,6 +84,8 @@ export default function Signup() {
             value={username}
             ref={userRef}
             onChange={(e) => setUsername(e.target.value)}
+            onFocus={() => setUsernameGuideline('Must be at least 3 characters.')}
+            onBlur={() => setUsernameGuideline('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Username"
             minLength="3"
@@ -104,6 +106,8 @@ export default function Signup() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={() => setEmailGuideline('Enter an email, eg. john@example.com')}
+            onBlur={() => setEmailGuideline('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Email"
             aria-describedby="emailNote"
@@ -123,6 +127,8 @@ export default function Signup() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onFocus={handleFocus}
+            onBlur={() => setPasswordGuidelines('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -144,6 +150,8 @@ export default function Signup() {
             name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            onFocus={() => setConfirmGuideline('Passwords must match.')}
+            onBlur={() => setConfirmGuideline('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
