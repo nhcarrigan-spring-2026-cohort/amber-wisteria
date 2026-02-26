@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import UserDashboard from './pages/UserDashboard.jsx';
@@ -18,8 +19,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Route>
-      <Route path="/" element={<div>Home Page - Coming Soon</div>} />
       <Route element={<PrivateRoutes />}>
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/create-meal-train" element={<CreateMealTrain />} />
         <Route path="/single-meal-view" element={<SingleMealView />} />
