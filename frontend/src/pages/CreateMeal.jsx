@@ -20,7 +20,7 @@ export default function CreateMeal() {
   // To be edited => Restrictions come from meal train maker
   const restrictions = ['Vegan', 'Gluten-free', 'Nut-free', 'Egg-free'];
 
-  const [allowedDates, setAllowedDates] = useState([])
+  const [allowedDates, setAllowedDates] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
 
   const [ingredientInput, setIngredientInput] = useState('');
@@ -93,10 +93,10 @@ export default function CreateMeal() {
 
     try {
       const payload = {
-      "meal_slot": matchingSlot?.id,
-      "meal_description": desc,
-      "special_notes": deliveryMethod
-    };
+        meal_slot: matchingSlot?.id,
+        meal_description: desc,
+        special_notes: deliveryMethod
+      };
 
       const res = await axiosClient.post(`/api/slots/${matchingSlot.id}/signups/`, payload);
       console.log('Meal Created Successfully!', res.data);
@@ -107,7 +107,7 @@ export default function CreateMeal() {
     }
   };
 
-  const slotsForSelectedDate = availableSlots?.filter(slot => slot.slot_date === mealDate) || [];
+  const slotsForSelectedDate = availableSlots?.filter((slot) => slot.slot_date === mealDate) || [];
 
   return (
     <Background>
@@ -216,16 +216,14 @@ export default function CreateMeal() {
               <option value="" disabled>
                 Please select a meal type
               </option>
-              
-              {slotsForSelectedDate.map(slot => (
+
+              {slotsForSelectedDate.map((slot) => (
                 <option key={`${slot.slot_type}-${slot.id}`} value={slot.meal_type}>
                   {slot.meal_type}
                 </option>
               ))}
             </select>
           </div>
-
-          
 
           <div className="w-full flex flex-col mb-6">
             <Label>Delivery Method</Label>
