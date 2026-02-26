@@ -2,7 +2,8 @@ import logo from '../../assets/logo.png';
 import NotifIcon from '../../assets/notif.svg';
 import LogoutIcon from '../../assets/logout.svg';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axiosClient from '../../api/axiosClient';
 
 import NotificationsPopup from '../dashboard/NotificationsPopup';
 
@@ -15,6 +16,20 @@ export default function Navbar() {
 
   const navigate = useNavigate();
   const [openNotif, setOpenNotif] = useState(false);
+  const [mealTrainIds, setMealTrainIds] = useState([]);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await axiosClient.get('/api/mealtrains/');
+        const mine = res.data.filter(mt => mt.organizer_id === localStorage.getItem('user_id'));
+        setMealTrainIds(mine.map(mt => mt.id));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    load();
+  }, []);
 
   function handleLogout() {
     localStorage.removeItem('access');
@@ -39,7 +54,12 @@ export default function Navbar() {
 
           <span className="absolute -top-[2px] right-[2px] w-2 h-2 bg-red-600 rounded-full" />
 
-          {openNotif && <NotificationsPopup close={() => setOpenNotif(false)} />}
+          {openNotif && (
+            <NotificationsPopup
+              close={() => setOpenNotif(false)}
+              mealTrainIds={mealTrainIds}
+            />
+          )}
         </div>
 
         <img
