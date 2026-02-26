@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Background from '../components/Background';
 import Label from '../components/Label';
 import Input from '../components/Input';
@@ -8,6 +8,7 @@ import BackBtn from '../components/BackBtn';
 import IngredientOrRestrictionPill from '../components/view-meal-train/IngredientOrRestrictionPill';
 import RestrictionView from '../components/RestrictionView';
 import { RESTRICTIONS } from '../data/restrictions';
+import axiosClient from '../api/axiosClient';
 
 export default function CreateMeal() {
   const [mealTitle, setMealTitle] = useState('');
@@ -19,8 +20,8 @@ export default function CreateMeal() {
   // To be edited => Restrictions come from meal train maker
   const restrictions = ['Vegan', 'Gluten-free', 'Nut-free', 'Egg-free'];
 
-  // To be edited => Dates that come from meal train maker
-  const allowedDates = ['2026-02-21', '2026-02-23', '2026-02-25'];
+  const [allowedDates, setAllowedDates] = useState([])
+  const [availableSlots, setAvailableSlots] = useState([]);
 
   const [ingredientInput, setIngredientInput] = useState('');
   const [ingredients, setIngredients] = useState([]);
@@ -44,6 +45,23 @@ export default function CreateMeal() {
     }
   };
 
+  const mealTrainId = 10; // can be changed later
+
+  useEffect(() => {
+    const loadAvailableSlots = async () => {
+      try {
+        const res = await axiosClient.get(`/api/mealtrains/${mealTrainId}/slots/`);
+        setAvailableSlots(res.data);
+
+        setAllowedDates(res.data.map(s => s.slot_date)); 
+
+      } catch (error) {
+        console.log(`Error fetching slots for meal train: ${mealTrainId}`, error);
+      }
+    };
+    loadAvailableSlots();
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -64,19 +82,6 @@ export default function CreateMeal() {
       alert('Please add at least one ingredient.');
       return;
     }
-
-    console.log({
-      mealTitle: title,
-      mealDesc: desc,
-      mealType,
-      mealDate,
-      deliveryMethod,
-      restrictions,
-      ingredients
-    });
-
-    alert('Meal created!');
-    navigate('/view-meal-train');
   };
 
   return (
@@ -181,7 +186,7 @@ export default function CreateMeal() {
             </div>
 
             <p className="text-sm text-gray-500 mt-2 text-center">
-              Available dates: {allowedDates.map(formatDate).join(', ')}
+              Available dates: {[...new Set(availableSlots.map(s => s.slot_date))].map(formatDate).join(', ')}
             </p>
 
             {mealDate && (
