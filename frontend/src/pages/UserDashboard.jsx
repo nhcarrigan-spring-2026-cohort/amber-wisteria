@@ -7,7 +7,7 @@ import JoinIcon from '../assets/join.svg';
 import Navbar from '../components/dashboard/Navbar';
 import Sidebar from '../components/dashboard/Sidebar';
 import MealTrainSection from '../components/dashboard/MealTrainSection';
-
+import JoinMealTrainPopup from '../components/dashboard/Popup/JoinMealTrainPopup';
 import axiosClient from '../api/axiosClient';
 
 export default function UserDashboard() {
@@ -19,6 +19,7 @@ export default function UserDashboard() {
 
   const [showMoreCreated, setShowMoreCreated] = useState(false);
   const [showMoreJoined, setShowMoreJoined] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     async function loadDashboard() {
@@ -79,6 +80,7 @@ export default function UserDashboard() {
             title="Joined Meal Trains"
             buttonLabel="Join"
             buttonIcon={JoinIcon}
+            buttonAction={() => setIsPopupOpen(true)}
             items={data.joinedMealTrains}
             extraItems={[]}
             showMore={showMoreJoined}
@@ -86,6 +88,15 @@ export default function UserDashboard() {
           />
         </main>
       </div>
+
+      <JoinMealTrainPopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onSubmit={(url) => {
+          console.log('Joining:', url);
+          setIsPopupOpen(false);
+        }}
+      />
     </div>
   );
 }
