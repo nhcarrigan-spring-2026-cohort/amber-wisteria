@@ -19,8 +19,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Route>
+
+      <Route path="/" element={<Home />} />
+      
       <Route element={<PrivateRoutes />}>
-        <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/create-meal-train" element={<CreateMealTrain />} />
         <Route path="/single-meal-view" element={<SingleMealView />} />
