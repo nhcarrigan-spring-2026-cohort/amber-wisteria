@@ -45,7 +45,7 @@ export default function CreateMeal() {
     }
   };
 
-  const mealTrainId = 10; // can be changed later
+  const mealTrainId = 11; // can be changed later
 
   useEffect(() => {
     const loadAvailableSlots = async () => {
@@ -100,10 +100,14 @@ export default function CreateMeal() {
 
       const res = await axiosClient.post(`/api/slots/${matchingSlot.id}/signups/`, payload);
       console.log('Meal Created Successfully!', res.data);
+      alert('Meal Created Successfully.');
+      navigate('/dashboard');
     } catch (error) {
       console.log('Error creating a meal', error);
     }
   };
+
+  const slotsForSelectedDate = availableSlots?.filter(slot => slot.slot_date === mealDate) || [];
 
   return (
     <Background>
@@ -167,24 +171,6 @@ export default function CreateMeal() {
           </div>
 
           <div className="w-full flex flex-col mb-6">
-            <Label>Meal Type</Label>
-            <select
-              value={mealType}
-              onChange={(e) => setMealType(e.target.value)}
-              onKeyDown={handleEnterFocusNext}
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
-              required
-            >
-              <option value="" disabled>
-                Please select a meal type
-              </option>
-              <option value="Breakfast">Breakfast</option>
-              <option value="Lunch">Lunch</option>
-              <option value="Dinner">Dinner</option>
-            </select>
-          </div>
-
-          <div className="w-full flex flex-col mb-6">
             <Label>Meal Date</Label>
 
             <div className="relative mt-2.5">
@@ -217,6 +203,29 @@ export default function CreateMeal() {
               </p>
             )}
           </div>
+
+          <div className="w-full flex flex-col mb-6">
+            <Label>Meal Type</Label>
+            <select
+              value={mealType}
+              onChange={(e) => setMealType(e.target.value)}
+              onKeyDown={handleEnterFocusNext}
+              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
+              required
+            >
+              <option value="" disabled>
+                Please select a meal type
+              </option>
+              
+              {slotsForSelectedDate.map(slot => (
+                <option key={`${slot.slot_type}-${slot.id}`} value={slot.meal_type}>
+                  {slot.meal_type}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          
 
           <div className="w-full flex flex-col mb-6">
             <Label>Delivery Method</Label>
