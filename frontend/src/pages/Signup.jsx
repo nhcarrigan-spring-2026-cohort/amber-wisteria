@@ -1,5 +1,4 @@
 import Background from '../components/Background';
-import PasswordHelper from '../components/signUp/PasswordHelper';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import axiosClient from '../api/axiosClient';
@@ -94,7 +93,7 @@ export default function Signup() {
             required
           />
 
-          <p id="userNote" className="w-95 ">
+          <p id="userNote" className="w-95 bg-[#FEB058] rounded-2xl">
             {usernameGuideline}
           </p>
 
@@ -115,7 +114,7 @@ export default function Signup() {
             required
           />
 
-          <p id="emailNote" className="w-95 ">
+          <p id="emailNote" className="w-95 bg-[#FEB058] rounded-2xl">
             {emailGuideline}
           </p>
 
@@ -138,7 +137,7 @@ export default function Signup() {
             minLength="8"
           />
 
-          <p id="passNote" className="w-95 ">
+          <p id="passNote" className="w-95 bg-[#FEB058] rounded-2xl">
             {passwordGuidelines}
           </p>
 
@@ -161,7 +160,7 @@ export default function Signup() {
             minLength="8"
           />
 
-          <p id="confirmNote" className="w-95 ">
+          <p id="confirmNote" className="w-95 bg-[#FEB058] rounded-2xl">
             {confirmGuideline}
           </p>
 
