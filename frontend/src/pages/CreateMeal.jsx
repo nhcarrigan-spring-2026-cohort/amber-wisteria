@@ -17,9 +17,7 @@ export default function CreateMeal() {
   const [mealDate, setMealDate] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState('');
 
-  // To be edited => Restrictions come from meal train maker
-  const restrictions = ['Vegan', 'Gluten-free', 'Nut-free', 'Egg-free'];
-
+  const [mealTrain, setMealTrain] = useState(null);
   const [allowedDates, setAllowedDates] = useState([]);
   const [availableSlots, setAvailableSlots] = useState([]);
 
@@ -45,7 +43,19 @@ export default function CreateMeal() {
     }
   };
 
-  const mealTrainId = 11; // can be changed later
+  const mealTrainId = 10; // can be changed later
+
+  useEffect(() => {
+    const loadMealTrain = async () => {
+      try {
+        const res = await axiosClient.get(`/api/mealtrains/${mealTrainId}/`);
+        setMealTrain(res.data);
+      } catch (error) {
+        console.log('Error fetching meal train', error);
+      }
+    };
+    loadMealTrain();
+  }, []);
 
   useEffect(() => {
     const loadAvailableSlots = async () => {
@@ -108,6 +118,7 @@ export default function CreateMeal() {
   };
 
   const slotsForSelectedDate = availableSlots?.filter((slot) => slot.slot_date === mealDate) || [];
+  const restrictions = mealTrain?.dietary_restrictions?.split(', ') || [];
 
   return (
     <Background>
@@ -247,7 +258,7 @@ export default function CreateMeal() {
           </div>
 
           <div className="w-full flex flex-wrap gap-4 justify-center items-center mb-6">
-            {RESTRICTIONS.filter((r) => restrictions.includes(r.id)).map((item) => (
+            {RESTRICTIONS.filter((r) => restrictions.find((res) => r.id === res)).map((item) => (
               <RestrictionView key={item.id} item={item} />
             ))}
           </div>
