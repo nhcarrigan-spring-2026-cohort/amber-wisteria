@@ -53,8 +53,7 @@ export default function CreateMeal() {
         const res = await axiosClient.get(`/api/mealtrains/${mealTrainId}/slots/`);
         setAvailableSlots(res.data);
 
-        setAllowedDates(res.data.map(s => s.slot_date)); 
-
+        setAllowedDates(res.data.map((s) => s.slot_date));
       } catch (error) {
         console.log(`Error fetching slots for meal train: ${mealTrainId}`, error);
       }
@@ -62,7 +61,7 @@ export default function CreateMeal() {
     loadAvailableSlots();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const title = mealTitle.trim();
@@ -81,6 +80,28 @@ export default function CreateMeal() {
     if (ingredients.length === 0) {
       alert('Please add at least one ingredient.');
       return;
+    }
+
+    const matchingSlot = availableSlots.find(
+      (slot) => slot.slot_date === mealDate && slot.meal_type === mealType.toLowerCase()
+    );
+
+    if (!matchingSlot) {
+      alert('This meal type is not available for selected date.');
+      return;
+    }
+
+    try {
+      const payload = {
+      "meal_slot": matchingSlot?.id,
+      "meal_description": desc,
+      "special_notes": deliveryMethod
+    };
+
+      const res = await axiosClient.post(`/api/slots/${matchingSlot.id}/signups/`, payload);
+      console.log('Meal Created Successfully!', res.data);
+    } catch (error) {
+      console.log('Error creating a meal', error);
     }
   };
 
@@ -102,7 +123,7 @@ export default function CreateMeal() {
             flex flex-col 
             box-border 
             items-center 
-            w-full max-w-[600px]
+            w-full max-w-150
           "
         >
           <div className="absolute left-4 top-4 md:left-6 md:top-6">
@@ -186,7 +207,8 @@ export default function CreateMeal() {
             </div>
 
             <p className="text-sm text-gray-500 mt-2 text-center">
-              Available dates: {[...new Set(availableSlots.map(s => s.slot_date))].map(formatDate).join(', ')}
+              Available dates:{' '}
+              {[...new Set(availableSlots.map((s) => s.slot_date))].map(formatDate).join(', ')}
             </p>
 
             {mealDate && (
