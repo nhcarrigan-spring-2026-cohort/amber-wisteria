@@ -61,10 +61,7 @@ export default function Navbar() {
           <span className="absolute -top-[2px] right-[2px] w-2 h-2 bg-red-600 rounded-full" />
 
           {openNotif && (
-            <NotificationsPopup
-              close={() => setOpenNotif(false)}
-              mealTrainIds={mealTrainIds}
-            />
+            <NotificationsPopup close={() => setOpenNotif(false)} mealTrainIds={mealTrainIds} />
           )}
         </div>
 

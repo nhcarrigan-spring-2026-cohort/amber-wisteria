@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import axiosClient from "../../api/axiosClient";
+import { useEffect, useRef, useState } from 'react';
+import axiosClient from '../../api/axiosClient';
 
-import HoverIcon from "./HoverIcon";
-import XIcon from "../../assets/x.svg";
-import CheckIcon from "../../assets/check.svg";
-import { redFilter } from "./HoverIcon.constants";
+import HoverIcon from './HoverIcon';
+import XIcon from '../../assets/x.svg';
+import CheckIcon from '../../assets/check.svg';
+import { redFilter } from './HoverIcon.constants';
 
 const darkGreenFilter =
-  "brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(800%) hue-rotate(92deg) brightness(85%) contrast(90%)";
+  'brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(800%) hue-rotate(92deg) brightness(85%) contrast(90%)';
 
 export default function NotificationsPopup({ close, mealTrainIds = [] }) {
   const popupRef = useRef(null);
@@ -20,8 +20,8 @@ export default function NotificationsPopup({ close, mealTrainIds = [] }) {
         close();
       }
     }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
   }, [close]);
 
   useEffect(() => {
@@ -33,10 +33,10 @@ export default function NotificationsPopup({ close, mealTrainIds = [] }) {
           const res = await axiosClient.get(`/api/mealtrains/${id}/memberships/`);
 
           const pending = res.data
-            .filter((m) => m.status === "pending")
+            .filter((m) => m.status === 'pending')
             .map((m) => ({
               id: m.id,
-              message: `User ${m.username} requested to join your meal train.`,
+              message: `User ${m.username} requested to join your meal train.`
             }));
 
           allPending = [...allPending, ...pending];
@@ -80,10 +80,7 @@ export default function NotificationsPopup({ close, mealTrainIds = [] }) {
 
         <div className="flex flex-col gap-3">
           {notifications.map((n) => (
-            <div
-              key={n.id}
-              className="flex justify-between items-center bg-white p-3 rounded-xl"
-            >
+            <div key={n.id} className="flex justify-between items-center bg-white p-3 rounded-xl">
               <p className="text-sm text-left pr-4">{n.message}</p>
 
               <div className="flex gap-4 items-center">
@@ -93,7 +90,7 @@ export default function NotificationsPopup({ close, mealTrainIds = [] }) {
                   base={darkGreenFilter}
                   hover={darkGreenFilter}
                   className="w-8 h-8"
-                  onClick={() => handleAction(n.id, "approve")}
+                  onClick={() => handleAction(n.id, 'approve')}
                 />
 
                 <HoverIcon
@@ -102,7 +99,7 @@ export default function NotificationsPopup({ close, mealTrainIds = [] }) {
                   base={redFilter}
                   hover={redFilter}
                   className="w-6 h-6"
-                  onClick={() => handleAction(n.id, "reject")}
+                  onClick={() => handleAction(n.id, 'reject')}
                 />
               </div>
             </div>
