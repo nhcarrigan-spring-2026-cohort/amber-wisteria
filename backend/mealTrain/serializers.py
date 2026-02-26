@@ -100,7 +100,7 @@ class MealTrainSerializer(serializers.ModelSerializer):
         if obj.organizer == user:
             return "owner"
         
-        membership = self.context.get("memberships", {}).first()
+        membership = self.context.get("memberships", {}).get(meal_train=obj)
         return membership.status if membership else None
             
 
@@ -108,7 +108,7 @@ class MealTrainSerializer(serializers.ModelSerializer):
 class MealTrainMembershipSerializer(serializers.ModelSerializer):
 
     username = serializers.CharField(source="user.username", read_only=True)
-    
+
     class Meta:
         model = MealTrainMembership
         fields = [
