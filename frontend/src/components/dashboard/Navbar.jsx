@@ -21,13 +21,19 @@ export default function Navbar() {
   useEffect(() => {
     async function load() {
       try {
+        const me = await axiosClient.get('/api/me');
+        const userId = me.data.id;
+
         const res = await axiosClient.get('/api/mealtrains/');
-        const mine = res.data.filter((mt) => mt.organizer_id === localStorage.getItem('user_id'));
+
+        const mine = res.data.filter((mt) => mt.organizer_id === userId);
+
         setMealTrainIds(mine.map((mt) => mt.id));
       } catch (err) {
         console.error(err);
       }
     }
+
     load();
   }, []);
 
@@ -55,7 +61,10 @@ export default function Navbar() {
           <span className="absolute -top-[2px] right-[2px] w-2 h-2 bg-red-600 rounded-full" />
 
           {openNotif && (
-            <NotificationsPopup close={() => setOpenNotif(false)} mealTrainIds={mealTrainIds} />
+            <NotificationsPopup
+              close={() => setOpenNotif(false)}
+              mealTrainIds={mealTrainIds}
+            />
           )}
         </div>
 
