@@ -66,6 +66,8 @@ class MealTrainSerializer(serializers.ModelSerializer):
     )
     meals = serializers.SerializerMethodField()
 
+    membership_status = serializers.SerializerMethodField()
+
     class Meta:
         model = MealTrain
         fields = [
@@ -80,14 +82,27 @@ class MealTrainSerializer(serializers.ModelSerializer):
             "dietary_restrictions",
             "created_at",
             "slots",
-            "meals"
+            "meals",
+            "membership_status",
         ]
-        read_only_fields = ["created_at"]
+        read_only_fields = ["created_at", "membership_status"]
 
     def get_meals(self, obj):
         signups = MealSignup.objects.filter(meal_slot__meal_train=obj)
         return MealSignupSerializer(signups, many=True, context=self.context).data
-
+    
+    def get_membership_status(self, obj):
+        request = self.context.get("request")
+        if not request or not request.user.is_authenticated:
+            return None
+        
+        user = request.user
+        if obj.organizer == user:
+            return "owner"
+        
+        membership = self.context.get("memberships", {}).first()
+        return membership.status if membership else None
+            
 
 # ---------- MealTrainMembership Serializer ----------
 class MealTrainMembershipSerializer(serializers.ModelSerializer):
