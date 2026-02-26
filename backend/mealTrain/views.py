@@ -16,6 +16,7 @@ from .serializers import (
 from .permissions import is_allowed_participant, is_organizer
 
 
+
 # -------------------- MealTrain Views --------------------
 class MealTrainListCreateView(APIView):
     """
@@ -231,7 +232,7 @@ class MealSlotDetailView(APIView):
     def get(self, request, pk):
             slot = self.get_object(pk)
             train = slot.meal_train
-            from .permissions import is_allowed_participant
+
             if not is_allowed_participant(request.user, train):
                 return Response({"detail": "Only approved participants can view this slot."}, status=status.HTTP_403_FORBIDDEN)
             serializer = MealSlotSerializer(slot, context={"request": request})
@@ -447,6 +448,9 @@ class MealSignupListCreateView(APIView):
     def post(self, request, slot_id):
         slot = get_object_or_404(MealSlot, pk=slot_id)
         user = request.user
+        train = slot.meal_train
+        if not is_allowed_participant(user, train):
+            return Response({"detail": "Only approved members or the organizer can sign up for this slot."}, status=status.HTTP_403_FORBIDDEN)
 
         # Prevent duplicate
         if MealSignup.objects.filter(meal_slot=slot, participant=user).exists():
