@@ -36,14 +36,14 @@ export default function Home() {
           <div className="mt-8 flex gap-4">
             <button
               onClick={() => navigate('/create-meal-train')}
-              className="bg-[#f68300] text-white px-6 py-3 rounded-full font-semibold text-lg shadow-md hover:brightness-95 transition"
+              className="cursor-pointer bg-[#f68300] text-white px-6 py-3 rounded-full font-semibold text-lg shadow-md hover:brightness-95 transition"
             >
               Start a meal train
             </button>
 
             <button
               onClick={scrollToInfo}
-              className="bg-white border border-black px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition"
+              className="cursor-pointer bg-white border border-black px-6 py-3 rounded-full font-semibold text-lg hover:bg-gray-100 transition"
             >
               Learn more
             </button>
@@ -84,7 +84,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div
-              className="bg-[#FFECC899] rounded-4xl shadow-xl p-8
+              className="cursor-default bg-[#FFECC899] rounded-4xl shadow-xl p-8
                             border border-[#e7d5b5] shadow-sm 
                             hover:shadow-md hover:-translate-y-1 transition"
             >
@@ -97,7 +97,7 @@ export default function Home() {
             </div>
 
             <div
-              className="bg-[#FFECC899] rounded-4xl shadow-xl p-8
+              className="cursor-default bg-[#FFECC899] rounded-4xl shadow-xl p-8
                             border border-[#e7d5b5] shadow-sm 
                             hover:shadow-md hover:-translate-y-1 transition"
             >
@@ -110,7 +110,7 @@ export default function Home() {
             </div>
 
             <div
-              className="bg-[#FFECC899] rounded-4xl shadow-xl p-8
+              className="cursor-default bg-[#FFECC899] rounded-4xl shadow-xl p-8
                             border border-[#e7d5b5] shadow-sm 
                             hover:shadow-md hover:-translate-y-1 transition"
             >
@@ -126,7 +126,7 @@ export default function Home() {
           <div className="mt-16">
             <button
               onClick={() => navigate('/create-meal-train')}
-              className="bg-[#f68300] text-white px-8 py-4 rounded-full 
+              className="cursor-pointer bg-[#f68300] text-white px-8 py-4 rounded-full 
                         font-semibold text-lg shadow-md 
                         hover:brightness-95 transition"
             >
