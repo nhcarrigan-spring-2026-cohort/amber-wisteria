@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Background from '../components/Background';
 import Label from '../components/Label';
 import Input from '../components/Input';
@@ -8,6 +8,7 @@ import BackBtn from '../components/BackBtn';
 import IngredientOrRestrictionPill from '../components/view-meal-train/IngredientOrRestrictionPill';
 import RestrictionView from '../components/RestrictionView';
 import { RESTRICTIONS } from '../data/restrictions';
+import axiosClient from '../api/axiosClient';
 
 export default function CreateMeal() {
   const [mealTitle, setMealTitle] = useState('');
@@ -16,11 +17,9 @@ export default function CreateMeal() {
   const [mealDate, setMealDate] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState('');
 
-  // To be edited => Restrictions come from meal train maker
-  const restrictions = ['Vegan', 'Gluten-free', 'Nut-free', 'Egg-free'];
-
-  // To be edited => Dates that come from meal train maker
-  const allowedDates = ['2026-02-21', '2026-02-23', '2026-02-25'];
+  const [mealTrain, setMealTrain] = useState(null);
+  const [allowedDates, setAllowedDates] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState([]);
 
   const [ingredientInput, setIngredientInput] = useState('');
   const [ingredients, setIngredients] = useState([]);
@@ -44,7 +43,35 @@ export default function CreateMeal() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const mealTrainId = 10; // can be changed later
+
+  useEffect(() => {
+    const loadMealTrain = async () => {
+      try {
+        const res = await axiosClient.get(`/api/mealtrains/${mealTrainId}/`);
+        setMealTrain(res.data);
+      } catch (error) {
+        console.log('Error fetching meal train', error);
+      }
+    };
+    loadMealTrain();
+  }, []);
+
+  useEffect(() => {
+    const loadAvailableSlots = async () => {
+      try {
+        const res = await axiosClient.get(`/api/mealtrains/${mealTrainId}/slots/`);
+        setAvailableSlots(res.data);
+
+        setAllowedDates(res.data.map((s) => s.slot_date));
+      } catch (error) {
+        console.log(`Error fetching slots for meal train: ${mealTrainId}`, error);
+      }
+    };
+    loadAvailableSlots();
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const title = mealTitle.trim();
@@ -65,19 +92,33 @@ export default function CreateMeal() {
       return;
     }
 
-    console.log({
-      mealTitle: title,
-      mealDesc: desc,
-      mealType,
-      mealDate,
-      deliveryMethod,
-      restrictions,
-      ingredients
-    });
+    const matchingSlot = availableSlots.find(
+      (slot) => slot.slot_date === mealDate && slot.meal_type === mealType.toLowerCase()
+    );
 
-    alert('Meal created!');
-    navigate('/view-meal-train');
+    if (!matchingSlot) {
+      alert('This meal type is not available for selected date.');
+      return;
+    }
+
+    try {
+      const payload = {
+        meal_slot: matchingSlot?.id,
+        meal_description: desc,
+        special_notes: deliveryMethod
+      };
+
+      const res = await axiosClient.post(`/api/slots/${matchingSlot.id}/signups/`, payload);
+      console.log('Meal Created Successfully!', res.data);
+      alert('Meal Created Successfully.');
+      navigate('/dashboard');
+    } catch (error) {
+      console.log('Error creating a meal', error);
+    }
   };
+
+  const slotsForSelectedDate = availableSlots?.filter((slot) => slot.slot_date === mealDate) || [];
+  const restrictions = mealTrain?.dietary_restrictions?.split(', ') || [];
 
   return (
     <Background>
@@ -97,7 +138,7 @@ export default function CreateMeal() {
             flex flex-col 
             box-border 
             items-center 
-            w-full max-w-[600px]
+            w-full max-w-150
           "
         >
           <div className="absolute left-4 top-4 md:left-6 md:top-6">
@@ -141,24 +182,6 @@ export default function CreateMeal() {
           </div>
 
           <div className="w-full flex flex-col mb-6">
-            <Label>Meal Type</Label>
-            <select
-              value={mealType}
-              onChange={(e) => setMealType(e.target.value)}
-              onKeyDown={handleEnterFocusNext}
-              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
-              required
-            >
-              <option value="" disabled>
-                Please select a meal type
-              </option>
-              <option value="Breakfast">Breakfast</option>
-              <option value="Lunch">Lunch</option>
-              <option value="Dinner">Dinner</option>
-            </select>
-          </div>
-
-          <div className="w-full flex flex-col mb-6">
             <Label>Meal Date</Label>
 
             <div className="relative mt-2.5">
@@ -181,7 +204,8 @@ export default function CreateMeal() {
             </div>
 
             <p className="text-sm text-gray-500 mt-2 text-center">
-              Available dates: {allowedDates.map(formatDate).join(', ')}
+              Available dates:{' '}
+              {[...new Set(availableSlots.map((s) => s.slot_date))].map(formatDate).join(', ')}
             </p>
 
             {mealDate && (
@@ -189,6 +213,27 @@ export default function CreateMeal() {
                 Selected date: {formatDate(mealDate)}
               </p>
             )}
+          </div>
+
+          <div className="w-full flex flex-col mb-6">
+            <Label>Meal Type</Label>
+            <select
+              value={mealType}
+              onChange={(e) => setMealType(e.target.value)}
+              onKeyDown={handleEnterFocusNext}
+              className="bg-white p-2.5 w-full rounded-xl mt-2.5 h-14 md:h-16"
+              required
+            >
+              <option value="" disabled>
+                Please select a meal type
+              </option>
+
+              {slotsForSelectedDate.map((slot) => (
+                <option key={`${slot.slot_type}-${slot.id}`} value={slot.meal_type}>
+                  {slot.meal_type}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="w-full flex flex-col mb-6">
@@ -213,7 +258,7 @@ export default function CreateMeal() {
           </div>
 
           <div className="w-full flex flex-wrap gap-4 justify-center items-center mb-6">
-            {RESTRICTIONS.filter((r) => restrictions.includes(r.id)).map((item) => (
+            {RESTRICTIONS.filter((r) => restrictions.find((res) => r.id === res)).map((item) => (
               <RestrictionView key={item.id} item={item} />
             ))}
           </div>
