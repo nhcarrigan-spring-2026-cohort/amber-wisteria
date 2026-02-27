@@ -62,7 +62,7 @@ export default function ViewMealCard() {
 
         console.log(res.data);
       } catch (error) {
-        console.log(`Error fetching meal train`);
+        console.log(`Error fetching meal train`, error);
       }
     };
     loadMealTrain();
