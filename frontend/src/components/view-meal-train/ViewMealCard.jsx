@@ -55,7 +55,7 @@ export default function ViewMealCard() {
         });
         setMealItems(searchedMeals);
 
-        setRestrictions(res.data.dietary_restrictions.split(","));
+        setRestrictions(res.data.dietary_restrictions.split(','));
 
         const dates = Object.keys(transformed);
         if (dates.length > 0) setActiveDate(dates[0]);
@@ -115,10 +115,16 @@ export default function ViewMealCard() {
                   const details = mealItems[`${activeDate}-${meal}`];
 
                   if (details) {
-                    return <SingleMealView key={meal} mealType={meal} mealDate={activeDate}
-                    mealTitle={details?.meal_description}
-                    deliveryMethod={details?.special_notes} 
-                    restrictions={restrictions || []}/>;
+                    return (
+                      <SingleMealView
+                        key={meal}
+                        mealType={meal}
+                        mealDate={activeDate}
+                        mealTitle={details?.meal_description}
+                        deliveryMethod={details?.special_notes}
+                        restrictions={restrictions || []}
+                      />
+                    );
                   }
                 }
               })}
