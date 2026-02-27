@@ -47,7 +47,7 @@ export default function MealTrainForm() {
       alert('Please provide a valid email address.');
       return;
     }
-    
+
     setStep(2);
   };
 
