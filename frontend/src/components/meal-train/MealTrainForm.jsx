@@ -8,6 +8,7 @@ import BackBtn from '../BackBtn';
 import CancelBtn from '../CancelBtn';
 import { useNavigate } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
+import Background from '../Background';
 
 export default function MealTrainForm() {
   // step state => to control steps
@@ -197,80 +198,82 @@ export default function MealTrainForm() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center relative">
-      {/* Card */}
-      <div className="w-full max-w-lg bg-[#FFECC8] rounded-2xl shadow-md p-8">
-        {/* Heading */}
-        <div className="mb-6 grid grid-cols-[auto_1fr_auto] items-center justify-center">
-          <div className="flex justify-start">
-            {(step === 2 || step === 3) && <BackBtn onClick={() => setStep((prev) => prev - 1)} />}
+    <Background>
+      <div className="min-h-screen w-full flex items-center justify-center relative">
+        {/* Card */}
+        <div className="w-full max-w-lg bg-[#FFECC8] rounded-2xl shadow-md p-8">
+          {/* Heading */}
+          <div className="mb-6 grid grid-cols-[auto_1fr_auto] items-center justify-center">
+            <div className="flex justify-start">
+              {(step === 2 || step === 3) && <BackBtn onClick={() => setStep((prev) => prev - 1)} />}
+            </div>
+
+            <h1 className="text-3xl font-semibold text-gray-800 text-center mb-1">
+              {step === 1
+                ? 'Create a Meal Train'
+                : step === 2
+                  ? `Making a meal train for "${mealTrainTitle}"`
+                  : step === 3
+                    ? `Review meal train for "${mealTrainTitle}"`
+                    : ''}
+            </h1>
+
+            <div>
+              <CancelBtn onClick={clearForm} />
+            </div>
           </div>
 
-          <h1 className="text-3xl font-semibold text-gray-800 text-center mb-1">
-            {step === 1
-              ? 'Create a Meal Train'
-              : step === 2
-                ? `Making a meal train for "${mealTrainTitle}"`
-                : step === 3
-                  ? `Review meal train for "${mealTrainTitle}"`
-                  : ''}
-          </h1>
+          {/* STEP 1 */}
+          {step === 1 && (
+            <BasicInfoStep
+              mealTrainTitle={mealTrainTitle}
+              setMealTrainTitle={setMealTrainTitle}
+              mealTrainDesc={mealTrainDesc}
+              setMealTrainDesc={setMealTrainDesc}
+              beneficiaryName={beneficiaryName}
+              setBeneficiaryName={setBeneficiaryName}
+              beneficiaryPhone={beneficiaryPhone}
+              setBeneficiaryPhone={setBeneficiaryPhone}
+              beneficiaryEmail={beneficiaryEmail}
+              setBeneficiaryEmail={setBeneficiaryEmail}
+              onNext={handleBasicInfoSubmit}
+            />
+          )}
 
-          <div>
-            <CancelBtn onClick={clearForm} />
-          </div>
+          {/* STEP 2  */}
+          {step === 2 && (
+            <ScheduleStep
+              selectedDates={selectedDates}
+              activeDate={activeDate}
+              handleDayClick={handleDayClick}
+              formatDate={formatDate}
+              displayFormattedDate={displayFormattedDate}
+              toggleMeal={toggleMeal}
+              quantity={quantity}
+              setQuantity={setQuantity}
+              deliveryAddress={deliveryAddress}
+              setDeliveryAddress={setDeliveryAddress}
+              restrictions={restrictions}
+              setRestrictions={setRestrictions}
+              onNext={handleScheduleStepSubmit}
+            />
+          )}
+
+          {/* STEP 3  */}
+          {step === 3 && (
+            <ReviewStep
+              mealTrainTitle={mealTrainTitle}
+              mealTrainDesc={mealTrainDesc}
+              beneficiaryName={beneficiaryName}
+              deliveryAddress={deliveryAddress}
+              selectedDates={selectedDates}
+              displayFormattedDate={displayFormattedDate}
+              restrictions={restrictions}
+              onCreate={handleCreateMealTrain}
+            />
+          )}
         </div>
-
-        {/* STEP 1 */}
-        {step === 1 && (
-          <BasicInfoStep
-            mealTrainTitle={mealTrainTitle}
-            setMealTrainTitle={setMealTrainTitle}
-            mealTrainDesc={mealTrainDesc}
-            setMealTrainDesc={setMealTrainDesc}
-            beneficiaryName={beneficiaryName}
-            setBeneficiaryName={setBeneficiaryName}
-            beneficiaryPhone={beneficiaryPhone}
-            setBeneficiaryPhone={setBeneficiaryPhone}
-            beneficiaryEmail={beneficiaryEmail}
-            setBeneficiaryEmail={setBeneficiaryEmail}
-            onNext={handleBasicInfoSubmit}
-          />
-        )}
-
-        {/* STEP 2  */}
-        {step === 2 && (
-          <ScheduleStep
-            selectedDates={selectedDates}
-            activeDate={activeDate}
-            handleDayClick={handleDayClick}
-            formatDate={formatDate}
-            displayFormattedDate={displayFormattedDate}
-            toggleMeal={toggleMeal}
-            quantity={quantity}
-            setQuantity={setQuantity}
-            deliveryAddress={deliveryAddress}
-            setDeliveryAddress={setDeliveryAddress}
-            restrictions={restrictions}
-            setRestrictions={setRestrictions}
-            onNext={handleScheduleStepSubmit}
-          />
-        )}
-
-        {/* STEP 3  */}
-        {step === 3 && (
-          <ReviewStep
-            mealTrainTitle={mealTrainTitle}
-            mealTrainDesc={mealTrainDesc}
-            beneficiaryName={beneficiaryName}
-            deliveryAddress={deliveryAddress}
-            selectedDates={selectedDates}
-            displayFormattedDate={displayFormattedDate}
-            restrictions={restrictions}
-            onCreate={handleCreateMealTrain}
-          />
-        )}
       </div>
-    </div>
+    </Background>
   );
 }
