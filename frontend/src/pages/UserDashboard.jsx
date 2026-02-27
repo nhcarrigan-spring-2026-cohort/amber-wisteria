@@ -20,7 +20,7 @@ export default function UserDashboard() {
   const [showMoreCreated, setShowMoreCreated] = useState(false);
   const [showMoreJoined, setShowMoreJoined] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  
+
   useEffect(() => {
     async function loadDashboard() {
       try {
@@ -93,14 +93,14 @@ export default function UserDashboard() {
         isOpen={isPopupOpen}
         onClose={() => setIsPopupOpen(false)}
         onSubmit={(url) => {
-        try {
-          const parsed = new URL(url);
-          const path = parsed.pathname;
-          navigate(path);
-        } catch {
-          navigate(url);
-        }
-        setIsPopupOpen(false);
+          try {
+            const parsed = new URL(url);
+            const path = parsed.pathname;
+            navigate(path);
+          } catch {
+            navigate(url);
+          }
+          setIsPopupOpen(false);
         }}
       />
     </div>
