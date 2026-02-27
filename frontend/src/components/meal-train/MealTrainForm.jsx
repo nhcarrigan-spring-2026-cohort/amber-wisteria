@@ -43,6 +43,11 @@ export default function MealTrainForm() {
       return;
     }
 
+    if (beneficiaryEmail && !/\S+@\S+\.\S+/.test(beneficiaryEmail)) {
+      alert('Please provide a valid email address.');
+      return;
+    }
+    
     setStep(2);
   };
 

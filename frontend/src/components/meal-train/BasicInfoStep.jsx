@@ -64,7 +64,7 @@ export default function BasicInfoStep({
       <div className="flex flex-col">
         <Label children="Beneficiary Email" />
         <Input
-          type="text"
+          type="email"
           value={beneficiaryEmail}
           onChange={(e) => setBeneficiaryEmail(e.target.value)}
           placeholder="Beneficiary's email address (optional)"
