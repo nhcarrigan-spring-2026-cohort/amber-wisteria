@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-export default function HomeButton( {destination}) {
+export default function HomeButton({ destination }) {
   return (
     <Link className="absolute top-4 right-4" to={destination}>
       <svg
