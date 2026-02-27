@@ -1,4 +1,5 @@
 import Background from '../components/Background';
+import HomeButton from '../components/icons/HomeButton';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import axiosClient from '../api/axiosClient';
@@ -66,6 +67,7 @@ export default function Signup() {
 
   return (
     <Background>
+      <HomeButton />
       <div className="flex items-center justify-center min-h-screen w-full px-4">
         <form
           onSubmit={handleSubmit}
