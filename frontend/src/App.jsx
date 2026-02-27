@@ -11,6 +11,7 @@ import './App.css';
 import ViewMealTrain from './pages/ViewMealTrain.jsx';
 import PrivateRoutes from './utils/PrivateRoutes.jsx';
 import GuestRoutes from './utils/GuestRoutes.jsx';
+import NotFound from './pages/NotFound.jsx';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
         <Route path="/create-meal" element={<CreateMeal />} />
         <Route path="/view-meal-train/:id" element={<ViewMealTrain />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
