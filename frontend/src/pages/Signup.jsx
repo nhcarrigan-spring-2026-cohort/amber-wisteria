@@ -67,7 +67,7 @@ export default function Signup() {
 
   return (
     <Background>
-      <HomeButton />
+      <HomeButton destination={'/'} />
       <div className="flex items-center justify-center min-h-screen w-full px-4">
         <form
           onSubmit={handleSubmit}

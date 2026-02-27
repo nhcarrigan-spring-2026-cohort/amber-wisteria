@@ -1,8 +1,8 @@
 import { Link } from 'react-router';
 
-export default function HomeButton() {
+export default function HomeButton( {destination}) {
   return (
-    <Link className="absolute top-4 right-4" to="/dashboard">
+    <Link className="absolute top-4 right-4" to={destination}>
       <svg
         viewBox="0 0 24 24"
         width="48"
