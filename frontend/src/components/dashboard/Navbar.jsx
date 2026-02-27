@@ -64,7 +64,6 @@ export default function Navbar({ variant = 'default' }) {
         </button>
       ) : (
         <div className="flex items-center gap-6">
-
           <div className="relative">
             <img
               src={NotifIcon}
@@ -78,10 +77,7 @@ export default function Navbar({ variant = 'default' }) {
             <span className="absolute -top-[2px] right-[2px] w-2 h-2 bg-red-600 rounded-full" />
 
             {openNotif && (
-              <NotificationsPopup
-                close={() => setOpenNotif(false)}
-                mealTrainIds={mealTrainIds}
-              />
+              <NotificationsPopup close={() => setOpenNotif(false)} mealTrainIds={mealTrainIds} />
             )}
           </div>
 
