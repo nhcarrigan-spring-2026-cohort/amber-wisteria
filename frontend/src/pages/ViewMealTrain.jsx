@@ -37,8 +37,11 @@ export default function ViewMealTrain() {
   };
 
   useEffect(() => {
-    checkMembership();
-  }, []);
+  const run = async () => {
+    await checkMembership();
+  };
+  run();
+}, []);
 
   const handleRequestApproval = async () => {
     try {
