@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import MealTrainCard from './MealTrainCard';
 
 export default function MealTrainSection({
@@ -29,10 +30,26 @@ export default function MealTrainSection({
       </div>
 
       {items.map((item, i) => (
-        <MealTrainCard key={i} {...item} showTopBorder={i !== 0} />
+        <Link
+          key={item.id}
+          to={`/view-meal-train/${item.id}`}
+          className="cursor-pointer"
+        >
+          <MealTrainCard {...item} showTopBorder={i !== 0} />
+        </Link>
       ))}
 
-      {showMore && extraItems.map((item, i) => <MealTrainCard key={`extra-${i}`} {...item} />)}
+      {showMore &&
+        extraItems.map((item) => (
+          <Link
+            key={`extra-${item.id}`}
+            to={`/view-meal-train/${item.id}`}
+            className="cursor-pointer"
+          >
+            <MealTrainCard {...item} />
+          </Link>
+        ))}
+
 
       <button
         className="mx-auto text-[#f68300] font-semibold flex items-center gap-1"
