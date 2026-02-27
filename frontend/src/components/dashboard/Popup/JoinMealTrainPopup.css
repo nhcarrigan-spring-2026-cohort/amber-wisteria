@@ -1,0 +1,165 @@
+.popup-background {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-overlay {
+  width: 92%;
+  max-width: 640px;
+  background: #f7e3bf;
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+  animation: popupFade 0.25s ease;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 28px;
+  background: #f68300;
+}
+
+.popup-icon {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: white;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.popup-title {
+  font-family: 'Karla', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+.popup-form {
+  padding: 32px 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-label {
+  font-family: 'Karla', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2a24;
+}
+
+.url-input {
+  width: 100%;
+  padding: 18px 22px;
+
+  border-radius: 16px;
+  border: none;
+
+  background: #e6e6e6;
+  font-family: 'Karla', sans-serif;
+  font-size: 15px;
+  color: #444;
+
+  transition: all 0.2s ease;
+}
+
+.url-input::placeholder {
+  color: #888;
+}
+
+.url-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(246, 131, 0, 0.25);
+  background: #fff;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.join-btn,
+.cancel-btn {
+  padding: 14px 42px;
+  border-radius: 999px;
+  border: none;
+
+  font-family: 'Karla', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.join-btn {
+  background: #f68300;
+  color: white;
+}
+
+.join-btn:hover {
+  background: #e57500;
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background: #e74d3d;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #d13b2d;
+  transform: translateY(-2px);
+}
+
+@keyframes popupFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .popup-overlay {
+    border-radius: 24px;
+  }
+
+  .popup-form {
+    padding: 24px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .join-btn,
+  .cancel-btn {
+    width: 100%;
+  }
+}
