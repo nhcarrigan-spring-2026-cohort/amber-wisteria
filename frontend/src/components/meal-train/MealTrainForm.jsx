@@ -205,7 +205,9 @@ export default function MealTrainForm() {
           {/* Heading */}
           <div className="mb-6 grid grid-cols-[auto_1fr_auto] items-center justify-center">
             <div className="flex justify-start">
-              {(step === 2 || step === 3) && <BackBtn onClick={() => setStep((prev) => prev - 1)} />}
+              {(step === 2 || step === 3) && (
+                <BackBtn onClick={() => setStep((prev) => prev - 1)} />
+              )}
             </div>
 
             <h1 className="text-3xl font-semibold text-gray-800 text-center mb-1">
