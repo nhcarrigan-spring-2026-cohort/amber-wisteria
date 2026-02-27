@@ -7,27 +7,11 @@ import SingleMealView from './SingleMealView';
 import axiosClient from '../../api/axiosClient';
 
 export default function ViewMealCard() {
-  // const selectedDates = {
-  //   '2026-02-20': {
-  //     breakfast: true,
-  //     lunch: false,
-  //     dinner: true
-  //   },
-  //   '2026-02-21': {
-  //     breakfast: false,
-  //     lunch: false,
-  //     dinner: true
-  //   },
-  //   '2026-02-22': {
-  //     breakfast: true,
-  //     lunch: true,
-  //     dinner: true
-  //   }
-  // };
-
   const [mealTrainData, setMealTrainData] = useState(null);
   const [selectedDates, setSelectedDates] = useState({});
   const [activeDate, setActiveDate] = useState(null);
+  const [mealItems, setMealItems] = useState({});
+  const [restrictions, setRestrictions] = useState([]);
 
   const navigate = useNavigate();
 
@@ -35,43 +19,54 @@ export default function ViewMealCard() {
     return date.toLocaleDateString('en-CA').split('T')[0];
   };
 
-  const {id} = useParams();
+  const { id } = useParams();
   useEffect(() => {
     const loadMealTrain = async () => {
       try {
         const res = await axiosClient.get(`/api/mealtrains/${id}/`);
         setMealTrainData(res.data);
-        
+
         const transformed = res.data.slots.reduce((acc, slot) => {
           const date = slot.slot_date;
 
-          if(!acc[date]) {
+          if (!acc[date]) {
             acc[date] = {
-              "breakfast": false,
-              "lunch": false,
-              "dinner": false
-            }
-          };
+              breakfast: false,
+              lunch: false,
+              dinner: false
+            };
+          }
 
-          if(slot.meal_type in acc[date]) {
+          if (slot.meal_type in acc[date]) {
             acc[date][slot.meal_type] = true;
-          };
+          }
 
           return acc;
-        }, {})
+        }, {});
 
         setSelectedDates(transformed);
-        
+
+        const searchedMeals = {};
+        res.data.slots.forEach((slot) => {
+          const mealDetail = res.data.meals.find((m) => m.meal_slot === slot.id);
+          if (mealDetail) {
+            searchedMeals[`${slot.slot_date}-${slot.meal_type}`] = mealDetail;
+          }
+        });
+        setMealItems(searchedMeals);
+
+        setRestrictions(res.data.dietary_restrictions.split(","));
+
         const dates = Object.keys(transformed);
-        if(dates.length > 0) setActiveDate(dates[0]);
+        if (dates.length > 0) setActiveDate(dates[0]);
 
         console.log(res.data);
       } catch (error) {
-        console.log(`Error fetching meal train`)
+        console.log(`Error fetching meal train`);
       }
-    }
+    };
     loadMealTrain();
-  }, [id])
+  }, [id]);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center">
@@ -113,12 +108,20 @@ export default function ViewMealCard() {
           {/* right meals section */}
           {activeDate && selectedDates[activeDate] && (
             <div className="flex flex-col gap-3">
-              {['breakfast', 'lunch', 'dinner'].map(
-                (meal) =>
-                  selectedDates[activeDate]?.[meal] && (
-                    <SingleMealView key={meal} mealType={meal} mealDate={activeDate} />
-                  )
-              )}
+              {['breakfast', 'lunch', 'dinner'].map((meal) => {
+                const isSlotActive = selectedDates[activeDate]?.[meal];
+
+                if (isSlotActive) {
+                  const details = mealItems[`${activeDate}-${meal}`];
+
+                  if (details) {
+                    return <SingleMealView key={meal} mealType={meal} mealDate={activeDate}
+                    mealTitle={details?.meal_description}
+                    deliveryMethod={details?.special_notes} 
+                    restrictions={restrictions || []}/>;
+                  }
+                }
+              })}
             </div>
           )}
         </div>
