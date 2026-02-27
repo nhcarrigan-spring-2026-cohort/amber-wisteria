@@ -7,10 +7,8 @@ export default function ApprovalRequestPopup({
 }) {
   return (
     <>
-      {/* BLUR LAYER — onder navbar */}
       <div className="fixed inset-0 bg-black/10 backdrop-blur-md z-[40]" onClick={onCancel} />
 
-      {/* POPUP — boven blur, onder navbar */}
       <div className="fixed inset-0 z-[60] flex items-center justify-center" onClick={onCancel}>
         <div
           className="w-[92%] max-w-xl bg-[#e9d6b3] rounded-[36px] shadow-2xl overflow-hidden"
@@ -58,7 +56,7 @@ export default function ApprovalRequestPopup({
               </>
             ) : (
               <>
-                <p className="text-xl font-semibold text-[#1f2a24] mb-8">✅ Request sent</p>
+                <p className="text-xl font-semibold text-[#1f2a24] mb-8"> Request sent</p>
 
                 <button
                   onClick={onCancel}
