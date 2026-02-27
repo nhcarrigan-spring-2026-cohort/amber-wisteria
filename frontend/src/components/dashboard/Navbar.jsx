@@ -47,7 +47,7 @@ export default function Navbar({ variant = 'default' }) {
   }
 
   return (
-    <header className="w-full h-[70px] flex justify-between items-center px-8 bg-[#fff7e0] border-b border-[#f0e6cc]">
+    <header className="relative z-[100] w-full h-[70px] flex justify-between items-center px-8 bg-[#fff7e0] border-b border-[#f0e6cc]">
       <img
         src={logo}
         alt="logo"
