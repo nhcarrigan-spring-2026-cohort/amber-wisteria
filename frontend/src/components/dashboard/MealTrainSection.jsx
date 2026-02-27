@@ -30,11 +30,7 @@ export default function MealTrainSection({
       </div>
 
       {items.map((item, i) => (
-        <Link
-          key={item.id}
-          to={`/view-meal-train/${item.id}`}
-          className="cursor-pointer"
-        >
+        <Link key={item.id} to={`/view-meal-train/${item.id}`} className="cursor-pointer">
           <MealTrainCard {...item} showTopBorder={i !== 0} />
         </Link>
       ))}
@@ -49,7 +45,6 @@ export default function MealTrainSection({
             <MealTrainCard {...item} />
           </Link>
         ))}
-
 
       <button
         className="mx-auto text-[#f68300] font-semibold flex items-center gap-1"
