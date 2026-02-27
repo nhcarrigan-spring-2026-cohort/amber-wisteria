@@ -21,7 +21,7 @@ function App() {
       </Route>
 
       <Route path="/" element={<Home />} />
-      
+
       <Route element={<PrivateRoutes />}>
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/create-meal-train" element={<CreateMealTrain />} />

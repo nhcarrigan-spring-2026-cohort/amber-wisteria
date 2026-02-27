@@ -3,9 +3,9 @@ import NotifIcon from '../../assets/notif.svg';
 import LogoutIcon from '../../assets/logout.svg';
 import { useNavigate } from 'react-router';
 
-export default function Navbar({ variant = "default" }) {
+export default function Navbar({ variant = 'default' }) {
   const navigate = useNavigate();
-  const isLanding = variant === "landing";
+  const isLanding = variant === 'landing';
 
   const iconFilter =
     'brightness(0) saturate(100%) invert(57%) sepia(82%) saturate(2471%) hue-rotate(1deg) brightness(101%) contrast(101%)';
@@ -20,19 +20,17 @@ export default function Navbar({ variant = "default" }) {
   }
 
   return (
-    <header
-      className="w-full h-[70px] flex justify-between items-center px-8 bg-[#fff7e0] border-b border-[#f0e6cc]"
-    >
+    <header className="w-full h-[70px] flex justify-between items-center px-8 bg-[#fff7e0] border-b border-[#f0e6cc]">
       <img
         src={logo}
         alt="logo"
         className="w-[130px] cursor-pointer"
-        onClick={() => navigate("/")}
+        onClick={() => navigate('/')}
       />
 
       {isLanding ? (
         <button
-          onClick={() => navigate("/create-meal-train")}
+          onClick={() => navigate('/create-meal-train')}
           className="bg-[#f68300] text-white px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:brightness-95 transition"
         >
           Start a meal train
@@ -44,12 +42,8 @@ export default function Navbar({ variant = "default" }) {
               src={NotifIcon}
               className="w-5 h-5 cursor-pointer transition"
               style={{ filter: iconFilter }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.filter = hoverFilter)
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.filter = iconFilter)
-              }
+              onMouseEnter={(e) => (e.currentTarget.style.filter = hoverFilter)}
+              onMouseLeave={(e) => (e.currentTarget.style.filter = iconFilter)}
             />
             <span className="absolute -top-[2px] right-[2px] w-2 h-2 bg-red-600 rounded-full" />
           </div>
@@ -58,12 +52,8 @@ export default function Navbar({ variant = "default" }) {
             src={LogoutIcon}
             className="w-5 h-5 cursor-pointer transition"
             style={{ filter: iconFilter }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.filter = hoverFilter)
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.filter = iconFilter)
-            }
+            onMouseEnter={(e) => (e.currentTarget.style.filter = hoverFilter)}
+            onMouseLeave={(e) => (e.currentTarget.style.filter = iconFilter)}
             onClick={handleLogout}
           />
         </div>
