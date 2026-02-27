@@ -1,6 +1,6 @@
 import Background from '../components/Background';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axiosClient from '../api/axiosClient';
 
 export default function Signup() {
@@ -8,8 +8,19 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordGuidelines, setPasswordGuidelines] = useState('');
+  const [confirmGuideline, setConfirmGuideline] = useState('');
+  const [usernameGuideline, setUsernameGuideline] = useState('');
+  const [emailGuideline, setEmailGuideline] = useState('');
+  const [serverErrors, setServerErrors] = useState({});
+
+  const userRef = useRef();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,12 +43,25 @@ export default function Signup() {
 
         navigate('/dashboard');
       } catch (err) {
-        console.log(err);
+        console.log('STATUS:', err.response?.status);
+        console.log('DATA:', err.response?.data);
+        if (err.response?.data) {
+          setServerErrors(err.response.data);
+        }
       }
-      console.log('Form Submitted:', username, email, password, confirmPassword);
     } else {
-      alert('Passwords must match');
+      alert('Passwords must match.');
     }
+  };
+
+  const handleFocus = () => {
+    return (
+      <div>
+        {setPasswordGuidelines(
+          'Password must contain at least one uppercase and lowercase letter, one number, and at least 8 characters.'
+        )}
+      </div>
+    );
   };
 
   return (
@@ -62,11 +86,26 @@ export default function Signup() {
             id="username"
             name="username"
             value={username}
+            ref={userRef}
             onChange={(e) => setUsername(e.target.value)}
+            onFocus={() => setUsernameGuideline('Must be at least 3 characters.')}
+            onBlur={() => setUsernameGuideline('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Username"
+            minLength="3"
+            aria-describedby="userNote"
             required
           />
+
+          <p id="userNote" className="w-95 bg-[#FEB058] rounded-2xl">
+            {usernameGuideline}
+          </p>
+
+          {serverErrors.username && (
+            <p className="w-95 bg-red-400 text-white rounded-2xl mt-2 p-2">
+              {serverErrors.username[0]}
+            </p>
+          )}
 
           <label htmlFor="email" className="dark:text-[#212B27]">
             Email
@@ -77,10 +116,17 @@ export default function Signup() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={() => setEmailGuideline('Enter an email, eg. john@example.com')}
+            onBlur={() => setEmailGuideline('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Email"
+            aria-describedby="emailNote"
             required
           />
+
+          <p id="emailNote" className="w-95 bg-[#FEB058] rounded-2xl">
+            {emailGuideline}
+          </p>
 
           <label htmlFor="password" className="dark:text-[#212B27]">
             Password
@@ -91,13 +137,19 @@ export default function Signup() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onFocus={handleFocus}
+            onBlur={() => setPasswordGuidelines('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
             required
+            aria-describedby="passNote"
             minLength="8"
           />
+
+          <p id="passNote" className="w-95 bg-[#FEB058] rounded-2xl">
+            {passwordGuidelines}
+          </p>
 
           <label htmlFor="confirmPassword" className="dark:text-[#212B27]">
             Confirm Password
@@ -108,13 +160,19 @@ export default function Signup() {
             name="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            onFocus={() => setConfirmGuideline('Passwords must match.')}
+            onBlur={() => setConfirmGuideline('')}
             className="bg-white p-3 w-full rounded-xl mt-2 mb-4 h-16 border-none outline-hidden dark:text-[#212B27] placeholder:font-semibold placeholder:text-[#999]"
             placeholder="Confirm Password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
             required
+            aria-describedby="confirmNote"
             minLength="8"
           />
+
+          <p id="confirmNote" className="w-95 bg-[#FEB058] rounded-2xl">
+            {confirmGuideline}
+          </p>
 
           <button
             type="submit"
