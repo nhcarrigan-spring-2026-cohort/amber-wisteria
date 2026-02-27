@@ -21,8 +21,7 @@ export default function Home() {
         onCTAClick={() => navigate("/create-meal-train")}
       />
 
-      <section className="relative max-w-7xl mx-auto px-6 py-28 flex flex-col md:flex-row items-center gap-20">
-
+      <section className="relative min-h-screen max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-20">
         <div className="flex-1 relative z-10">
           <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-[-0.02em] text-[#2d2d2d] text-left">
             Support Your Community <br /> With Meal Trains
@@ -71,17 +70,76 @@ export default function Home() {
 
       <section
         id="info-section"
-        className="max-w-5xl mx-auto px-6 py-24 text-center"
+        className="relative min-h-screen bg-[#fff7e0] flex items-center justify-center overflow-hidden"
       >
-        <h2 className="text-3xl font-bold text-[#2d2d2d] mb-6">
-          What is a Meal Train?
-        </h2>
+        <div className="  px-8 md:px-16 py-16 
+                        max-w-6xl w-full mx-6 text-center">
 
-        <p className="text-lg text-[#4c4c4c] max-w-3xl mx-auto leading-relaxed">
-          A meal train is a simple way to support someone going through a challenging time.
-          Friends, family, and community members sign up to bring meals on different days,
-          ensuring the person in need receives consistent support without stress.
-        </p>
+          <h2 className="text-4xl md:text-5xl font-bold text-[#2d2d2d] mb-6">
+            How a Meal Train Works
+          </h2>
+
+          <p className="text-lg text-[#555] max-w-2xl mx-auto mb-16 leading-relaxed">
+            A meal train makes it easy to organize support for someone in need.
+            In just a few simple steps, friends and family can coordinate meals
+            and show up when it matters most.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-8">
+
+            <div className="bg-[#FFECC899] rounded-4xl shadow-xl p-8
+                            border border-[#e7d5b5] shadow-sm 
+                            hover:shadow-md hover:-translate-y-1 transition">
+              <div className="text-4xl mb-4">🍽️</div>
+              <h3 className="text-xl font-semibold mb-3 text-[#2d2d2d]">
+                Create a Train
+              </h3>
+              <p className="text-[#555] leading-relaxed">
+                Set up a meal train in minutes. Choose dates, add details,
+                and invite friends and family to participate.
+              </p>
+            </div>
+
+            <div className="bg-[#FFECC899] rounded-4xl shadow-xl p-8
+                            border border-[#e7d5b5] shadow-sm 
+                            hover:shadow-md hover:-translate-y-1 transition">
+              <div className="text-4xl mb-4">📅</div>
+              <h3 className="text-xl font-semibold mb-3 text-[#2d2d2d]">
+                Sign Up
+              </h3>
+              <p className="text-[#555] leading-relaxed">
+                Participants pick a date that works for them and see what
+                others are bringing to avoid duplicates.
+              </p>
+            </div>
+
+            <div className="bg-[#FFECC899] rounded-4xl shadow-xl p-8
+                            border border-[#e7d5b5] shadow-sm 
+                            hover:shadow-md hover:-translate-y-1 transition">
+              <div className="text-4xl mb-4">❤️</div>
+              <h3 className="text-xl font-semibold mb-3 text-[#2d2d2d]">
+                Deliver Support
+              </h3>
+              <p className="text-[#555] leading-relaxed">
+                Meals are delivered with love, providing practical help
+                and emotional support during challenging times.
+              </p>
+            </div>
+
+          </div>
+
+          <div className="mt-16">
+            <button
+              onClick={() => navigate("/create-meal-train")}
+              className="bg-[#f68300] text-white px-8 py-4 rounded-full 
+                        font-semibold text-lg shadow-md 
+                        hover:brightness-95 transition"
+            >
+              Start Supporting Today
+            </button>
+          </div>
+
+        </div>
       </section>
 
     </div>

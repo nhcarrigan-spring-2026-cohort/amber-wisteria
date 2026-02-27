@@ -23,7 +23,6 @@ export default function Navbar({ variant = "default" }) {
     <header
       className="w-full h-[70px] flex justify-between items-center px-8 bg-[#fff7e0] border-b border-[#f0e6cc]"
     >
-      {/* Logo */}
       <img
         src={logo}
         alt="logo"
@@ -31,7 +30,6 @@ export default function Navbar({ variant = "default" }) {
         onClick={() => navigate("/")}
       />
 
-      {/* LANDING → CTA BUTTON */}
       {isLanding ? (
         <button
           onClick={() => navigate("/create-meal-train")}
@@ -40,7 +38,6 @@ export default function Navbar({ variant = "default" }) {
           Start a meal train
         </button>
       ) : (
-        /* OTHER PAGES → ICONS */
         <div className="flex items-center gap-6">
           <div className="relative">
             <img
