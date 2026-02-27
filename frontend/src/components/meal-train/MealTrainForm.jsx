@@ -196,7 +196,7 @@ export default function MealTrainForm() {
       setQuantity(1);
       setDeliveryAddress('');
 
-      navigate('/');
+      navigate('/dashboard');
     } else {
       return;
     }
