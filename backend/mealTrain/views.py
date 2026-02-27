@@ -32,10 +32,11 @@ class MealTrainListCreateView(APIView):
     )
     def get(self, request):
         created_trains = MealTrain.objects.filter(organizer=request.user)
-        membership_trains = [m.meal_train for m in MealTrainMembership.objects.filter(user=request.user)]
+        memberships = MealTrainMembership.objects.filter(user=request.user)
+        membership_trains = [m.meal_train for m in memberships]
         all_trains = list(created_trains) + [train for train in membership_trains if train not in created_trains]
         serializer = MealTrainSerializer(
-            all_trains, many=True, context={"request": request}
+            all_trains, many=True, context={"request": request, "memberships": memberships}
         )
         return Response(serializer.data)
 
