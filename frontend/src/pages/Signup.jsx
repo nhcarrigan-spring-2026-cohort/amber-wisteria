@@ -12,6 +12,7 @@ export default function Signup() {
   const [confirmGuideline, setConfirmGuideline] = useState('');
   const [usernameGuideline, setUsernameGuideline] = useState('');
   const [emailGuideline, setEmailGuideline] = useState('');
+  const [serverErrors, setServerErrors] = useState({});
 
   const userRef = useRef();
 
@@ -42,9 +43,12 @@ export default function Signup() {
 
         navigate('/dashboard');
       } catch (err) {
-        console.log(err);
+        console.log('STATUS:', err.response?.status);
+        console.log('DATA:', err.response?.data);
+        if (err.response?.data) {
+          setServerErrors(err.response.data);
+        }
       }
-      console.log('Form Submitted:', username, email, password, confirmPassword);
     } else {
       alert('Passwords must match.');
     }
@@ -96,6 +100,12 @@ export default function Signup() {
           <p id="userNote" className="w-95 bg-[#FEB058] rounded-2xl">
             {usernameGuideline}
           </p>
+
+          {serverErrors.username && (
+            <p className="w-95 bg-red-400 text-white rounded-2xl mt-2 p-2">
+              {serverErrors.username[0]}
+            </p>
+          )}
 
           <label htmlFor="email" className="dark:text-[#212B27]">
             Email
