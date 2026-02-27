@@ -27,7 +27,7 @@ function App() {
         <Route path="/create-meal-train" element={<CreateMealTrain />} />
         <Route path="/single-meal-view" element={<SingleMealView />} />
         <Route path="/create-meal" element={<CreateMeal />} />
-        <Route path="/view-meal-train" element={<ViewMealTrain />} />
+        <Route path="/view-meal-train/:id" element={<ViewMealTrain />} />
       </Route>
     </Routes>
   );
