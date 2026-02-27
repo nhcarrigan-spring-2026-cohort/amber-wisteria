@@ -2,14 +2,14 @@ import { useState } from 'react';
 import IngredientOrRestrictionPill from './IngredientOrRestrictionPill';
 
 export default function SingleMealView({
-  mealTitle = 'Stir-fried tomato and scrambled eggs',
-  mealDesc = 'classic, simple Chinese home-style dish featuring fluffy scrambled eggs and soft, saucy tomatoes',
-  mealDate = '2026-02-21',
-  mealType = 'Lunch',
-  preparedBy = 'Bilal',
-  deliveryMethod = 'Self-deliver',
-  restrictions = ['Vegan', 'Gluten-free', 'Nut-free', 'Egg-free'],
-  ingredients = ['Tomato', 'ketchup', 'eggs']
+  mealTitle = '',
+  mealDesc = '',
+  mealDate = '',
+  mealType = '',
+  preparedBy = '',
+  deliveryMethod = '',
+  restrictions = [],
+  ingredients = []
 }) {
   const [isShowMoreClicked, setIsShowMoreClicked] = useState(false);
 
@@ -30,7 +30,7 @@ export default function SingleMealView({
 
       {isShowMoreClicked && (
         <div className="flex flex-col items-center justify-center gap-2">
-          <p className="text-gray-600 text-left">{mealDesc}</p>
+          <p className="text-gray-600 self-start">{mealDesc}</p>
           <div className="flex flex-wrap gap-3 self-start items-center">
             <p className="font-bold">Restrictions: </p>
             {restrictions.map((item) => (
