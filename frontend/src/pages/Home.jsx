@@ -35,7 +35,7 @@ export default function Home() {
 
           <div className="mt-8 flex gap-4">
             <button
-              onClick={() => navigate('/create-meal-train')}
+              onClick={() => navigate('/dashboard')}
               className="cursor-pointer bg-[#f68300] text-white px-6 py-3 rounded-full font-semibold text-lg shadow-md hover:brightness-95 transition"
             >
               Start a meal train
@@ -125,7 +125,7 @@ export default function Home() {
 
           <div className="mt-16">
             <button
-              onClick={() => navigate('/create-meal-train')}
+              onClick={() => navigate('/dashboard')}
               className="cursor-pointer bg-[#f68300] text-white px-8 py-4 rounded-full 
                         font-semibold text-lg shadow-md 
                         hover:brightness-95 transition"

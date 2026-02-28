@@ -10,7 +10,7 @@ import NotificationsPopup from '../dashboard/NotificationsPopup';
 export default function Navbar({ variant = 'default' }) {
   const navigate = useNavigate();
   const isLanding = variant === 'landing';
-
+  const isLoggedIn = localStorage.getItem('access') !== null;
   const [openNotif, setOpenNotif] = useState(false);
   const [mealTrainIds, setMealTrainIds] = useState([]);
 
@@ -35,10 +35,10 @@ export default function Navbar({ variant = 'default' }) {
       }
     }
 
-    if (!isLanding) {
+    if (!isLanding && isLoggedIn) {
       load();
     }
-  }, [isLanding]);
+  }, [isLanding, isLoggedIn]);
 
   function handleLogout() {
     localStorage.removeItem('access');
@@ -55,14 +55,25 @@ export default function Navbar({ variant = 'default' }) {
         onClick={() => navigate('/')}
       />
 
-      {isLanding ? (
+      {isLanding && !isLoggedIn && (
         <button
           onClick={() => navigate('/create-meal-train')}
           className="bg-[#f68300] text-white px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:brightness-95 transition"
         >
           Start a meal train
         </button>
-      ) : (
+      )}
+
+      {isLanding && isLoggedIn && (
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="bg-[#f68300] text-white px-6 py-2 rounded-full font-semibold text-sm shadow-md hover:brightness-95 transition"
+        >
+          Dashboard
+        </button>
+      )}
+
+      {!isLanding && isLoggedIn && (
         <div className="flex items-center gap-6">
           <div className="relative">
             <img
