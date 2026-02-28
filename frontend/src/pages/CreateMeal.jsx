@@ -122,7 +122,11 @@ export default function CreateMeal() {
     }
   };
 
+  const existingMealsId = mealTrain?.meals.map((meal) => meal.meal_slot) || [];
   const slotsForSelectedDate = availableSlots?.filter((slot) => slot.slot_date === mealDate) || [];
+  const slotsForSelectedDateAndAlreadySelectedMeals = slotsForSelectedDate.filter(
+    (slot) => !existingMealsId.includes(slot.id)
+  );
   const restrictions = mealTrain?.dietary_restrictions?.split(', ') || [];
 
   return (
@@ -239,7 +243,7 @@ export default function CreateMeal() {
                 Please select a meal type
               </option>
 
-              {slotsForSelectedDate.map((slot) => (
+              {slotsForSelectedDateAndAlreadySelectedMeals.map((slot) => (
                 <option key={`${slot.slot_type}-${slot.id}`} value={slot.meal_type}>
                   {slot.meal_type}
                 </option>
