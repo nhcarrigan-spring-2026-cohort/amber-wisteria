@@ -83,11 +83,6 @@ class MealTrainDetailView(APIView):
     )
     def get(self, request, pk):
         train = self.get_meal_train(pk)
-        if not is_allowed_participant(request.user, train):
-            self.permission_denied(
-                self.request,
-                "Only approved members can retrieve the meal train details.",
-            )
         serializer = MealTrainSerializer(train, context={"request": request})
         return Response(serializer.data)
 
