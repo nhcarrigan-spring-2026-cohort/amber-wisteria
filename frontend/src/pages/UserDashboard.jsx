@@ -24,7 +24,6 @@ export default function UserDashboard() {
   useEffect(() => {
     async function loadDashboard() {
       try {
-        // Fetch user + meal trains in parallel
         const [userRes, trainsRes] = await Promise.all([
           axiosClient.get('/api/me'),
           axiosClient.get('/api/mealtrains/')
@@ -33,7 +32,6 @@ export default function UserDashboard() {
         const user = userRes.data;
         const mealTrains = trainsRes.data;
 
-        // Split into created vs joined
         const created = mealTrains.filter((t) => t.organizer_id === user.id);
         const joined = mealTrains.filter((t) => t.organizer_id !== user.id);
 
@@ -57,6 +55,13 @@ export default function UserDashboard() {
   if (loading) return <p className="p-10">Loading dashboard…</p>;
   if (error) return <p className="p-10">{error}</p>;
 
+  // --- FIX: split into first 2 + extra ---
+  const createdFirstTwo = data.createdMealTrains.slice(0, 2);
+  const createdExtra = data.createdMealTrains.slice(2);
+
+  const joinedFirstTwo = data.joinedMealTrains.slice(0, 2);
+  const joinedExtra = data.joinedMealTrains.slice(2);
+
   return (
     <div className="flex flex-col h-screen bg-[#fff8e3] font-[Inter]">
       <Navbar />
@@ -70,8 +75,8 @@ export default function UserDashboard() {
             buttonLabel="Add"
             buttonIcon={PlusIcon}
             buttonAction={() => navigate('/create-meal-train')}
-            items={data.createdMealTrains}
-            extraItems={[]}
+            items={createdFirstTwo}
+            extraItems={createdExtra}
             showMore={showMoreCreated}
             toggleShowMore={() => setShowMoreCreated((p) => !p)}
           />
@@ -81,8 +86,8 @@ export default function UserDashboard() {
             buttonLabel="Join"
             buttonIcon={JoinIcon}
             buttonAction={() => setIsPopupOpen(true)}
-            items={data.joinedMealTrains}
-            extraItems={[]}
+            items={joinedFirstTwo}
+            extraItems={joinedExtra}
             showMore={showMoreJoined}
             toggleShowMore={() => setShowMoreJoined((p) => !p)}
           />
