@@ -41,7 +41,9 @@ export default function UserDashboard() {
         const joinedWithMemberships = await Promise.all(
           joined.map(async (train) => {
             try {
-              const res = await axiosClient.get(`/api/mealtrains/${train.id}/memberships/`);
+              const res = await axiosClient.get(
+                `/api/mealtrains/${train.id}/memberships/`
+              );
 
               const membership = res.data[0] || null;
 
@@ -84,7 +86,25 @@ export default function UserDashboard() {
 
       setData((prev) => ({
         ...prev,
-        joinedMealTrains: prev.joinedMealTrains.filter((t) => t.membershipId !== membershipId)
+        joinedMealTrains: prev.joinedMealTrains.filter(
+          (t) => t.membershipId !== membershipId
+        )
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 5. Leave an approved meal train
+  const handleLeave = async (membershipId) => {
+    try {
+      await axiosClient.delete(`/api/memberships/${membershipId}/`);
+
+      setData((prev) => ({
+        ...prev,
+        joinedMealTrains: prev.joinedMealTrains.filter(
+          (t) => t.membershipId !== membershipId
+        )
       }));
     } catch (err) {
       console.error(err);
@@ -128,7 +148,8 @@ export default function UserDashboard() {
             extraItems={joinedExtra}
             showMore={showMoreJoined}
             toggleShowMore={() => setShowMoreJoined((p) => !p)}
-            onCancel={handleCancel} // NEW
+            onCancel={handleCancel}
+            onLeave={handleLeave}   // NEW
           />
         </main>
       </div>

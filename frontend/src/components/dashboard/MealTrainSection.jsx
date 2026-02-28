@@ -10,7 +10,8 @@ export default function MealTrainSection({
   extraItems,
   showMore,
   toggleShowMore,
-  onCancel
+  onCancel,
+  onLeave
 }) {
   return (
     <section className="flex flex-col">
@@ -36,8 +37,10 @@ export default function MealTrainSection({
             <MealTrainCard
               {...item}
               pending={item.membershipStatus === 'pending'}
+              approved={item.membershipStatus === 'approved'}
               showTopBorder={i !== 0}
               onCancel={() => onCancel(item.membershipId)}
+              onLeave={() => onLeave(item.membershipId)}
             />
           </Link>
         </div>
@@ -50,7 +53,9 @@ export default function MealTrainSection({
               <MealTrainCard
                 {...item}
                 pending={item.membershipStatus === 'pending'}
+                approved={item.membershipStatus === 'approved'}
                 onCancel={() => onCancel(item.membershipId)}
+                onLeave={() => onLeave(item.membershipId)}
               />
             </Link>
           </div>
@@ -61,7 +66,11 @@ export default function MealTrainSection({
         onClick={toggleShowMore}
       >
         {showMore ? 'Show less' : 'Show more'}
-        <span className={`inline-block transition-transform ${showMore ? 'rotate-180' : ''}`}>
+        <span
+          className={`inline-block transition-transform ${
+            showMore ? 'rotate-180' : ''
+          }`}
+        >
           ˅
         </span>
       </button>
