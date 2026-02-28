@@ -23,6 +23,8 @@ export default function CreateMeal() {
 
   const [ingredientInput, setIngredientInput] = useState('');
   const [ingredients, setIngredients] = useState([]);
+  const [error, setError] = useState('');
+
   const formatDate = (iso) => {
     const [year, month, day] = iso.split('-');
     return `${day}/${month}/${year}`;
@@ -67,6 +69,7 @@ export default function CreateMeal() {
         setAllowedDates(res.data.map((s) => s.slot_date));
       } catch (error) {
         console.log(`Error fetching slots for meal train: ${mealTrainId}`, error);
+        setError(error);
       }
     };
     loadAvailableSlots();
@@ -112,9 +115,10 @@ export default function CreateMeal() {
       const res = await axiosClient.post(`/api/slots/${matchingSlot.id}/signups/`, payload);
       console.log('Meal Created Successfully!', res.data);
       alert('Meal Created Successfully.');
-      navigate('/view-');
+      navigate(`/view-meal-train/${id}`);
     } catch (error) {
       console.log('Error creating a meal', error);
+      setError(error);
     }
   };
 
@@ -125,7 +129,7 @@ export default function CreateMeal() {
     <Background>
       <div className="flex flex-col items-center justify-start min-h-screen w-full pt-6 md:pt-10 px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-[#212B27] mb-4 md:mb-6 text-center">
-          Bilal’s Meal Train
+          {mealTrain?.beneficiary_name}'s Meal Train
         </h2>
 
         <form
@@ -212,6 +216,12 @@ export default function CreateMeal() {
             {mealDate && (
               <p className="mt-2 text-center text-gray-700">
                 Selected date: {formatDate(mealDate)}
+              </p>
+            )}
+
+            {error && (
+              <p className="font-semibold flex items-center justify-center mt-4  bg-red-500 p-3 text-white w-full">
+                Please select a meal date and type that is not already chosen
               </p>
             )}
           </div>
