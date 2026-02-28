@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../api/axiosClient';
 
 import ViewMealCard from '../components/view-meal-train/ViewMealCard';
@@ -9,43 +9,37 @@ import ApprovalRequestPopup from '../components/view-meal-train/ApprovalRequestP
 
 export default function ViewMealTrain() {
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const [isApproved, setIsApproved] = useState(null);
   const [requestSent, setRequestSent] = useState(false);
 
-  const checkMembership = async () => {
+  useEffect(() => {
+  async function run() {
     try {
-      const me = await axiosClient.get('/api/me');
-      const currentUserId = me.data.id;
+      const res = await axiosClient.get(`/api/mealtrains/${id}/`);
+      const status = res.data.membership_status;
 
-      const res = await axiosClient.get(`/api/memberships/`);
-
-      const myMembership = res.data.find((m) => m.user_id === currentUserId);
-
-      if (!myMembership) {
-        setIsApproved(false);
-      } else if (myMembership.status === 'approved') {
+      if (status === 'owner' || status === 'approved') {
         setIsApproved(true);
-      } else {
+      } else if (status === 'pending') {
         setIsApproved(false);
         setRequestSent(true);
+      } else {
+        setIsApproved(false);
       }
     } catch (err) {
       console.error(err);
       setIsApproved(false);
     }
-  };
+  }
 
-  useEffect(() => {
-    const run = async () => {
-      await checkMembership();
-    };
-    run();
-  }, []);
+  run();
+}, [id]);
 
   const handleRequestApproval = async () => {
     try {
-      await axiosClient.post(`/api/memberships/`);
+      await axiosClient.post(`/api/memberships/`, { meal_train: id });
       setRequestSent(true);
     } catch (err) {
       console.error(err);
