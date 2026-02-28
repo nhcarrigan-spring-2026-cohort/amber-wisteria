@@ -1,57 +1,79 @@
-import { redFilter } from './HoverIcon.constants';
-import HoverIcon from './HoverIcon';
-import WaitingIcon from '../../assets/waiting.svg';
-import XIcon from '../../assets/x.svg';
+import { Link } from 'react-router-dom';
+import MealTrainCard from './MealTrainCard';
 
-export default function MealTrainCard({
+export default function MealTrainSection({
   title,
-  description,
-  pending = false,
-  approved = false,
-  showTopBorder = true,
+  buttonLabel,
+  buttonIcon,
+  buttonAction,
+  items,
+  extraItems,
+  showMore,
+  toggleShowMore,
   onCancel,
   onLeave
 }) {
   return (
-    <div className={`pt-2 ${showTopBorder ? 'border-t border-[#4c4c4c]' : ''}`}>
-      <div
-        className={`p-[10px_20px] my-[15px] rounded-lg border text-left flex justify-between items-center ${
-          pending ? 'bg-[#f0f0f0] border-[#b5b5b5] opacity-70' : 'bg-white border-[#4c4c4c]'
-        }`}
-      >
-        <div>
-          <h2 className="text-[18px] font-bold my-1">{title}</h2>
-          <p className="text-[15px] text-[#4c4c4c]">{description || 'No description provided.'}</p>
-        </div>
+    <section className="flex flex-col">
+      <div className="flex justify-between items-center border-b border-black pb-3 mb-5">
+        <h1 className="text-[28px] font-bold">{title}</h1>
 
-        {pending && (
-          <div className="flex gap-3">
-            <HoverIcon src={WaitingIcon} alt="waiting" />
-
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onCancel();
-              }}
-            >
-              <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />
-            </button>
-          </div>
-        )}
-
-        {approved && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onLeave();
-            }}
-          >
-            <HoverIcon src={XIcon} alt="leave" base={redFilter} hover={redFilter} />
-          </button>
-        )}
+        <button
+          onClick={buttonAction}
+          className="flex items-center gap-2 bg-[#f68300] text-white px-4 py-2 rounded-full font-semibold"
+        >
+          <img
+            src={buttonIcon}
+            className="w-[18px] h-[18px]"
+            style={{ filter: 'brightness(0) invert(1)' }}
+          />
+          {buttonLabel}
+        </button>
       </div>
-    </div>
+
+      {items.map((item, i) => (
+        <div key={item.id}>
+          <Link to={`/view-meal-train/${item.id}`} className="cursor-pointer">
+            <MealTrainCard
+              {...item}
+              pending={item.membershipStatus === 'pending'}
+              approved={item.membershipStatus === 'approved'}
+              showTopBorder={i !== 0}
+              onCancel={() => onCancel(item.membershipId)}
+              onLeave={() => onLeave(item.membershipId)}
+            />
+          </Link>
+        </div>
+      ))}
+
+      {showMore &&
+        extraItems.map((item) => (
+          <div key={`extra-${item.id}`}>
+            <Link to={`/view-meal-train/${item.id}`} className="cursor-pointer">
+              <MealTrainCard
+                {...item}
+                pending={item.membershipStatus === 'pending'}
+                approved={item.membershipStatus === 'approved'}
+                onCancel={() => onCancel(item.membershipId)}
+                onLeave={() => onLeave(item.membershipId)}
+              />
+            </Link>
+          </div>
+        ))}
+
+      <button
+        className="mx-auto text-[#f68300] font-semibold flex items-center gap-1"
+        onClick={toggleShowMore}
+      >
+        {showMore ? 'Show less' : 'Show more'}
+        <span
+          className={`inline-block transition-transform ${
+            showMore ? 'rotate-180' : ''
+          }`}
+        >
+          ˅
+        </span>
+      </button>
+    </section>
   );
 }
