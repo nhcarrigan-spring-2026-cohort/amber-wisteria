@@ -66,11 +66,7 @@ export default function MealTrainSection({
         onClick={toggleShowMore}
       >
         {showMore ? 'Show less' : 'Show more'}
-        <span
-          className={`inline-block transition-transform ${
-            showMore ? 'rotate-180' : ''
-          }`}
-        >
+        <span className={`inline-block transition-transform ${showMore ? 'rotate-180' : ''}`}>
           ˅
         </span>
       </button>
