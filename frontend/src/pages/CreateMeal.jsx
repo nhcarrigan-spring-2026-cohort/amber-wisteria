@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Background from '../components/Background';
 import Label from '../components/Label';
@@ -43,7 +43,8 @@ export default function CreateMeal() {
     }
   };
 
-  const mealTrainId = 10; // can be changed later
+  const { id } = useParams(); // can be changed later
+  const mealTrainId = id;
 
   useEffect(() => {
     const loadMealTrain = async () => {
@@ -111,7 +112,7 @@ export default function CreateMeal() {
       const res = await axiosClient.post(`/api/slots/${matchingSlot.id}/signups/`, payload);
       console.log('Meal Created Successfully!', res.data);
       alert('Meal Created Successfully.');
-      navigate('/dashboard');
+      navigate('/view-');
     } catch (error) {
       console.log('Error creating a meal', error);
     }

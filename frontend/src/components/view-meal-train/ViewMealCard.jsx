@@ -134,7 +134,7 @@ export default function ViewMealCard() {
 
         <Button
           variant="orange"
-          onClick={() => navigate('/create-meal')}
+          onClick={() => navigate(`/create-meal/${id}/`)}
           children="Create a Meal"
           className="rounded-full shadow-md mb-4"
         />
