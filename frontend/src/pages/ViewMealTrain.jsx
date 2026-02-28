@@ -15,27 +15,27 @@ export default function ViewMealTrain() {
   const [requestSent, setRequestSent] = useState(false);
 
   useEffect(() => {
-  async function run() {
-    try {
-      const res = await axiosClient.get(`/api/mealtrains/${id}/`);
-      const status = res.data.membership_status;
+    async function run() {
+      try {
+        const res = await axiosClient.get(`/api/mealtrains/${id}/`);
+        const status = res.data.membership_status;
 
-      if (status === 'owner' || status === 'approved') {
-        setIsApproved(true);
-      } else if (status === 'pending') {
-        setIsApproved(false);
-        setRequestSent(true);
-      } else {
+        if (status === 'owner' || status === 'approved') {
+          setIsApproved(true);
+        } else if (status === 'pending') {
+          setIsApproved(false);
+          setRequestSent(true);
+        } else {
+          setIsApproved(false);
+        }
+      } catch (err) {
+        console.error(err);
         setIsApproved(false);
       }
-    } catch (err) {
-      console.error(err);
-      setIsApproved(false);
     }
-  }
 
-  run();
-}, [id]);
+    run();
+  }, [id]);
 
   const handleRequestApproval = async () => {
     try {
