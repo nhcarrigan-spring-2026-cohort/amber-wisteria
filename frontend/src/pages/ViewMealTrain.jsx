@@ -11,26 +11,24 @@ export default function ViewMealTrain() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [isApproved, setIsApproved] = useState(null);
-  const [requestSent, setRequestSent] = useState(false);
+  const [membershipStatus, setMembershipStatus] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function run() {
       try {
-        const res = await axiosClient.get(`/api/mealtrains/${id}/`);
-        const status = res.data.membership_status;
+        const res = await axiosClient.get(`/api/mealtrains/${id}/memberships/`);
 
-        if (status === 'owner' || status === 'approved') {
-          setIsApproved(true);
-        } else if (status === 'pending') {
-          setIsApproved(false);
-          setRequestSent(true);
+        if (res.data.length === 0) {
+          setMembershipStatus('none');
         } else {
-          setIsApproved(false);
+          setMembershipStatus(res.data[0].status); // "pending", "approved", "rejected"
         }
       } catch (err) {
         console.error(err);
-        setIsApproved(false);
+        setMembershipStatus('none');
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -39,30 +37,44 @@ export default function ViewMealTrain() {
 
   const handleRequestApproval = async () => {
     try {
-      await axiosClient.post(`/api/memberships/`, { meal_train: id });
-      setRequestSent(true);
+      await axiosClient.post(`/api/mealtrains/${id}/memberships/`);
+      setMembershipStatus('pending');
     } catch (err) {
       console.error(err);
     }
   };
 
-  if (isApproved === null) return null;
+  if (loading) return null;
 
   return (
     <>
       <Navbar />
       <Background>
-        {!isApproved && (
+        {membershipStatus === 'none' && (
           <ApprovalRequestPopup
             onRequest={handleRequestApproval}
             onCancel={() => navigate('/dashboard')}
-            requestSent={requestSent}
+            requestSent={false}
             inviterName="Organizer"
             mealTrainName="Meal Train"
           />
         )}
 
-        {isApproved && <ViewMealCard />}
+        {membershipStatus === 'pending' && (
+          <ApprovalRequestPopup
+            onRequest={handleRequestApproval}
+            onCancel={() => navigate('/dashboard')}
+            requestSent={true}
+            inviterName="Organizer"
+            mealTrainName="Meal Train"
+          />
+        )}
+
+        {membershipStatus === 'approved' && <ViewMealCard />}
+
+        {membershipStatus === 'rejected' && (
+          <p className="text-center text-red-600 mt-10">Your request was rejected.</p>
+        )}
       </Background>
     </>
   );
