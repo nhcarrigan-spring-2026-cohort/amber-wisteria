@@ -9,7 +9,9 @@ export default function MealTrainSection({
   items,
   extraItems,
   showMore,
-  toggleShowMore
+  toggleShowMore,
+  onCancel,
+  onLeave
 }) {
   return (
     <section className="flex flex-col">
@@ -30,20 +32,33 @@ export default function MealTrainSection({
       </div>
 
       {items.map((item, i) => (
-        <Link key={item.id} to={`/view-meal-train/${item.id}`} className="cursor-pointer">
-          <MealTrainCard {...item} showTopBorder={i !== 0} />
-        </Link>
+        <div key={item.id}>
+          <Link to={`/view-meal-train/${item.id}`} className="cursor-pointer">
+            <MealTrainCard
+              {...item}
+              pending={item.membershipStatus === 'pending'}
+              approved={item.membershipStatus === 'approved'}
+              showTopBorder={i !== 0}
+              onCancel={() => onCancel(item.membershipId)}
+              onLeave={() => onLeave(item.membershipId)}
+            />
+          </Link>
+        </div>
       ))}
 
       {showMore &&
         extraItems.map((item) => (
-          <Link
-            key={`extra-${item.id}`}
-            to={`/view-meal-train/${item.id}`}
-            className="cursor-pointer"
-          >
-            <MealTrainCard {...item} />
-          </Link>
+          <div key={`extra-${item.id}`}>
+            <Link to={`/view-meal-train/${item.id}`} className="cursor-pointer">
+              <MealTrainCard
+                {...item}
+                pending={item.membershipStatus === 'pending'}
+                approved={item.membershipStatus === 'approved'}
+                onCancel={() => onCancel(item.membershipId)}
+                onLeave={() => onLeave(item.membershipId)}
+              />
+            </Link>
+          </div>
         ))}
 
       <button

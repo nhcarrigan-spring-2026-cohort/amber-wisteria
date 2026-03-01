@@ -77,7 +77,6 @@ export default function ViewMealCard() {
         </div>
 
         <div className="grid lg:grid-cols-[auto_1fr] md:grid-cols-1 justify-center items-center p-4 gap-10 mb-2">
-          {/* left calendar section */}
           <div className="flex flex-col gap-6">
             <div className="w-full">
               <MealCalendar
@@ -105,7 +104,6 @@ export default function ViewMealCard() {
             )}
           </div>
 
-          {/* right meals section */}
           {activeDate && selectedDates[activeDate] && (
             <div className="flex flex-col gap-3">
               {['breakfast', 'lunch', 'dinner'].map((meal) => {

@@ -7,7 +7,10 @@ export default function MealTrainCard({
   title,
   description,
   pending = false,
-  showTopBorder = true
+  approved = false,
+  showTopBorder = true,
+  onCancel,
+  onLeave
 }) {
   return (
     <div className={`pt-2 ${showTopBorder ? 'border-t border-[#4c4c4c]' : ''}`}>
@@ -24,8 +27,29 @@ export default function MealTrainCard({
         {pending && (
           <div className="flex gap-3">
             <HoverIcon src={WaitingIcon} alt="waiting" />
-            <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onCancel();
+              }}
+            >
+              <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />
+            </button>
           </div>
+        )}
+
+        {approved && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onLeave();
+            }}
+          >
+            <HoverIcon src={XIcon} alt="leave" base={redFilter} hover={redFilter} />
+          </button>
         )}
       </div>
     </div>
