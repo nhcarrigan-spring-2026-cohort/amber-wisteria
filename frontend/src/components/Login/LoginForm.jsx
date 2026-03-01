@@ -1,5 +1,6 @@
 import './LoginForm.css';
 import Background from '../Background';
+import HomeButton from '../icons/HomeButton';
 import { Link } from 'react-router-dom';
 
 export default function LoginForm({
@@ -13,6 +14,7 @@ export default function LoginForm({
   return (
     <Background>
       <div className="login-page">
+        <HomeButton destination={'/'} />
         <main className="login-form" role="main">
           <h1 className="signin-heading" data-node-id="1:312">
             Sign in
