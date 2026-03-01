@@ -38,7 +38,9 @@ export default function UserDashboard() {
         const joinedWithMemberships = await Promise.all(
           joined.map(async (train) => {
             try {
-              const res = await axiosClient.get(`/api/mealtrains/${train.id}/memberships/`);
+              const res = await axiosClient.get(
+                `/api/mealtrains/${train.id}/memberships/`
+              );
 
               const membership = res.data[0] || null;
 
@@ -80,7 +82,9 @@ export default function UserDashboard() {
 
       setData((prev) => ({
         ...prev,
-        joinedMealTrains: prev.joinedMealTrains.filter((t) => t.membershipId !== membershipId)
+        joinedMealTrains: prev.joinedMealTrains.filter(
+          (t) => t.membershipId !== membershipId
+        )
       }));
     } catch (err) {
       console.error(err);
@@ -93,7 +97,9 @@ export default function UserDashboard() {
 
       setData((prev) => ({
         ...prev,
-        joinedMealTrains: prev.joinedMealTrains.filter((t) => t.membershipId !== membershipId)
+        joinedMealTrains: prev.joinedMealTrains.filter(
+          (t) => t.membershipId !== membershipId
+        )
       }));
     } catch (err) {
       console.error(err);
@@ -114,7 +120,10 @@ export default function UserDashboard() {
       <Navbar />
 
       <div className="flex flex-1">
-        <Sidebar user={data.user} />
+        <Sidebar
+          user={data.user}
+          onOpenJoinPopup={() => setIsPopupOpen(true)}
+        />
 
         <main className="flex-1 m-2 p-10 rounded-2xl flex flex-col gap-10">
           <MealTrainSection
