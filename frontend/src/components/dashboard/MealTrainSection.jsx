@@ -58,6 +58,8 @@ export default function MealTrainSection({
                 approved={item.membershipStatus === 'approved'}
                 onCancel={() => onCancel(item.membershipId)}
                 onLeave={() => onLeave(item.membershipId)}
+                owner={item.membership_status === 'owner'}
+                id={item.id}
               />
             </Link>
           </div>
