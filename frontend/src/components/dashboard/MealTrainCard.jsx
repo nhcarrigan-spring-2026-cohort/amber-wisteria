@@ -10,7 +10,8 @@ export default function MealTrainCard({
   approved = false,
   showTopBorder = true,
   onCancel,
-  onLeave
+  onLeave,
+  setPopup
 }) {
   return (
     <div className={`pt-2 ${showTopBorder ? 'border-t border-[#4c4c4c]' : ''}`}>
@@ -39,6 +40,18 @@ export default function MealTrainCard({
             </button>
           </div>
         )}
+
+        <div className="flex gap-3">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setPopup();
+            }}
+          >
+            <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />
+          </button>
+        </div>
 
         {approved && (
           <button

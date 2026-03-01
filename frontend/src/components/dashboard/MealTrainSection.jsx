@@ -11,7 +11,8 @@ export default function MealTrainSection({
   showMore,
   toggleShowMore,
   onCancel,
-  onLeave
+  onLeave,
+  setPopup
 }) {
   return (
     <section className="flex flex-col">
@@ -41,6 +42,7 @@ export default function MealTrainSection({
               showTopBorder={i !== 0}
               onCancel={() => onCancel(item.membershipId)}
               onLeave={() => onLeave(item.membershipId)}
+              setPopup={() => setPopup(item)}
             />
           </Link>
         </div>
@@ -56,6 +58,7 @@ export default function MealTrainSection({
                 approved={item.membershipStatus === 'approved'}
                 onCancel={() => onCancel(item.membershipId)}
                 onLeave={() => onLeave(item.membershipId)}
+                setPopup={() => setPopup(item)}
               />
             </Link>
           </div>
