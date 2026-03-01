@@ -24,6 +24,7 @@ export default function ViewMealCard() {
     const loadMealTrain = async () => {
       try {
         const res = await axiosClient.get(`/api/mealtrains/${id}/`);
+
         setMealTrainData(res.data);
 
         const transformed = res.data.slots.reduce((acc, slot) => {
@@ -119,6 +120,7 @@ export default function ViewMealCard() {
                         mealType={meal}
                         mealDate={activeDate}
                         mealTitle={details?.meal_description}
+                        preparedBy={details?.prepared_by}
                         deliveryMethod={details?.special_notes}
                         restrictions={restrictions || []}
                       />
