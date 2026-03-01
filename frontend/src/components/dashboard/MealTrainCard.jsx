@@ -1,6 +1,7 @@
 import { redFilter } from './HoverIcon.constants';
 import HoverIcon from './HoverIcon';
 import WaitingIcon from '../../assets/waiting.svg';
+import TrashIcon from '../../assets/trash.svg';
 import XIcon from '../../assets/x.svg';
 
 export default function MealTrainCard({
@@ -8,6 +9,7 @@ export default function MealTrainCard({
   description,
   pending = false,
   approved = false,
+  owner = false,
   showTopBorder = true,
   onCancel,
   onLeave,
@@ -41,17 +43,19 @@ export default function MealTrainCard({
           </div>
         )}
 
-        <div className="flex gap-3">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setPopup();
-            }}
-          >
-            <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />
-          </button>
-        </div>
+        {owner && (
+          <div className="flex gap-3">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setPopup();
+              }}
+            >
+              <HoverIcon src={TrashIcon} alt="delete" base={redFilter} hover={redFilter} />
+            </button>
+          </div>
+        )}
 
         {approved && (
           <button

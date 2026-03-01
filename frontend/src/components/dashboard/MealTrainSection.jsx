@@ -43,6 +43,7 @@ export default function MealTrainSection({
               onCancel={() => onCancel(item.membershipId)}
               onLeave={() => onLeave(item.membershipId)}
               setPopup={() => setPopup(item)}
+              owner={item.membership_status === 'owner'}
             />
           </Link>
         </div>
@@ -59,6 +60,7 @@ export default function MealTrainSection({
                 onCancel={() => onCancel(item.membershipId)}
                 onLeave={() => onLeave(item.membershipId)}
                 setPopup={() => setPopup(item)}
+                owner={item.membership_status === 'owner'}
               />
             </Link>
           </div>
