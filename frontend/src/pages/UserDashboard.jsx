@@ -110,13 +110,13 @@ export default function UserDashboard() {
   const joinedExtra = data.joinedMealTrains.slice(2);
 
   return (
-    <div className="flex flex-col h-screen bg-[#fff8e3] font-[Inter]">
+    <div className="flex flex-col min-h-screen bg-[#fff8e3] font-[Inter]">
       <Navbar />
 
-      <div className="flex flex-1">
-        <Sidebar user={data.user} />
+      <div className="flex flex-col md:flex-row flex-1">
+        <Sidebar user={data.user} onOpenJoinPopup={() => setIsPopupOpen(true)} />
 
-        <main className="flex-1 m-2 p-10 rounded-2xl flex flex-col gap-10">
+        <main className="flex-1 m-2 p-5 md:p-10 rounded-2xl flex flex-col gap-10">
           <MealTrainSection
             title="Created Meal Trains"
             buttonLabel="Add"
