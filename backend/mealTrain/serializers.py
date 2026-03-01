@@ -13,11 +13,16 @@ class MealSlotSerializer(serializers.ModelSerializer):
 # ---------- MealSignup Serializer ----------
 class MealSignupSerializer(serializers.ModelSerializer):
 
+    prepared_by = serializers.SerializerMethodField()
+
     class Meta:
         model = MealSignup
-        fields = ["id", "meal_slot", "meal_description", "special_notes", "created_at"]
-        read_only_fields = ["created_at"]
-    
+        fields = ["id", "meal_slot", "meal_description", "special_notes", "prepared_by", "created_at"]
+        read_only_fields = ["prepared_by", "created_at"]
+
+    def get_prepared_by(self, obj):
+        participant = obj.participant.username
+        return participant
 
 # ---------- MealTrain Serializers ----------
 class MealTrainCreateSerializer(serializers.ModelSerializer):
