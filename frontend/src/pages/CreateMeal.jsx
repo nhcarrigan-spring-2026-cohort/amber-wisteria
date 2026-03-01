@@ -9,6 +9,7 @@ import IngredientOrRestrictionPill from '../components/view-meal-train/Ingredien
 import RestrictionView from '../components/RestrictionView';
 import { RESTRICTIONS } from '../data/restrictions';
 import axiosClient from '../api/axiosClient';
+import NotFound from './NotFound';
 
 export default function CreateMeal() {
   const [mealTitle, setMealTitle] = useState('');
@@ -23,7 +24,7 @@ export default function CreateMeal() {
 
   const [ingredientInput, setIngredientInput] = useState('');
   const [ingredients, setIngredients] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(0);
 
   const formatDate = (iso) => {
     const [year, month, day] = iso.split('-');
@@ -55,6 +56,7 @@ export default function CreateMeal() {
         setMealTrain(res.data);
       } catch (error) {
         console.log('Error fetching meal train', error);
+        setError(error.status);
       }
     };
     loadMealTrain();
@@ -69,7 +71,7 @@ export default function CreateMeal() {
         setAllowedDates(res.data.map((s) => s.slot_date));
       } catch (error) {
         console.log(`Error fetching slots for meal train: ${mealTrainId}`, error);
-        setError(error);
+        setError(error.status);
       }
     };
     loadAvailableSlots();
@@ -128,6 +130,8 @@ export default function CreateMeal() {
     (slot) => !existingMealsId.includes(slot.id)
   );
   const restrictions = mealTrain?.dietary_restrictions?.split(', ') || [];
+
+  if (error === 404) return <NotFound />;
 
   return (
     <Background>

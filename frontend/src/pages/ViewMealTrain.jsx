@@ -6,6 +6,7 @@ import ViewMealCard from '../components/view-meal-train/ViewMealCard';
 import Navbar from '../components/dashboard/Navbar';
 import Background from '../components/Background';
 import ApprovalRequestPopup from '../components/view-meal-train/ApprovalRequestPopup';
+import NotFound from './NotFound';
 
 export default function ViewMealTrain() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ export default function ViewMealTrain() {
 
   const [membershipStatus, setMembershipStatus] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [error, setError] = useState(0);
 
   useEffect(() => {
     async function run() {
@@ -25,6 +28,8 @@ export default function ViewMealTrain() {
         }
       } catch (err) {
         console.error(err);
+        console.log(err.status);
+        setError(err.status);
         setMembershipStatus('none');
       } finally {
         setLoading(false);
@@ -44,6 +49,7 @@ export default function ViewMealTrain() {
   };
 
   if (loading) return null;
+  if (error === 404) return <NotFound />;
 
   return (
     <>
