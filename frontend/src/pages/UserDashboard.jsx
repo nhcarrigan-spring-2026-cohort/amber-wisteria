@@ -9,6 +9,7 @@ import Sidebar from '../components/dashboard/Sidebar';
 import MealTrainSection from '../components/dashboard/MealTrainSection';
 import JoinMealTrainPopup from '../components/dashboard/Popup/JoinMealTrainPopup';
 import axiosClient from '../api/axiosClient';
+import DeleteMealTrainPopup from '../components/dashboard/Popup/DeleteMealTrainPopup';
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ export default function UserDashboard() {
   const [showMoreCreated, setShowMoreCreated] = useState(false);
   const [showMoreJoined, setShowMoreJoined] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const [confirmDeletePopupOpen, setConfirmDeletePopupOpen] = useState(null);
 
   useEffect(() => {
     async function loadDashboard() {
@@ -100,6 +103,25 @@ export default function UserDashboard() {
     }
   };
 
+  const handleDelete = async () => {
+    if (confirmDeletePopupOpen.membership_status === 'owner') {
+      try {
+        await axiosClient.delete(`/api/mealtrains/${confirmDeletePopupOpen.id}/`);
+
+        setData((prev) => ({
+          ...prev,
+          createdMealTrains: prev.createdMealTrains.filter(
+            (t) => t.id !== confirmDeletePopupOpen.id
+          )
+        }));
+
+        setConfirmDeletePopupOpen(null);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   if (loading) return <p className="p-10">Loading dashboard…</p>;
   if (error) return <p className="p-10">{error}</p>;
 
@@ -126,6 +148,7 @@ export default function UserDashboard() {
             extraItems={createdExtra}
             showMore={showMoreCreated}
             toggleShowMore={() => setShowMoreCreated((p) => !p)}
+            setPopup={setConfirmDeletePopupOpen}
           />
 
           <MealTrainSection
@@ -156,6 +179,12 @@ export default function UserDashboard() {
           }
           setIsPopupOpen(false);
         }}
+      />
+
+      <DeleteMealTrainPopup
+        isOpen={confirmDeletePopupOpen}
+        onClose={() => setConfirmDeletePopupOpen(null)}
+        onConfirm={() => handleDelete()}
       />
     </div>
   );
