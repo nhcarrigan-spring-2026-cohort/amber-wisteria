@@ -4,7 +4,8 @@
   outline: none;
   margin: 0 auto;
   width: 400px;
-  height: 390px;
+  height: auto;
+  max-width: 100%;
 }
 
 .react-calendar__tile {
