@@ -41,6 +41,8 @@ export default function MealTrainSection({
               showTopBorder={i !== 0}
               onCancel={() => onCancel(item.membershipId)}
               onLeave={() => onLeave(item.membershipId)}
+              owner={item.membership_status === 'owner'}
+              id={item.id}
             />
           </Link>
         </div>

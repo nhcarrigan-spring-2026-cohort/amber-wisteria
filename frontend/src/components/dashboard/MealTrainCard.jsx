@@ -2,16 +2,21 @@ import { redFilter } from './HoverIcon.constants';
 import HoverIcon from './HoverIcon';
 import WaitingIcon from '../../assets/waiting.svg';
 import XIcon from '../../assets/x.svg';
+import EditIcon from '../../assets/edit.svg';
+import { useNavigate } from 'react-router';
 
 export default function MealTrainCard({
   title,
   description,
   pending = false,
   approved = false,
+  owner = false,
   showTopBorder = true,
   onCancel,
-  onLeave
+  onLeave,
+  id
 }) {
+  const navigate = useNavigate();
   return (
     <div className={`pt-2 ${showTopBorder ? 'border-t border-[#4c4c4c]' : ''}`}>
       <div
@@ -33,6 +38,29 @@ export default function MealTrainCard({
                 e.preventDefault();
                 e.stopPropagation();
                 onCancel();
+              }}
+            >
+              <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />
+            </button>
+          </div>
+        )}
+
+        {owner && (
+          <div className="flex gap-3">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigate(`/edit-meal-train/${id}`);
+              }}
+            >
+              <HoverIcon src={EditIcon} alt="edit" />
+            </button>
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
               }}
             >
               <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />

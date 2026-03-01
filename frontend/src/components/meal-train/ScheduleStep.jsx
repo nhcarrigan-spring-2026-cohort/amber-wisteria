@@ -20,6 +20,8 @@ export default function ScheduleStep({
   setRestrictions,
   onNext
 }) {
+  console.log(restrictions);
+
   const toggleRestrictions = (value) => {
     setRestrictions((prev) =>
       prev.includes(value) ? prev.filter((r) => r !== value) : [...prev, value]

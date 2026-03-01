@@ -12,6 +12,7 @@ import ViewMealTrain from './pages/ViewMealTrain.jsx';
 import PrivateRoutes from './utils/PrivateRoutes.jsx';
 import GuestRoutes from './utils/GuestRoutes.jsx';
 import NotFound from './pages/NotFound.jsx';
+import EditMealTrain from './pages/EditMealTrain.jsx';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/single-meal-view" element={<SingleMealView />} />
         <Route path="/create-meal/:id" element={<CreateMeal />} />
         <Route path="/view-meal-train/:id" element={<ViewMealTrain />} />
+        <Route path="/edit-meal-train/:id" element={<EditMealTrain />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

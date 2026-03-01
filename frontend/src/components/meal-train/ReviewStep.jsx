@@ -9,7 +9,8 @@ export default function ReviewStep({
   selectedDates,
   displayFormattedDate,
   restrictions,
-  onCreate
+  onCreate,
+  submitButtonText
 }) {
   return (
     <div className="space-y-6">
@@ -54,7 +55,7 @@ export default function ReviewStep({
       </div>
 
       {/* Final Create */}
-      <Button children="Create" className="w-full" variant="orange" onClick={onCreate} />
+      <Button children={submitButtonText} className="w-full" variant="orange" onClick={onCreate} />
     </div>
   );
 }
