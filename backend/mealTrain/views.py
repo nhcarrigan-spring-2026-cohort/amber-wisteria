@@ -55,6 +55,7 @@ class MealTrainListCreateView(APIView):
         )
         if serializer.is_valid():
             serializer.save(organizer=request.user)
+            serializer = MealTrainMembershipSerializer()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -83,7 +84,13 @@ class MealTrainDetailView(APIView):
     )
     def get(self, request, pk):
         train = self.get_meal_train(pk)
-        serializer = MealTrainSerializer(train, context={"request": request})
+        memberships = MealTrainMembership.objects.filter(user=request.user, meal_train=train)
+        if not is_allowed_participant(request.user, train):
+            self.permission_denied(
+                self.request,
+                "Only approved members can retrieve the meal train details.",
+            )        
+        serializer = MealTrainSerializer(train, context={"request": request, "memberships": memberships})
         return Response(serializer.data)
 
     @swagger_auto_schema(
@@ -307,8 +314,11 @@ class MealTrainMembershipListCreateView(APIView):
     )
     def get(self, request, meal_train_id):
         train = get_object_or_404(MealTrain, pk=meal_train_id)
+        memberships = []
         if train.organizer == request.user:
-            memberships = MealTrainMembership.objects.filter(meal_train=train)
+            memberships.append({'meal_train': train, 'user': request.user, 'status': 'owner'})
+            guests_memberships = MealTrainMembership.objects.filter(meal_train=train)
+            memberships.extend(guests_memberships)
         else:
             memberships = MealTrainMembership.objects.filter(
                 meal_train=train, user=request.user

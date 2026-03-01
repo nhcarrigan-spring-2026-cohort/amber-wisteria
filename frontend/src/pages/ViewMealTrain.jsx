@@ -18,11 +18,10 @@ export default function ViewMealTrain() {
     async function run() {
       try {
         const res = await axiosClient.get(`/api/mealtrains/${id}/memberships/`);
-
         if (res.data.length === 0) {
           setMembershipStatus('none');
         } else {
-          setMembershipStatus(res.data[0].status); // "pending", "approved", "rejected"
+          setMembershipStatus(res.data[0].status); // "pending", "approved", "rejected", "owner"
         }
       } catch (err) {
         console.error(err);
@@ -70,7 +69,7 @@ export default function ViewMealTrain() {
           />
         )}
 
-        {membershipStatus === 'approved' && <ViewMealCard />}
+        {(membershipStatus === 'approved' || membershipStatus === 'owner') && <ViewMealCard />}
 
         {membershipStatus === 'rejected' && (
           <p className="text-center text-red-600 mt-10">Your request was rejected.</p>
