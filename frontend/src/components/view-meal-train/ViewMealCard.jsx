@@ -12,6 +12,7 @@ export default function ViewMealCard() {
   const [activeDate, setActiveDate] = useState(null);
   const [mealItems, setMealItems] = useState({});
   const [restrictions, setRestrictions] = useState([]);
+  const [location, setLocation] = useState('');
 
   const navigate = useNavigate();
 
@@ -57,6 +58,7 @@ export default function ViewMealCard() {
         setMealItems(searchedMeals);
 
         setRestrictions(res.data.dietary_restrictions.split(','));
+        setLocation(res.data.beneficiary_address);
 
         const dates = Object.keys(transformed);
         if (dates.length > 0) setActiveDate(dates[0]);
@@ -76,6 +78,7 @@ export default function ViewMealCard() {
           <BackBtn onClick={() => navigate('/dashboard')} />
           <h1 className="text-3xl text-[#A88DE5] font-semibold">{mealTrainData?.title}</h1>
         </div>
+        <h2 className="font-semibold">Location: {location}</h2>
 
         <div className="grid lg:grid-cols-[auto_1fr] md:grid-cols-1 justify-center items-center p-4 gap-10 mb-2">
           <div className="flex flex-col gap-6">
@@ -123,6 +126,7 @@ export default function ViewMealCard() {
                         preparedBy={details?.prepared_by}
                         deliveryMethod={details?.special_notes}
                         restrictions={restrictions || []}
+                        location={location}
                       />
                     );
                   }
