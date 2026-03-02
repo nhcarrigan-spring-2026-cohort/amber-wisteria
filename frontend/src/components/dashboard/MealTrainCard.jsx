@@ -1,6 +1,7 @@
 import { redFilter } from './HoverIcon.constants';
 import HoverIcon from './HoverIcon';
 import WaitingIcon from '../../assets/waiting.svg';
+import TrashIcon from '../../assets/trash.svg';
 import XIcon from '../../assets/x.svg';
 import EditIcon from '../../assets/edit.svg';
 import { useNavigate } from 'react-router';
@@ -14,7 +15,8 @@ export default function MealTrainCard({
   showTopBorder = true,
   onCancel,
   onLeave,
-  id
+  id,
+  setPopup
 }) {
   const navigate = useNavigate();
   return (
@@ -61,9 +63,10 @@ export default function MealTrainCard({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                setPopup();
               }}
             >
-              <HoverIcon src={XIcon} alt="cancel" base={redFilter} hover={redFilter} />
+              <HoverIcon src={TrashIcon} alt="delete" base={redFilter} hover={redFilter} />
             </button>
           </div>
         )}
