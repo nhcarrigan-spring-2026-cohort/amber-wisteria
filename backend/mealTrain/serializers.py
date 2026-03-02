@@ -59,6 +59,28 @@ class MealTrainCreateSerializer(serializers.ModelSerializer):
             MealSlot.objects.create(meal_train=train, **slot_data)
         return train
 
+    def update(self, instance, validated_data):
+        # Update train fields:
+        for attr, value in validated_data.items():
+            if attr != "slots":
+                setattr(instance, attr, value)
+        instance.save()
+
+        # Handle slots update:
+        slots_data = validated_data.get("slots")
+        if slots_data is not None:
+            existing_slots = instance.slots.all()
+            formatted_existing_slots = [{"slot_date":slot.slot_date, "meal_type": slot.meal_type} for slot in existing_slots]
+            filtered_new_slots = []
+            for slot_data in slots_data:
+                if slot_data not in formatted_existing_slots:
+                    filtered_new_slots.append(slot_data)
+
+            if filtered_new_slots:                
+                MealSlot.objects.bulk_create([MealSlot(meal_train=instance, **slot_data) for slot_data in filtered_new_slots])
+
+        return instance
+    
     def get_meals(self, obj):
         signups = MealSignup.objects.filter(meal_slot__meal_train=obj)
         return MealSignupSerializer(signups, many=True, context=self.context).data

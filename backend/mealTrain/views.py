@@ -95,9 +95,9 @@ class MealTrainDetailView(APIView):
 
     @swagger_auto_schema(
         operation_description="Fully update a meal train (organizer only)",
-        request_body=MealTrainSerializer,
+        request_body=MealTrainCreateSerializer,
         responses={
-            200: MealTrainSerializer(),
+            200: MealTrainCreateSerializer(),
             400: "Bad Request",
             401: "Not authorized",
             403: "Forbidden (not organizer)",
@@ -109,7 +109,7 @@ class MealTrainDetailView(APIView):
             self.permission_denied(
                 self.request, "Only organizers can update the meal train."
             )
-        serializer = MealTrainSerializer(
+        serializer = MealTrainCreateSerializer(
             train, data=request.data, context={"request": request}
         )
         if serializer.is_valid():
