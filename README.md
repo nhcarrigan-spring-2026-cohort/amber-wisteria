@@ -90,7 +90,6 @@ Leadership
 Participants
 
 <ul>
-  <li><a href="https://github.com/avanishchandra">Avanish</a></li>
   <li><a href="https://github.com/JoaquinVeraOrtega">Joaquin</a></li>
   <li><a href="https://github.com/AksharGoyal">Akshar</a></li>
   <li><a href="https://github.com/anthonbrooks">Anthony</a></li>
