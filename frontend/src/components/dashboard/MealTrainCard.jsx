@@ -3,6 +3,8 @@ import HoverIcon from './HoverIcon';
 import WaitingIcon from '../../assets/waiting.svg';
 import TrashIcon from '../../assets/trash.svg';
 import XIcon from '../../assets/x.svg';
+import EditIcon from '../../assets/edit.svg';
+import { useNavigate } from 'react-router';
 
 export default function MealTrainCard({
   title,
@@ -13,8 +15,10 @@ export default function MealTrainCard({
   showTopBorder = true,
   onCancel,
   onLeave,
+  id,
   setPopup
 }) {
+  const navigate = useNavigate();
   return (
     <div className={`pt-2 ${showTopBorder ? 'border-t border-[#4c4c4c]' : ''}`}>
       <div
@@ -45,6 +49,16 @@ export default function MealTrainCard({
 
         {owner && (
           <div className="flex gap-3">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigate(`/edit-meal-train/${id}`);
+              }}
+            >
+              <HoverIcon src={EditIcon} alt="edit" />
+            </button>
+
             <button
               onClick={(e) => {
                 e.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import '../meal-train/CustomCalendar.css';
 import BasicInfoStep from './BasicInfoStep';
@@ -6,9 +6,10 @@ import ScheduleStep from './ScheduleStep';
 import ReviewStep from './ReviewStep';
 import BackBtn from '../BackBtn';
 import CancelBtn from '../CancelBtn';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosClient from '../../api/axiosClient';
 import Background from '../Background';
+import NotFound from '../../pages/NotFound';
 
 export default function MealTrainForm() {
   // step state => to control steps
@@ -27,8 +28,55 @@ export default function MealTrainForm() {
   const [quantity, setQuantity] = useState(1);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [restrictions, setRestrictions] = useState([]);
+  const [error, setError] = useState(0);
 
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const previousData = async () => {
+      try {
+        const res = await axiosClient.get(`/api/mealtrains/${id}/`);
+        setMealTrainTitle(res.data.title);
+        setMealTrainDesc(res.data.description);
+        setBeneficiaryName(res.data.beneficiary_name);
+        setBeneficiaryPhone(res.data.beneficiary_phone);
+        setQuantity(res.data.quantity || 1);
+        setBeneficiaryEmail(res.data.beneficiary_email);
+        setDeliveryAddress(res.data.beneficiary_address);
+
+        const transformed = res.data.slots.reduce((acc, slot) => {
+          const date = slot.slot_date;
+
+          if (!acc[date]) {
+            acc[date] = {
+              breakfast: false,
+              lunch: false,
+              dinner: false
+            };
+          }
+
+          if (slot.meal_type in acc[date]) {
+            acc[date][slot.meal_type] = true;
+          }
+
+          return acc;
+        }, {});
+
+        setSelectedDates(transformed);
+        setRestrictions(res.data.dietary_restrictions.split(', '));
+
+        const dates = Object.keys(transformed);
+        if (dates.length > 0) setActiveDate(dates[0]);
+
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+        setError(error.status);
+      }
+    };
+    previousData();
+  }, []);
 
   const handleBasicInfoSubmit = (e) => {
     e.preventDefault();
@@ -172,8 +220,8 @@ export default function MealTrainForm() {
     };
 
     try {
-      const res = await axiosClient.post('/api/mealtrains/', payload);
-      console.log('Created', res.data);
+      const res = await axiosClient.put(`/api/mealtrains/${id}/`, payload);
+      console.log('Edited', res.data);
       navigate('/dashboard');
     } catch (error) {
       console.log(error.response?.data);
@@ -202,6 +250,8 @@ export default function MealTrainForm() {
     }
   };
 
+  if (error === 404 || error == 403) return <NotFound />;
+
   return (
     <Background>
       <div className="min-h-screen w-full flex items-center justify-center relative">
@@ -217,7 +267,7 @@ export default function MealTrainForm() {
 
             <h1 className="text-3xl font-semibold text-gray-800 text-center mb-1">
               {step === 1
-                ? 'Create a Meal Train'
+                ? 'Edit Meal Train'
                 : step === 2
                   ? `Making a meal train for "${mealTrainTitle}"`
                   : step === 3
@@ -277,7 +327,7 @@ export default function MealTrainForm() {
               displayFormattedDate={displayFormattedDate}
               restrictions={restrictions}
               onCreate={handleCreateMealTrain}
-              submitButtonText="Create"
+              submitButtonText="Edit"
             />
           )}
         </div>
