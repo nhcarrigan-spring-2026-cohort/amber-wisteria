@@ -123,9 +123,7 @@ export default function UserDashboard() {
 
     if (confirmDeletePopupOpen.membershipStatus === 'rejected') {
       try {
-        await axiosClient.delete(
-          `/api/memberships/${confirmDeletePopupOpen.membershipId}/`
-        );
+        await axiosClient.delete(`/api/memberships/${confirmDeletePopupOpen.membershipId}/`);
 
         setData((prev) => ({
           ...prev,
@@ -139,8 +137,7 @@ export default function UserDashboard() {
         console.error(err);
       }
     }
-};
-  
+  };
 
   if (loading) return <p className="p-10">Loading dashboard…</p>;
   if (error) return <p className="p-10">{error}</p>;
@@ -182,7 +179,7 @@ export default function UserDashboard() {
             toggleShowMore={() => setShowMoreJoined((p) => !p)}
             onCancel={handleCancel}
             onLeave={handleLeave}
-            setPopup={setConfirmDeletePopupOpen} 
+            setPopup={setConfirmDeletePopupOpen}
           />
         </main>
       </div>

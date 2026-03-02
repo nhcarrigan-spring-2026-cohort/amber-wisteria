@@ -20,9 +20,7 @@ export default function DeleteMealTrainPopup({ isOpen, onConfirm, onClose, isRej
             />
           </svg>
 
-          <h2 className="popup-title">
-            {isRejected ? 'Remove Meal Train' : 'Delete Meal Train'}
-          </h2>
+          <h2 className="popup-title">{isRejected ? 'Remove Meal Train' : 'Delete Meal Train'}</h2>
         </div>
 
         <div className="popup-form">

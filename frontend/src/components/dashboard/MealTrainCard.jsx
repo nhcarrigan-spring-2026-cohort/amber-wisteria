@@ -29,16 +29,14 @@ export default function MealTrainCard({
             pending
               ? 'bg-[#f0f0f0] border-[#b5b5b5] opacity-70'
               : rejected
-              ? 'bg-[#ffe5e5] border-[#ff6b6b]'
-              : 'bg-white border-[#4c4c4c]'
+                ? 'bg-[#ffe5e5] border-[#ff6b6b]'
+                : 'bg-white border-[#4c4c4c]'
           }
         `}
       >
         <div>
           <h2 className="text-[18px] font-bold my-1">{title}</h2>
-          <p className="text-[15px] text-[#4c4c4c]">
-            {description || 'No description provided.'}
-          </p>
+          <p className="text-[15px] text-[#4c4c4c]">{description || 'No description provided.'}</p>
 
           {rejected && (
             <span className="inline-block mt-1 bg-red-200 text-red-700 px-2 py-1 rounded-full text-xs font-semibold">
@@ -104,7 +102,7 @@ export default function MealTrainCard({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              setPopup(); 
+              setPopup();
             }}
           >
             <HoverIcon src={TrashIcon} alt="delete" base={redFilter} hover={redFilter} />
