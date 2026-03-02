@@ -39,12 +39,13 @@ export default function MealTrainSection({
               {...item}
               pending={item.membershipStatus === 'pending'}
               approved={item.membershipStatus === 'approved'}
+              rejected={item.membershipStatus === 'rejected'}
               showTopBorder={i !== 0}
               onCancel={() => onCancel(item.membershipId)}
               onLeave={() => onLeave(item.membershipId)}
               owner={item.membership_status === 'owner'}
               id={item.id}
-              setPopup={() => setPopup(item)}
+              setPopup={setPopup ? () => setPopup(item) : undefined}
             />
           </Link>
         </div>
@@ -58,11 +59,12 @@ export default function MealTrainSection({
                 {...item}
                 pending={item.membershipStatus === 'pending'}
                 approved={item.membershipStatus === 'approved'}
+                rejected={item.membershipStatus === 'rejected'}
                 onCancel={() => onCancel(item.membershipId)}
                 onLeave={() => onLeave(item.membershipId)}
                 owner={item.membership_status === 'owner'}
                 id={item.id}
-                setPopup={() => setPopup(item)}
+                setPopup={setPopup ? () => setPopup(item) : undefined}
               />
             </Link>
           </div>

@@ -104,7 +104,7 @@ export default function UserDashboard() {
   };
 
   const handleDelete = async () => {
-    if (confirmDeletePopupOpen.membership_status === 'owner') {
+    if (confirmDeletePopupOpen.membershipStatus === 'owner') {
       try {
         await axiosClient.delete(`/api/mealtrains/${confirmDeletePopupOpen.id}/`);
 
@@ -120,7 +120,27 @@ export default function UserDashboard() {
         console.error(err);
       }
     }
-  };
+
+    if (confirmDeletePopupOpen.membershipStatus === 'rejected') {
+      try {
+        await axiosClient.delete(
+          `/api/memberships/${confirmDeletePopupOpen.membershipId}/`
+        );
+
+        setData((prev) => ({
+          ...prev,
+          joinedMealTrains: prev.joinedMealTrains.filter(
+            (t) => t.membershipId !== confirmDeletePopupOpen.membershipId
+          )
+        }));
+
+        setConfirmDeletePopupOpen(null);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+};
+  
 
   if (loading) return <p className="p-10">Loading dashboard…</p>;
   if (error) return <p className="p-10">{error}</p>;
@@ -162,6 +182,7 @@ export default function UserDashboard() {
             toggleShowMore={() => setShowMoreJoined((p) => !p)}
             onCancel={handleCancel}
             onLeave={handleLeave}
+            setPopup={setConfirmDeletePopupOpen} 
           />
         </main>
       </div>
@@ -185,6 +206,7 @@ export default function UserDashboard() {
         isOpen={confirmDeletePopupOpen}
         onClose={() => setConfirmDeletePopupOpen(null)}
         onConfirm={() => handleDelete()}
+        isRejected={confirmDeletePopupOpen?.membershipStatus === 'rejected'}
       />
     </div>
   );

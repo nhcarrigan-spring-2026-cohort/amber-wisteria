@@ -11,6 +11,7 @@ export default function MealTrainCard({
   description,
   pending = false,
   approved = false,
+  rejected = false,
   owner = false,
   showTopBorder = true,
   onCancel,
@@ -19,16 +20,31 @@ export default function MealTrainCard({
   setPopup
 }) {
   const navigate = useNavigate();
+
   return (
     <div className={`pt-2 ${showTopBorder ? 'border-t border-[#4c4c4c]' : ''}`}>
       <div
-        className={`p-[10px_20px] my-[15px] rounded-lg border text-left flex justify-between items-center ${
-          pending ? 'bg-[#f0f0f0] border-[#b5b5b5] opacity-70' : 'bg-white border-[#4c4c4c]'
-        }`}
+        className={`p-[10px_20px] my-[15px] rounded-lg border text-left flex justify-between items-center
+          ${
+            pending
+              ? 'bg-[#f0f0f0] border-[#b5b5b5] opacity-70'
+              : rejected
+              ? 'bg-[#ffe5e5] border-[#ff6b6b]'
+              : 'bg-white border-[#4c4c4c]'
+          }
+        `}
       >
         <div>
           <h2 className="text-[18px] font-bold my-1">{title}</h2>
-          <p className="text-[15px] text-[#4c4c4c]">{description || 'No description provided.'}</p>
+          <p className="text-[15px] text-[#4c4c4c]">
+            {description || 'No description provided.'}
+          </p>
+
+          {rejected && (
+            <span className="inline-block mt-1 bg-red-200 text-red-700 px-2 py-1 rounded-full text-xs font-semibold">
+              Rejected
+            </span>
+          )}
         </div>
 
         {pending && (
@@ -80,6 +96,18 @@ export default function MealTrainCard({
             }}
           >
             <HoverIcon src={XIcon} alt="leave" base={redFilter} hover={redFilter} />
+          </button>
+        )}
+
+        {rejected && !owner && (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setPopup(); 
+            }}
+          >
+            <HoverIcon src={TrashIcon} alt="delete" base={redFilter} hover={redFilter} />
           </button>
         )}
       </div>

@@ -1,6 +1,6 @@
 import './JoinMealTrainPopup.css';
 
-export default function JoinMealTrainPopup({ isOpen, onConfirm, onClose }) {
+export default function DeleteMealTrainPopup({ isOpen, onConfirm, onClose, isRejected }) {
   if (!isOpen) return null;
 
   return (
@@ -19,10 +19,18 @@ export default function JoinMealTrainPopup({ isOpen, onConfirm, onClose }) {
               fill="white"
             />
           </svg>
-          <h2 className="popup-title">Delete Meal Train</h2>
+
+          <h2 className="popup-title">
+            {isRejected ? 'Remove Meal Train' : 'Delete Meal Train'}
+          </h2>
         </div>
+
         <div className="popup-form">
-          <div className="input-label">Are you sure you want to delete this meal train?</div>
+          <div className="input-label">
+            {isRejected
+              ? 'Are you sure you want to remove this rejected meal train from your dashboard?'
+              : 'Are you sure you want to delete this meal train?'}
+          </div>
 
           <div className="button-group">
             <button type="button" onClick={onConfirm} className="join-btn">
