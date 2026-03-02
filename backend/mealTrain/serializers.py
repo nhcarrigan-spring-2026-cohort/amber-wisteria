@@ -17,12 +17,20 @@ class MealSignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealSignup
-        fields = ["id", "meal_slot", "meal_description", "special_notes", "prepared_by", "created_at"]
+        fields = [
+            "id",
+            "meal_slot",
+            "meal_description",
+            "special_notes",
+            "prepared_by",
+            "created_at",
+        ]
         read_only_fields = ["prepared_by", "created_at"]
 
     def get_prepared_by(self, obj):
         participant = obj.participant.username
         return participant
+
 
 # ---------- MealTrain Serializers ----------
 class MealTrainCreateSerializer(serializers.ModelSerializer):
@@ -31,6 +39,7 @@ class MealTrainCreateSerializer(serializers.ModelSerializer):
         many=True, required=True, help_text="List of slots to create within the train"
     )
     meals = serializers.SerializerMethodField()
+
     class Meta:
         model = MealTrain
         fields = [
@@ -70,17 +79,37 @@ class MealTrainCreateSerializer(serializers.ModelSerializer):
         slots_data = validated_data.get("slots")
         if slots_data is not None:
             existing_slots = instance.slots.all()
-            formatted_existing_slots = [{"slot_date":slot.slot_date, "meal_type": slot.meal_type} for slot in existing_slots]
+            formatted_existing_slots = [
+                {"slot_date": slot.slot_date, "meal_type": slot.meal_type}
+                for slot in existing_slots
+            ]
             filtered_new_slots = []
             for slot_data in slots_data:
                 if slot_data not in formatted_existing_slots:
                     filtered_new_slots.append(slot_data)
 
-            if filtered_new_slots:                
-                MealSlot.objects.bulk_create([MealSlot(meal_train=instance, **slot_data) for slot_data in filtered_new_slots])
+            if filtered_new_slots:
+                MealSlot.objects.bulk_create(
+                    [
+                        MealSlot(meal_train=instance, **slot_data)
+                        for slot_data in filtered_new_slots
+                    ]
+                )
+                
+            # checking if any slots were removed
+            if len(slots_data) < (
+                len(formatted_existing_slots) + len(filtered_new_slots)
+            ):
+                for slot in formatted_existing_slots:
+                    if slot not in slots_data:
+                        MealSlot.objects.filter(
+                            slot_date=slot["slot_date"],
+                            meal_type=slot["meal_type"],
+                            meal_train=instance,
+                        ).delete()
 
         return instance
-    
+
     def get_meals(self, obj):
         signups = MealSignup.objects.filter(meal_slot__meal_train=obj)
         return MealSignupSerializer(signups, many=True, context=self.context).data
@@ -117,19 +146,19 @@ class MealTrainSerializer(serializers.ModelSerializer):
     def get_meals(self, obj):
         signups = MealSignup.objects.filter(meal_slot__meal_train=obj)
         return MealSignupSerializer(signups, many=True, context=self.context).data
-    
+
     def get_membership_status(self, obj):
         request = self.context.get("request")
         if not request or not request.user.is_authenticated:
             return None
-        
+
         user = request.user
         if obj.organizer == user:
             return "owner"
-        
+
         membership = self.context.get("memberships", {}).get(meal_train=obj)
         return membership.status if membership else None
-            
+
 
 # ---------- MealTrainMembership Serializer ----------
 class MealTrainMembershipSerializer(serializers.ModelSerializer):
