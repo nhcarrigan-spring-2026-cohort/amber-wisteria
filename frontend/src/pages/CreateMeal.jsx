@@ -226,12 +226,6 @@ export default function CreateMeal() {
                 Selected date: {formatDate(mealDate)}
               </p>
             )}
-
-            {error && (
-              <p className="font-semibold flex items-center justify-center mt-4  bg-red-500 p-3 text-white w-full">
-                Please select a meal date and type that is not already chosen
-              </p>
-            )}
           </div>
 
           <div className="w-full flex flex-col mb-6">
