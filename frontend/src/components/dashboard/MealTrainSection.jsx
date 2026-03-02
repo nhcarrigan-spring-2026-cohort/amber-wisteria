@@ -45,7 +45,6 @@ export default function MealTrainSection({
               owner={item.membership_status === 'owner'}
               id={item.id}
               setPopup={() => setPopup(item)}
-      
             />
           </Link>
         </div>
@@ -64,7 +63,6 @@ export default function MealTrainSection({
                 owner={item.membership_status === 'owner'}
                 id={item.id}
                 setPopup={() => setPopup(item)}
-
               />
             </Link>
           </div>
