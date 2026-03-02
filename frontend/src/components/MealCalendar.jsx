@@ -10,7 +10,6 @@ export default function MealCalendar({
   const handleClick = (clickedDate) => {
     const formatted = formatDate(clickedDate);
 
-    // view -> select only highlighted days (selected by meal train creator) to see meals
     if (mode === 'view') {
       if (selectedDates[formatted]) {
         onDayClick(clickedDate);
@@ -18,13 +17,20 @@ export default function MealCalendar({
       return;
     }
 
-    // edit
     onDayClick(clickedDate);
   };
 
   return (
     <Calendar
       onClickDay={handleClick}
+      tileDisabled={({ date }) => {
+        if (mode === 'edit') {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          return date < today;
+        }
+        return false;
+      }}
       tileClassName={({ date }) => {
         const formatted = formatDate(date);
 

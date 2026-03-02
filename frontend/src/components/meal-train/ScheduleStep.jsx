@@ -34,6 +34,11 @@ export default function ScheduleStep({
       <div className="w-full">
         <Calendar
           onClickDay={handleDayClick}
+          tileDisabled={({ date }) => {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return date < today;
+          }}
           tileClassName={({ date }) => {
             const formatted = formatDate(date);
 
